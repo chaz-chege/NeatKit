@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free APA 7th edition citation generator and formatter. Generate correct APA references for books, journals, websites, reports and more. Format your reference list instantly.">
+<title>APA 7th Edition Formatter — Neatkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
+  --bg:#fff;--bg2:#f7f7fb;--bg3:#f0f0f7;
+  --glass:rgba(255,255,255,0.75);
+  --text:#1a1a2e;--text2:#5a5a7a;--text3:#9898b8;
+  --border:rgba(180,180,220,0.35);--border2:rgba(180,180,220,0.6);
+  --accent:#7b8fd4;--accent-light:rgba(123,143,212,0.1);
+  --shadow-sm:0 1px 3px rgba(100,100,160,0.08);
+  --shadow-md:0 4px 16px rgba(100,100,160,0.10);
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Lora',Georgia,serif;
+}
+body{background:var(--bg2);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+nav{position:sticky;top:0;z-index:200;background:var(--glass);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.9);padding:0 2rem;display:flex;align-items:center;height:60px;gap:1rem}
+.logo{display:flex;align-items:center;gap:0.625rem;text-decoration:none;font-weight:700;font-size:1.1rem;color:var(--text)}
+.logo-mark{width:30px;height:30px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.breadcrumb{color:var(--text3);font-size:0.82rem;display:flex;align-items:center;gap:0.4rem}
+.breadcrumb a{color:var(--accent);text-decoration:none}
+
+.layout{display:grid;grid-template-columns:340px 1fr;gap:1.5rem;max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;align-items:start}
+
+.sidebar h1{font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:0.3rem}
+.sidebar .subtitle{color:var(--text2);font-size:0.85rem;margin-bottom:1.5rem;line-height:1.6}
+
+/* SOURCE TYPE */
+.source-tabs{display:flex;flex-direction:column;gap:2px;margin-bottom:1.5rem}
+.source-tab{background:var(--bg);border:1.5px solid var(--border);color:var(--text2);font-family:var(--sans);font-size:0.82rem;font-weight:600;padding:0.625rem 1rem;border-radius:var(--r-sm);cursor:pointer;transition:all 0.15s;text-align:left;display:flex;align-items:center;gap:0.625rem}
+.source-tab:hover{border-color:var(--border2);color:var(--text)}
+.source-tab.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.source-icon{font-size:1rem;width:20px;text-align:center}
+
+/* FORM */
+.form-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem}
+.form-title{font-size:0.78rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1.25rem;display:flex;align-items:center;gap:0.5rem}
+.form-section-label{font-size:0.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin:1.25rem 0 0.75rem;padding-top:0.875rem;border-top:1px solid var(--border)}
+.field{margin-bottom:0.875rem}
+.field label{display:block;font-size:0.78rem;font-weight:600;color:var(--text2);margin-bottom:0.375rem}
+.field .hint{font-size:0.7rem;color:var(--text3);margin-top:0.2rem}
+.field input,.field select,.field textarea{width:100%;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.875rem;padding:0.6rem 0.875rem;border-radius:var(--r-sm);outline:none;transition:border-color 0.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+.field input::placeholder,.field textarea::placeholder{color:var(--text3)}
+.field textarea{resize:vertical;min-height:60px;line-height:1.5}
+
+.authors-wrap{display:flex;flex-direction:column;gap:0.5rem}
+.author-row{display:grid;grid-template-columns:1fr 1fr auto;gap:0.5rem;align-items:center}
+.author-row input{font-size:0.82rem;padding:0.5rem 0.75rem}
+.add-author-btn,.remove-author-btn{background:transparent;border:1px solid var(--border2);color:var(--text3);font-size:0.75rem;padding:0.4rem 0.75rem;border-radius:var(--r-sm);cursor:pointer;transition:all 0.15s;white-space:nowrap;font-family:var(--sans)}
+.add-author-btn:hover{border-color:var(--accent);color:var(--accent)}
+.remove-author-btn{padding:0.4rem 0.5rem;font-size:0.875rem}
+.remove-author-btn:hover{border-color:#ef4444;color:#ef4444}
+
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--grad);color:white;font-family:var(--sans);font-size:0.9rem;font-weight:700;padding:0.875rem 2rem;border-radius:100px;border:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow 0.15s,transform 0.15s;width:100%;justify-content:center}
+.btn-primary:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+
+/* RIGHT PANEL */
+.main-panel{}
+
+/* CITATION OUTPUT */
+.citation-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem}
+.citation-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem}
+.citation-title{font-size:0.78rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em}
+.copy-btns{display:flex;gap:0.5rem}
+.copy-btn{background:transparent;border:1px solid var(--border2);color:var(--text2);font-size:0.75rem;font-weight:600;padding:0.35rem 0.875rem;border-radius:100px;cursor:pointer;transition:all 0.15s;font-family:var(--sans)}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* APA formatted output - uses hanging indent, serif font */
+.apa-output{font-family:var(--serif);font-size:0.95rem;line-height:1.9;color:var(--text);background:var(--bg2);border-radius:var(--r-md);padding:1.25rem 1.5rem;border-left:3px solid var(--accent);min-height:60px}
+.apa-output .ref-item{padding-left:2.5em;text-indent:-2.5em;margin-bottom:0.5rem}
+.apa-output .ref-item:last-child{margin-bottom:0}
+.apa-empty{color:var(--text3);font-style:italic;font-size:0.875rem}
+
+/* IN-TEXT */
+.intext-box{background:var(--bg2);border-radius:var(--r-md);padding:0.875rem 1.125rem;margin-top:1rem}
+.intext-label{font-size:0.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;display:flex;justify-content:space-between}
+.intext-example{font-family:var(--serif);font-size:0.875rem;color:var(--text2);line-height:1.7}
+.intext-citation{color:var(--accent);font-weight:600}
+
+/* REFERENCE LIST */
+.reflist-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem}
+.reflist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem}
+.ref-list-output{font-family:var(--serif);font-size:0.95rem;line-height:1.9}
+.ref-list-output .ref-item{padding-left:2.5em;text-indent:-2.5em;margin-bottom:0.75rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem}
+.ref-list-output .ref-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.ref-item-actions{display:flex;gap:0.5rem;margin-top:0.375rem;padding-left:2.5em}
+.ref-del{background:transparent;border:none;color:var(--text3);font-size:0.75rem;cursor:pointer;transition:color 0.12s;font-family:var(--sans);padding:0}
+.ref-del:hover{color:#ef4444}
+
+/* RULES QUICK REF */
+.rules-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem}
+.rule-item{display:flex;gap:0.75rem;padding:0.625rem 0;border-bottom:1px solid var(--border);font-size:0.82rem}
+.rule-item:last-child{border-bottom:none}
+.rule-icon{flex-shrink:0;font-size:0.875rem;width:20px;text-align:center;margin-top:1px}
+.rule-title{font-weight:700;color:var(--text);margin-bottom:0.15rem}
+.rule-desc{color:var(--text2);line-height:1.55}
+
+@media(max-width:800px){
+  .layout{grid-template-columns:1fr;padding:1.5rem 1rem 3rem}
+  .author-row{grid-template-columns:1fr 1fr auto}
+  .row-2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="../index.html"><div class="logo-mark">✦</div>Neatkit</a>
+  <div class="breadcrumb"><span>/</span><a href="../index.html">tools</a><span>/</span><span style="color:var(--text2)">apa-formatter</span></div>
+</nav>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h1>APA 7th Edition</h1>
+    <p class="subtitle">Generate citations and format your reference list correctly. Supports all major source types.</p>
+
+    <div class="source-tabs" id="source-tabs">
+      <button class="source-tab active" onclick="setSource('journal')" data-type="journal"><span class="source-icon">📰</span>Journal article</button>
+      <button class="source-tab" onclick="setSource('book')" data-type="book"><span class="source-icon">📚</span>Book</button>
+      <button class="source-tab" onclick="setSource('chapter')" data-type="chapter"><span class="source-icon">📖</span>Book chapter</button>
+      <button class="source-tab" onclick="setSource('website')" data-type="website"><span class="source-icon">🌐</span>Website / webpage</button>
+      <button class="source-tab" onclick="setSource('report')" data-type="report"><span class="source-icon">📋</span>Report / government</button>
+      <button class="source-tab" onclick="setSource('thesis')" data-type="thesis"><span class="source-icon">🎓</span>Thesis / dissertation</button>
+      <button class="source-tab" onclick="setSource('newspaper')" data-type="newspaper"><span class="source-icon">📄</span>Newspaper article</button>
+      <button class="source-tab" onclick="setSource('conference')" data-type="conference"><span class="source-icon">🎤</span>Conference paper</button>
+    </div>
+
+    <!-- DYNAMIC FORM -->
+    <div class="form-card" id="form-card">
+      <div class="form-title" id="form-title">📰 Journal Article</div>
+      <div id="form-fields"></div>
+      <button class="btn-primary" onclick="generateCitation()" style="margin-top:1.25rem">Generate citation →</button>
+    </div>
+  </div>
+
+  <!-- MAIN PANEL -->
+  <div class="main-panel">
+    <!-- Reference output -->
+    <div class="citation-card">
+      <div class="citation-header">
+        <span class="citation-title">Reference list entry</span>
+        <div class="copy-btns">
+          <button class="copy-btn" onclick="copyRef()">Copy reference</button>
+          <button class="copy-btn" onclick="addToList()">+ Add to list</button>
+        </div>
+      </div>
+      <div class="apa-output" id="ref-output"><span class="apa-empty">Fill in the form and click Generate →</span></div>
+
+      <div class="intext-box">
+        <div class="intext-label">
+          <span>In-text citation examples</span>
+        </div>
+        <div class="intext-example" id="intext-output">
+          <span style="color:var(--text3);font-style:italic;font-size:0.875rem">Will appear after generating a reference.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reference list -->
+    <div class="reflist-card" id="reflist-card">
+      <div class="reflist-header">
+        <span class="citation-title">Reference list (<span id="ref-count">0</span>)</span>
+        <div class="copy-btns">
+          <button class="copy-btn" onclick="copyFullList()">Copy full list</button>
+          <button class="copy-btn" onclick="clearList()" style="color:#dc2626;border-color:#fecaca">Clear all</button>
+        </div>
+      </div>
+      <div style="font-family:var(--serif);font-size:1rem;font-weight:700;text-align:center;margin-bottom:1rem;color:var(--text)">References</div>
+      <div id="ref-list-items"><div style="color:var(--text3);font-size:0.82rem;text-align:center;padding:1rem">Add references using the form above.</div></div>
+    </div>
+
+    <!-- APA Quick Rules -->
+    <div class="rules-card">
+      <div class="citation-title" style="margin-bottom:1rem">Key APA 7th Edition rules</div>
+      <div class="rule-item"><div class="rule-icon">✍️</div><div><div class="rule-title">Author format</div><div class="rule-desc">Last name, First initial. Middle initial. — e.g., Okonkwo, C. J. Up to 20 authors listed; 21+ use ellipsis then last author.</div></div></div>
+      <div class="rule-item"><div class="rule-icon">📅</div><div><div class="rule-title">Year in parentheses</div><div class="rule-desc">Always place year in parentheses immediately after authors: Okonkwo, C. J. (2023).</div></div></div>
+      <div class="rule-item"><div class="rule-icon">🔤</div><div><div class="rule-title">Title capitalization</div><div class="rule-desc">Article and chapter titles: only first word, first word after colon, and proper nouns. Book titles: same rule, then italicize.</div></div></div>
+      <div class="rule-item"><div class="rule-icon">📐</div><div><div class="rule-title">Hanging indent</div><div class="rule-desc">First line of each reference is flush left; subsequent lines indented 0.5 inches (1.27cm). References are alphabetized by author surname.</div></div></div>
+      <div class="rule-item"><div class="rule-icon">🔗</div><div><div class="rule-title">DOI format</div><div class="rule-desc">Use hyperlink format: https://doi.org/xxxxx — No "Retrieved from" needed for DOIs. URL retrieval dates only needed when content may change.</div></div></div>
+      <div class="rule-item"><div class="rule-icon">📖</div><div><div class="rule-title">In-text citations</div><div class="rule-desc">Parenthetical: (Author, Year) or (Author, Year, p. X) for quotes. Narrative: Author (Year) said... — For 3+ authors use et al. from first citation.</div></div></div>
+      <div class="rule-item"><div class="rule-icon">🌐</div><div><div class="rule-title">No publisher location</div><div class="rule-desc">APA 7th removed publisher location for books. Just: Publisher Name. Also removed "Retrieved from" for most stable URLs.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentSource = 'journal';
+let referenceList = []; // {html, text, authors, year}
+let currentRefHTML = '';
+let currentRefText = '';
+
+// ── FORM SCHEMAS ─────────────────────────────────────────────
+const FORMS = {
+  journal: {
+    title: '📰 Journal Article',
+    fields: [
+      { id:'authors', type:'authors', label:'Authors' },
+      { id:'year', type:'text', label:'Year', placeholder:'2023', hint:'Use (n.d.) if no date' },
+      { id:'title', type:'text', label:'Article title', placeholder:'Title of the article', hint:'Sentence case — only capitalize first word and proper nouns' },
+      { id:'journal', type:'text', label:'Journal name', placeholder:'Journal of Psychology', hint:'Italicized in output — capitalize all major words' },
+      { id:'volume', type:'text', label:'Volume', placeholder:'45' },
+      { id:'issue', type:'text', label:'Issue', placeholder:'3', hint:'Leave blank if journal is continuously paginated' },
+      { id:'pages', type:'text', label:'Pages', placeholder:'112–145' },
+      { id:'doi', type:'text', label:'DOI', placeholder:'https://doi.org/10.1000/xyz123', hint:'Preferred over URL when available' },
+    ]
+  },
+  book: {
+    title: '📚 Book',
+    fields: [
+      { id:'authors', type:'authors', label:'Authors' },
+      { id:'year', type:'text', label:'Year', placeholder:'2022' },
+      { id:'title', type:'text', label:'Book title', placeholder:'Title of the book', hint:'Sentence case — capitalize first word and proper nouns only' },
+      { id:'edition', type:'text', label:'Edition', placeholder:'3rd ed.', hint:'Leave blank for first edition' },
+      { id:'publisher', type:'text', label:'Publisher', placeholder:'Oxford University Press', hint:'No location needed in APA 7th' },
+      { id:'doi', type:'text', label:'DOI or URL', placeholder:'https://doi.org/...', hint:'Optional but recommended' },
+    ]
+  },
+  chapter: {
+    title: '📖 Book Chapter (Edited Book)',
+    fields: [
+      { id:'authors', type:'authors', label:'Chapter authors' },
+      { id:'year', type:'text', label:'Year', placeholder:'2021' },
+      { id:'chaptertitle', type:'text', label:'Chapter title', placeholder:'Title of the chapter', hint:'Sentence case, not italicized' },
+      { id:'editors', type:'editors', label:'Book editors' },
+      { id:'booktitle', type:'text', label:'Book title', placeholder:'Title of the book', hint:'Italicized in output' },
+      { id:'pages', type:'text', label:'Chapter pages', placeholder:'pp. 45–89' },
+      { id:'publisher', type:'text', label:'Publisher', placeholder:'Sage' },
+      { id:'doi', type:'text', label:'DOI', placeholder:'https://doi.org/...' },
+    ]
+  },
+  website: {
+    title: '🌐 Website / Webpage',
+    fields: [
+      { id:'authors', type:'authors', label:'Author(s) or organization', hint:'If no author, the site name moves to author position' },
+      { id:'year', type:'text', label:'Year (or full date)', placeholder:'2024, March 15', hint:'Use (n.d.) if no date' },
+      { id:'title', type:'text', label:'Page title', placeholder:'Title of the specific page', hint:'Sentence case, italicized' },
+      { id:'sitename', type:'text', label:'Website name', placeholder:'World Health Organization', hint:'Leave blank if same as author' },
+      { id:'url', type:'text', label:'URL', placeholder:'https://...', hint:'Include retrieval date only if content may change' },
+      { id:'retrieved', type:'text', label:'Retrieved date (optional)', placeholder:'January 10, 2024', hint:'Only if content is likely to change' },
+    ]
+  },
+  report: {
+    title: '📋 Report / Government Document',
+    fields: [
+      { id:'authors', type:'authors', label:'Authors or organization' },
+      { id:'year', type:'text', label:'Year', placeholder:'2023' },
+      { id:'title', type:'text', label:'Report title', placeholder:'Title of the report', hint:'Sentence case, italicized' },
+      { id:'reportnum', type:'text', label:'Report number', placeholder:'Publication No. 23-1234', hint:'Optional — omit if no number' },
+      { id:'publisher', type:'text', label:'Publishing organization', placeholder:'World Bank Group' },
+      { id:'url', type:'text', label:'URL or DOI', placeholder:'https://...' },
+    ]
+  },
+  thesis: {
+    title: '🎓 Thesis / Dissertation',
+    fields: [
+      { id:'authors', type:'authors', label:'Author' },
+      { id:'year', type:'text', label:'Year', placeholder:'2022' },
+      { id:'title', type:'text', label:'Title', placeholder:'Title of thesis or dissertation', hint:'Sentence case, italicized' },
+      { id:'thesistype', type:'select', label:'Type', options:['Doctoral dissertation','Master\'s thesis','Undergraduate thesis'] },
+      { id:'institution', type:'text', label:'Institution', placeholder:'University of Nairobi' },
+      { id:'database', type:'text', label:'Database or URL', placeholder:'ProQuest Dissertations & Theses', hint:'Or URL if available online' },
+    ]
+  },
+  newspaper: {
+    title: '📄 Newspaper Article',
+    fields: [
+      { id:'authors', type:'authors', label:'Author(s)' },
+      { id:'year', type:'text', label:'Full date', placeholder:'2024, February 14', hint:'Include full date for newspapers' },
+      { id:'title', type:'text', label:'Article title', placeholder:'Title of the article', hint:'Sentence case, not italicized' },
+      { id:'newspaper', type:'text', label:'Newspaper name', placeholder:'The Daily Nation', hint:'Italicized' },
+      { id:'url', type:'text', label:'URL', placeholder:'https://...' },
+    ]
+  },
+  conference: {
+    title: '🎤 Conference Paper',
+    fields: [
+      { id:'authors', type:'authors', label:'Authors' },
+      { id:'year', type:'text', label:'Year', placeholder:'2023' },
+      { id:'title', type:'text', label:'Paper title', placeholder:'Title of the paper', hint:'Sentence case, not italicized' },
+      { id:'conference', type:'text', label:'Conference name', placeholder:'International Conference on Machine Learning (ICML 2023)', hint:'Include location or dates if known' },
+      { id:'publisher', type:'text', label:'Proceedings publisher', placeholder:'ACM Digital Library', hint:'Optional' },
+      { id:'pages', type:'text', label:'Pages', placeholder:'pp. 1234–1245', hint:'Optional' },
+      { id:'doi', type:'text', label:'DOI or URL', placeholder:'https://doi.org/...' },
+    ]
+  }
+};
+
+function setSource(type) {
+  currentSource = type;
+  document.querySelectorAll('.source-tab').forEach(t => t.classList.toggle('active', t.dataset.type === type));
+  buildForm(type);
+}
+
+function buildForm(type) {
+  const schema = FORMS[type];
+  document.getElementById('form-title').textContent = schema.title;
+  const container = document.getElementById('form-fields');
+  container.innerHTML = schema.fields.map(f => buildField(f)).join('');
+}
+
+function buildField(f) {
+  if(f.type === 'authors' || f.type === 'editors') {
+    const label = f.type === 'editors' ? 'Editors (for edited book)' : (f.label || 'Authors');
+    const hint = f.hint || '';
+    return `<div class="field">
+      <label>${label} <span style="color:var(--text3);font-weight:400;font-size:0.7rem">${f.type==='editors'?'(Initials. Surname format)':''}</span></label>
+      ${hint?`<div class="hint">${hint}</div>`:''}
+      <div class="authors-wrap" id="wrap-${f.id}">
+        <div class="author-row">
+          <input type="text" placeholder="Last name" class="author-last" data-group="${f.id}">
+          <input type="text" placeholder="First initial" class="author-first" data-group="${f.id}">
+          <button class="remove-author-btn" onclick="removeAuthor(this)" style="display:none">✕</button>
+        </div>
+      </div>
+      <button class="add-author-btn" onclick="addAuthor('${f.id}')" style="margin-top:0.5rem;font-size:0.75rem">+ Add another ${f.type==='editors'?'editor':'author'}</button>
+    </div>`;
+  }
+  if(f.type === 'select') {
+    return `<div class="field">
+      <label>${f.label}</label>
+      <select id="field-${f.id}">
+        ${(f.options||[]).map(o=>`<option>${o}</option>`).join('')}
+      </select>
+    </div>`;
+  }
+  return `<div class="field">
+    <label>${f.label}${f.required?'':' <span style="color:var(--text3);font-weight:400;font-size:0.7rem">(optional)</span>'}</label>
+    <input type="text" id="field-${f.id}" placeholder="${f.placeholder||''}" autocomplete="off">
+    ${f.hint?`<div class="hint">${f.hint}</div>`:''}
+  </div>`;
+}
+
+function addAuthor(groupId) {
+  const wrap = document.getElementById('wrap-'+groupId);
+  const row = document.createElement('div');
+  row.className = 'author-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Last name" class="author-last" data-group="${groupId}">
+    <input type="text" placeholder="First initial" class="author-first" data-group="${groupId}">
+    <button class="remove-author-btn" onclick="removeAuthor(this)">✕</button>`;
+  wrap.appendChild(row);
+  // Show remove on all rows when more than 1
+  wrap.querySelectorAll('.remove-author-btn').forEach(b => b.style.display = 'block');
+}
+
+function removeAuthor(btn) {
+  const row = btn.closest('.author-row');
+  const wrap = row.parentElement;
+  row.remove();
+  if(wrap.querySelectorAll('.author-row').length === 1) {
+    wrap.querySelector('.remove-author-btn').style.display = 'none';
+  }
+}
+
+function getAuthors(groupId) {
+  const lasts = [...document.querySelectorAll(`.author-last[data-group="${groupId}"]`)].map(i=>i.value.trim());
+  const firsts = [...document.querySelectorAll(`.author-first[data-group="${groupId}"]`)].map(i=>i.value.trim());
+  const pairs = lasts.map((l,i)=>({last:l,first:firsts[i]||''})).filter(a=>a.last);
+  return pairs;
+}
+
+function formatAuthors(authors, isEditors=false) {
+  if(!authors.length) return '';
+  let formatted;
+  if(authors.length <= 20) {
+    formatted = authors.map((a,i) => {
+      const name = a.first ? `${a.last}, ${a.first.replace(/([A-Za-z])\./g,'$1').split(' ').map(n=>n[0]?.toUpperCase()+'.').join(' ')}` : a.last;
+      return name;
+    });
+    if(formatted.length === 1) return formatted[0] + (isEditors ? ' (Ed.)' : '');
+    if(formatted.length === 2) return formatted.join(' & ') + (isEditors ? ' (Eds.)' : '');
+    return formatted.slice(0,-1).join(', ') + ', & ' + formatted[formatted.length-1] + (isEditors && formatted.length>1?' (Eds.)':'');
+  } else {
+    // 21+ authors
+    return formatted.slice(0,19).join(', ') + ', . . . ' + formatted[formatted.length-1];
+  }
+}
+
+function formatInText(authors, year) {
+  if(!authors.length) return `(${year})`;
+  if(authors.length === 1) return `(${authors[0].last}, ${year})`;
+  if(authors.length === 2) return `(${authors[0].last} & ${authors[1].last}, ${year})`;
+  return `(${authors[0].last} et al., ${year})`;
+}
+
+function getVal(id) {
+  const el = document.getElementById('field-'+id);
+  return el ? el.value.trim() : '';
+}
+
+// ── CITATION GENERATORS ───────────────────────────────────────
+function generateCitation() {
+  const type = currentSource;
+  let html = '', text = '', intext = '';
+
+  const authors = getAuthors('authors');
+  const authorStr = formatAuthors(authors);
+  const year = getVal('year') || 'n.d.';
+
+  switch(type) {
+    case 'journal': {
+      const title = getVal('title');
+      const journal = getVal('journal');
+      const vol = getVal('volume');
+      const issue = getVal('issue');
+      const pages = getVal('pages');
+      const doi = getVal('doi');
+      let ref = `${authorStr} (${year}). ${title}. <em>${journal}</em>`;
+      if(vol) ref += `, <em>${vol}</em>`;
+      if(issue) ref += `(${issue})`;
+      if(pages) ref += `, ${pages}`;
+      ref += '.';
+      if(doi) ref += ` ${doi.startsWith('http')?doi:'https://doi.org/'+doi}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'book': {
+      const title = getVal('title');
+      const edition = getVal('edition');
+      const publisher = getVal('publisher');
+      const doi = getVal('doi');
+      let ref = `${authorStr} (${year}). <em>${title}</em>`;
+      if(edition) ref += ` (${edition})`;
+      ref += '.';
+      if(publisher) ref += ` ${publisher}.`;
+      if(doi) ref += ` ${doi}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'chapter': {
+      const chapTitle = getVal('chaptertitle');
+      const editors = getAuthors('editors');
+      const editorStr = formatAuthors(editors, true);
+      const bookTitle = getVal('booktitle');
+      const pages = getVal('pages');
+      const publisher = getVal('publisher');
+      const doi = getVal('doi');
+      let ref = `${authorStr} (${year}). ${chapTitle}. In ${editorStr}, <em>${bookTitle}</em>`;
+      if(pages) ref += ` (${pages})`;
+      ref += '.';
+      if(publisher) ref += ` ${publisher}.`;
+      if(doi) ref += ` ${doi}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'website': {
+      const title = getVal('title');
+      const sitename = getVal('sitename');
+      const url = getVal('url');
+      const retrieved = getVal('retrieved');
+      let ref = `${authorStr || sitename} (${year}). <em>${title}</em>`;
+      if(sitename && authorStr) ref += `. ${sitename}`;
+      ref += '.';
+      if(retrieved) ref += ` Retrieved ${retrieved}, from`;
+      if(url) ref += ` ${url}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'report': {
+      const title = getVal('title');
+      const reportnum = getVal('reportnum');
+      const publisher = getVal('publisher');
+      const url = getVal('url');
+      let ref = `${authorStr} (${year}). <em>${title}</em>`;
+      if(reportnum) ref += ` (${reportnum})`;
+      ref += '.';
+      if(publisher) ref += ` ${publisher}.`;
+      if(url) ref += ` ${url}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'thesis': {
+      const title = getVal('title');
+      const thesistype = getVal('thesistype') || 'Doctoral dissertation';
+      const institution = getVal('institution');
+      const database = getVal('database');
+      let ref = `${authorStr} (${year}). <em>${title}</em> [${thesistype}, ${institution}].`;
+      if(database) ref += ` ${database}.`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'newspaper': {
+      const title = getVal('title');
+      const newspaper = getVal('newspaper');
+      const url = getVal('url');
+      let ref = `${authorStr} (${year}). ${title}. <em>${newspaper}</em>.`;
+      if(url) ref += ` ${url}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+    case 'conference': {
+      const title = getVal('title');
+      const conference = getVal('conference');
+      const publisher = getVal('publisher');
+      const pages = getVal('pages');
+      const doi = getVal('doi');
+      let ref = `${authorStr} (${year}). ${title}. <em>${conference}</em>`;
+      if(pages) ref += `, ${pages}`;
+      ref += '.';
+      if(publisher) ref += ` ${publisher}.`;
+      if(doi) ref += ` ${doi}`;
+      html = ref; text = ref.replace(/<\/?em>/g,'');
+      break;
+    }
+  }
+
+  currentRefHTML = html;
+  currentRefText = text;
+
+  document.getElementById('ref-output').innerHTML = `<div class="ref-item">${html}</div>`;
+
+  // In-text examples
+  const intextBase = formatInText(authors, year).replace(/[()]/g,'');
+  document.getElementById('intext-output').innerHTML = `
+    <div style="margin-bottom:0.5rem"><strong style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;font-style:normal">Parenthetical</strong><br>
+    The study found significant results <span class="intext-citation">(${intextBase.includes(',')?intextBase:intextBase+', '+year})</span>.</div>
+    <div style="margin-bottom:0.5rem"><strong style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;font-style:normal">Narrative</strong><br>
+    <span class="intext-citation">${authors[0]?.last||'Author'} (${year})</span> found that...</div>
+    <div><strong style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;font-style:normal">Direct quote</strong><br>
+    "Quote here" <span class="intext-citation">(${intextBase.includes(',')?intextBase:intextBase+', '+year}, p. X)</span>.</div>
+  `;
+}
+
+function copyRef() {
+  if(!currentRefText){alert('Generate a reference first.');return;}
+  navigator.clipboard.writeText(currentRefText).then(()=>toast('Reference copied!'));
+}
+
+function addToList() {
+  if(!currentRefHTML){alert('Generate a reference first.');return;}
+  const entry = {html:currentRefHTML, text:currentRefText, id:Date.now()};
+  referenceList.push(entry);
+  // Sort alphabetically by text
+  referenceList.sort((a,b)=>a.text.localeCompare(b.text));
+  renderList();
+  toast('Added to reference list!');
+}
+
+function renderList() {
+  document.getElementById('ref-count').textContent = referenceList.length;
+  const container = document.getElementById('ref-list-items');
+  if(!referenceList.length){
+    container.innerHTML='<div style="color:var(--text3);font-size:0.82rem;text-align:center;padding:1rem">Add references using the form above.</div>';
+    return;
+  }
+  container.innerHTML = `<div class="ref-list-output">${referenceList.map(r=>`
+    <div class="ref-item">
+      ${r.html}
+      <div class="ref-item-actions">
+        <button class="ref-del" onclick="deleteRef(${r.id})">✕ Remove</button>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function deleteRef(id){
+  referenceList = referenceList.filter(r=>r.id!==id);
+  renderList();
+}
+
+function copyFullList(){
+  if(!referenceList.length){alert('No references in list yet.');return;}
+  const text = 'References\n\n' + referenceList.map(r=>r.text).join('\n\n');
+  navigator.clipboard.writeText(text).then(()=>toast('Full reference list copied!'));
+}
+
+function clearList(){
+  if(!referenceList.length)return;
+  if(confirm('Clear all references?')){referenceList=[];renderList();}
+}
+
+function toast(msg){const t=document.createElement('div');Object.assign(t.style,{position:'fixed',bottom:'1.5rem',left:'50%',transform:'translateX(-50%)',background:'#1a1a2e',color:'white',padding:'0.75rem 1.5rem',borderRadius:'100px',fontSize:'0.875rem',fontWeight:'500',zIndex:'9999',boxShadow:'0 8px 32px rgba(100,100,160,0.25)'});t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2000);}
+
+// Init
+buildForm('journal');
+</script>
+</body>
+</html>
