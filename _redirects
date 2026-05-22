@@ -16,5 +16,7 @@
 /tools/photo-to-pdf      /tools/photo-to-pdf.html     200
 /tools/ai-detector       /tools/ai-detector.html      200
 /privacy                 /privacy.html                200
+/tools/qr-generator      /tools/qr-generator.html    200
+/tools/qr-scanner        /tools/qr-scanner.html      200
 # 404 fallback
 /*                        /index.html                 200
