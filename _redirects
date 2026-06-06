@@ -18,6 +18,3 @@
 /privacy                  /privacy.html                200
 /tools/qr-generator       /tools/qr-generator.html     200
 /tools/qr-scanner         /tools/qr-scanner.html       200
-
-# Global 404 Fallback (Sends missing pages to your 404 page instead of looping)
-/* /404.html                    404
