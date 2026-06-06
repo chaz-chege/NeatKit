@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://neatkit.tools/sitemap.xml
+Sitemap: https://neatkitapp.com/sitemap.xml
 
 # Block nothing — we want full indexing
