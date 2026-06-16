@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-R51Q6DPPBG');
 </script>
 <meta charset="UTF-8">
@@ -16,9 +15,9 @@
 <meta name="description" content="Free AI text detector. Analyzes perplexity, burstiness and sentence patterns to detect AI-generated content. Upload PDF, Word or paste text. No signup.">
 <title>AI Text Detector Free — Check if Text is AI Generated | Neatkit</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7083602792413467" crossorigin="anonymous"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7083602792413467" crossorigin="anonymous"></script>
 :root{
   --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
   --bg:#fff;--bg2:#f7f7fb;--bg3:#f0f0f7;
@@ -151,6 +150,46 @@ textarea::placeholder{color:var(--text3)}
 .fix-title{font-size:0.875rem;font-weight:700;color:var(--text);margin-bottom:0.2rem}
 .fix-desc{font-size:0.8rem;color:var(--text2);line-height:1.6}
 
+/* CONTENT SECTIONS */
+.content-section{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem}
+.content-section h2{font-size:1.25rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:1rem;color:var(--text)}
+.content-section h3{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.35rem;margin-top:1.25rem}
+.content-section p{font-size:0.9rem;color:var(--text2);line-height:1.75;margin-bottom:0.75rem}
+.content-section p:last-child{margin-bottom:0}
+
+.how-it-works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1.25rem}
+.how-card{background:var(--bg2);border-radius:var(--r-lg);padding:1.25rem}
+.how-card-icon{font-size:1.5rem;margin-bottom:0.625rem}
+.how-card-title{font-size:0.875rem;font-weight:700;color:var(--text);margin-bottom:0.35rem}
+.how-card-desc{font-size:0.8rem;color:var(--text2);line-height:1.6}
+
+.use-cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.875rem;margin-top:1.25rem}
+.use-case{display:flex;gap:0.75rem;align-items:flex-start;background:var(--bg2);border-radius:var(--r-lg);padding:1rem}
+.use-case-icon{font-size:1.25rem;flex-shrink:0;margin-top:1px}
+.use-case-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.2rem}
+.use-case-desc{font-size:0.775rem;color:var(--text2);line-height:1.55}
+
+/* FAQ */
+.faq-list{margin-top:1rem;display:flex;flex-direction:column;gap:0.75rem}
+.faq-item{border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:1rem 1.25rem;text-align:left;font-family:var(--sans);font-size:0.875rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg2)}
+.faq-arrow{color:var(--text3);font-size:0.75rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 1rem;font-size:0.85rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+
+/* SIGNAL TABLE */
+.signal-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.82rem}
+.signal-table th{text-align:left;padding:0.625rem 0.875rem;background:var(--bg2);color:var(--text2);font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1.5px solid var(--border)}
+.signal-table td{padding:0.75rem 0.875rem;border-bottom:1px solid var(--border);color:var(--text2);line-height:1.5;vertical-align:top}
+.signal-table tr:last-child td{border-bottom:none}
+.signal-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+
+.tools-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}
+.tool-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--accent-light);color:var(--accent);font-size:0.78rem;font-weight:600;padding:0.35rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid rgba(123,143,212,0.2);transition:all 0.15s}
+.tool-chip:hover{background:var(--accent);color:#fff}
+
 @media(max-width:640px){
   nav{padding:0 1rem}.page{padding:1.5rem 1rem 3rem}h1{font-size:1.5rem}
   .score-card{grid-template-columns:1fr;text-align:center}
@@ -158,6 +197,8 @@ textarea::placeholder{color:var(--text3)}
   .metrics-grid{grid-template-columns:1fr 1fr}
   .sentence-item{grid-template-columns:1fr auto}
   .sent-len,.sent-reason{display:none}
+  .how-it-works-grid,.use-cases-grid{grid-template-columns:1fr}
+  .signal-table td:first-child{white-space:normal}
 }
 </style>
 
@@ -201,13 +242,11 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
   </div>
 
   <div class="input-section">
-    <!-- Mode tabs -->
     <div class="input-tabs">
       <button class="input-tab active" id="tab-text" onclick="switchTab('text')">✏️ Paste text</button>
       <button class="input-tab" id="tab-file" onclick="switchTab('file')">📎 Upload file</button>
     </div>
 
-    <!-- Text mode -->
     <div id="text-mode">
       <div class="input-header">
         <span class="input-label">Paste your text</span>
@@ -224,7 +263,6 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
       </div>
     </div>
 
-    <!-- File mode -->
     <div id="file-mode" style="display:none">
       <div class="file-drop show" id="file-drop">
         <input type="file" id="file-input" accept=".txt,.pdf,.docx,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="handleFile(this.files[0])">
@@ -263,7 +301,6 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
   </div>
 
   <div class="results" id="results">
-    <!-- Score card -->
     <div class="score-card" id="score-card">
       <div class="score-dial">
         <svg width="120" height="120" viewBox="0 0 120 120">
@@ -284,16 +321,13 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
       </div>
     </div>
 
-    <!-- Metrics -->
     <div class="metrics-grid" id="metrics-grid"></div>
 
-    <!-- What to fix -->
     <div class="fix-section" id="fix-section">
       <div class="section-title" style="margin-bottom:0.875rem">What the analysis found</div>
       <div id="fix-list"></div>
     </div>
 
-    <!-- Annotated text -->
     <div class="highlight-section">
       <div class="section-title">
         <span>Sentence-by-sentence breakdown</span>
@@ -307,9 +341,213 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
       <div class="sentence-list" id="sentence-list"></div>
     </div>
   </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="content-section">
+    <h2>How the AI detector works</h2>
+    <p>This tool runs entirely in your browser. Your text is never sent to a server, stored, or logged anywhere. The analysis uses six statistical signals that consistently separate AI-generated writing from human writing, based on research into how large language models like ChatGPT, Claude, and Gemini produce text.</p>
+
+    <div class="how-it-works-grid">
+      <div class="how-card">
+        <div class="how-card-icon">📏</div>
+        <div class="how-card-title">Sentence length uniformity</div>
+        <div class="how-card-desc">AI models tend to produce sentences of similar length throughout a passage. Human writing naturally varies — short punchy sentences alongside long, complex ones. This tool measures that variation using the coefficient of variation across all sentences.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-icon">📚</div>
+        <div class="how-card-title">Lexical diversity</div>
+        <div class="how-card-desc">The ratio of unique words to total words in a text. AI outputs often recycle the same vocabulary patterns within a passage. Human writers tend to reach for more varied words naturally, even without conscious effort.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-icon">🔗</div>
+        <div class="how-card-title">Transition word overuse</div>
+        <div class="how-card-desc">Words like "furthermore", "moreover", "consequently", and "it is important to note" are statistically rare in natural human writing but appear constantly in AI output. The tool checks for 24 of the most common AI transitional phrases.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-icon">🔄</div>
+        <div class="how-card-title">Passive voice frequency</div>
+        <div class="how-card-desc">AI writing leans heavily on passive constructions ("it was demonstrated that", "this can be seen in"). Humans default to active voice. The tool scans for common passive patterns using auxiliary verb + past participle combinations.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-icon">🌫️</div>
+        <div class="how-card-title">Vague filler language</div>
+        <div class="how-card-desc">Words like "significant", "various", "robust", "leverage", and "utilize" are high-frequency in AI output but low in meaning. They signal AI writing because models optimize for sounding thorough rather than being specific.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-icon">🔤</div>
+        <div class="how-card-title">Sentence starter variety</div>
+        <div class="how-card-desc">AI models frequently begin consecutive sentences with "The", "This", or "These". Human writers vary their sentence openings much more. This tool tracks how many unique sentence starters appear relative to the total number of sentences.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT THE SIGNALS MEAN -->
+  <div class="content-section">
+    <h2>Understanding your results</h2>
+    <p>The overall AI score is a weighted combination of all six signals. No single signal is definitive — a high score on one metric doesn't mean the text is AI-generated. The tool looks for patterns across all signals together.</p>
+
+    <table class="signal-table">
+      <thead>
+        <tr>
+          <th>Score range</th>
+          <th>What it means</th>
+          <th>What to do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0 – 29</td>
+          <td>Strongly human-written. Writing shows natural irregularity, varied structure, and personal voice.</td>
+          <td>Nothing — the writing reads as genuinely human.</td>
+        </tr>
+        <tr>
+          <td>30 – 49</td>
+          <td>Probably human, with some formal or repetitive patterns. Could be academic or technical writing style.</td>
+          <td>Review flagged sentences. Consider varying sentence length and replacing transition words.</td>
+        </tr>
+        <tr>
+          <td>50 – 74</td>
+          <td>Mixed signals. May be AI-assisted, heavily edited AI output, or a very formal human writing style.</td>
+          <td>Check which metrics are high and target those specifically. The sentence breakdown will show you where.</td>
+        </tr>
+        <tr>
+          <td>75 – 100</td>
+          <td>Likely AI-generated. Multiple strong signals are present across sentence structure, vocabulary, and phrasing.</td>
+          <td>Rewrite flagged sentences in your own words. Add specific examples, personal observations, or concrete details.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Why scores can be wrong</h3>
+    <p>Non-native English speakers often write in patterns that score higher than their actual human effort deserves — formal grammar instruction produces writing that looks AI-like statistically. Highly technical writing (scientific papers, legal documents, policy writing) also tends to score higher because the domain requires formal, structured language. A high score is a signal worth investigating, not a verdict.</p>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="content-section">
+    <h2>Who uses this tool</h2>
+    <div class="use-cases-grid">
+      <div class="use-case">
+        <div class="use-case-icon">🎓</div>
+        <div>
+          <div class="use-case-title">Students checking their own work</div>
+          <div class="use-case-desc">Run your essay through before submitting to see if any sections read as AI-like, even if you wrote them yourself. Useful for catching overly formal phrasing before your professor does.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">✍️</div>
+        <div>
+          <div class="use-case-title">Writers editing AI drafts</div>
+          <div class="use-case-desc">If you use AI as a starting point and edit heavily, this tool shows which sentences still carry AI fingerprints so you know exactly where to rewrite.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">📋</div>
+        <div>
+          <div class="use-case-title">Educators reviewing submissions</div>
+          <div class="use-case-icon"></div>
+          <div class="use-case-desc">Get a second opinion on a submission that feels off. The sentence-by-sentence breakdown shows which specific parts triggered concern, rather than just a number.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">📰</div>
+        <div>
+          <div class="use-case-title">Content editors and publishers</div>
+          <div class="use-case-desc">Quickly screen submitted articles and blog posts for AI-generated content before publication. Catch pieces that were passed off as original human writing.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">💼</div>
+        <div>
+          <div class="use-case-title">HR and hiring teams</div>
+          <div class="use-case-desc">Cover letters and written assessments increasingly come through AI. Run them through to see if the writing shows the statistical patterns of human authorship.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">🔍</div>
+        <div>
+          <div class="use-case-title">SEO and content teams</div>
+          <div class="use-case-desc">Google increasingly signals preference for human-authored content. Use this tool to check content before publishing to ensure it reads as genuinely written, not generated.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="content-section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is my text stored or sent anywhere?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">No. All analysis runs entirely in your browser using JavaScript. Your text never leaves your device. No data is sent to any server, logged, or retained in any way. This is true for both pasted text and uploaded files.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How accurate is this AI detector?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">No AI detector is perfectly accurate, including this one. The tool is based on well-established statistical signals that differ between AI and human writing, but there are false positives (human text flagged as AI) and false negatives (AI text that passes). Non-native speakers, academic writers, and people writing in formal registers tend to produce higher scores than casual human writers. Use the results as one signal, not a final verdict.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What's the minimum text length for a reliable result?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">The tool requires at least 50 words to run, but results become significantly more reliable above 150 words. With short texts, the statistical signals don't have enough data to stabilize. For the most accurate results, use full paragraphs of at least 200–300 words.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Why did my clearly human-written text score high?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">Several types of human writing score higher than expected. Academic writing tends to use passive voice, transition words, and formal vocabulary — all of which are AI signals statistically. Business writing often uses the same vague corporate language AI gravitates toward. Non-native speakers learning formal grammar rules produce patterns that look like AI. If you scored high and know you wrote the text yourself, look at which specific signals triggered and consider whether your writing style shares those traits with AI output.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I use this to check PDFs and Word documents?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">Yes. Use the "Upload file" tab to drop in a .pdf, .docx, or .txt file. The tool extracts the text locally in your browser using PDF.js and Mammoth.js — no file is uploaded to any server. The extracted text is shown in a preview before analysis so you can confirm it was read correctly. Scanned PDFs (image-based) won't work since there's no text layer to extract.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How is this different from Turnitin or GPTZero?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">Turnitin and GPTZero send your text to their servers and use trained machine learning models with proprietary datasets. This tool runs entirely client-side with no server involvement and uses transparent, explainable statistical signals. The advantage is complete privacy — your text goes nowhere. The trade-off is that ML-based detectors trained on large datasets can catch subtler patterns this tool misses. For sensitive documents, the privacy guarantee here may be worth that trade-off.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does this work on text in languages other than English?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">The tool is designed and calibrated for English. The transition word list, passive voice patterns, and hedge vocabulary are all English-specific. Running non-English text through it may produce unreliable results. Results for other languages should not be interpreted as meaningful detection.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTHER TOOLS -->
+  <div class="content-section">
+    <h2>Other tools you might find useful</h2>
+    <p>Neatkit has a growing collection of free browser-based tools. No signup, no limits, nothing stored.</p>
+    <div class="tools-row" id="other-tools-row">
+      <a class="tool-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
 </div>
 
 <script>
+// ── FAQ TOGGLE ───────────────────────────────────────────────
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
 // ── TAB SWITCHING ────────────────────────────────────────────
 function switchTab(tab) {
   document.getElementById('tab-text').classList.toggle('active', tab==='text');
@@ -329,10 +567,8 @@ let extractedText = '';
 function handleFile(file) {
   if(!file) return;
   if(file.size > 10*1024*1024) { alert('File too large. Max 10MB.'); return; }
-
   const icons = {'application/pdf':'📕', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':'📘', 'text/plain':'📄'};
   const icon = icons[file.type] || '📄';
-
   document.getElementById('file-icon').textContent = icon;
   document.getElementById('file-name').textContent = file.name;
   document.getElementById('file-meta').textContent = formatFileSize(file.size) + ' · reading...';
@@ -342,7 +578,6 @@ function handleFile(file) {
   document.getElementById('file-preview-wrap').style.display = 'none';
   document.getElementById('analyze-file-btn').disabled = true;
   extractedText = '';
-
   if(file.type === 'text/plain' || file.name.endsWith('.txt')) {
     const reader = new FileReader();
     reader.onload = e => processExtracted(e.target.result, file.name, file.size);
@@ -361,7 +596,6 @@ function formatFileSize(b) { if(b<1024)return b+'B'; if(b<1048576)return(b/1024)
 async function extractPDF(file) {
   try {
     document.getElementById('parse-status').textContent = 'Loading PDF parser...';
-    // Load PDF.js from CDN
     if(!window.pdfjsLib) {
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
       window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -410,16 +644,12 @@ function processExtracted(text, filename, size) {
   text = text.replace(/\s+/g, ' ').trim();
   extractedText = text;
   const words = text.split(/\s+/).filter(Boolean);
-
   document.getElementById('file-parsing').classList.remove('visible');
   document.getElementById('file-meta').textContent = formatFileSize(size) + ' · ' + words.length + ' words extracted';
-
   if(words.length < 30) {
     showParseError('Not enough text found (' + words.length + ' words). The file may be image-based or scanned — try copy-pasting the text instead.');
     return;
   }
-
-  // Show preview
   const preview = text.substring(0, 600) + (text.length > 600 ? '...' : '');
   document.getElementById('file-preview').textContent = preview;
   document.getElementById('file-wc').textContent = words.length + ' words extracted';
@@ -449,7 +679,6 @@ function analyzeFile() {
     alert('Not enough text to analyze. Need at least 50 words.');
     return;
   }
-  // Put extracted text into the main input and run analysis
   document.getElementById('input').value = extractedText;
   const btn = document.getElementById('analyze-file-btn');
   btn.disabled = true; btn.textContent = 'Analyzing...';
@@ -489,24 +718,19 @@ function updateCount() {
   document.getElementById('wc').textContent = `${words} words · ${sents} sentences`;
 }
 
-// ── SENTENCE SPLITTER ───────────────────────────────────────
 function splitSentences(text) {
-  // Split on sentence-ending punctuation, keep punctuation with sentence
   const raw = text.match(/[^.!?]*[.!?]+["']?|[^.!?]+$/g) || [];
   return raw.map(s => s.trim()).filter(s => s.length > 10);
 }
 
-// ── ANALYSIS ENGINE ─────────────────────────────────────────
 function analyze() {
   const text = document.getElementById('input').value.trim();
   if (!text || text.split(/\s+/).length < 50) {
     alert('Please enter at least 50 words for meaningful analysis.');
     return;
   }
-
   const btn = document.getElementById('analyze-btn');
   btn.disabled = true; btn.textContent = 'Analyzing...';
-
   setTimeout(() => {
     const result = runAnalysis(text);
     renderResults(result);
@@ -520,80 +744,57 @@ function runAnalysis(text) {
   const sentences = splitSentences(text);
   const words = text.split(/\s+/).filter(Boolean);
 
-  // ── 1. BURSTINESS ─────────────────────────────────────────
-  // Human writing varies sentence length wildly. AI is more uniform.
   const lengths = sentences.map(s => s.split(/\s+/).length);
   const meanLen = lengths.reduce((a,b)=>a+b,0) / lengths.length;
   const variance = lengths.reduce((a,b)=>a+Math.pow(b-meanLen,2),0) / lengths.length;
   const stdDev = Math.sqrt(variance);
-  const cv = stdDev / meanLen; // coefficient of variation — higher = more human-like burstiness
+  const cv = stdDev / meanLen;
   const burstinessScore = Math.max(0, Math.min(100, 100 - cv * 120));
 
-  // ── 2. LEXICAL DIVERSITY ──────────────────────────────────
-  // AI tends to repeat similar vocabulary patterns
   const cleanWords = words.map(w => w.toLowerCase().replace(/[^a-z]/g,''));
   const uniqueWords = new Set(cleanWords.filter(w=>w.length>3));
   const ttr = uniqueWords.size / cleanWords.filter(w=>w.length>3).length;
   const lexicalScore = Math.max(0, Math.min(100, (0.72 - ttr) * 300));
 
-  // ── 3. TRANSITION WORD OVERUSE ────────────────────────────
   const aiTransitions = ['furthermore','moreover','additionally','however','therefore','consequently','nevertheless','subsequently','in conclusion','it is important','it is worth noting','it should be noted','this demonstrates','this highlights','in summary','to summarize','in essence','as a result','due to the fact','in order to','it is clear that','needless to say','at the end of the day','it is noteworthy'];
   const textLower = text.toLowerCase();
   const transitionHits = aiTransitions.filter(t => textLower.includes(t));
   const transitionScore = Math.min(100, transitionHits.length * 18);
 
-  // ── 4. PASSIVE VOICE RATIO ────────────────────────────────
   const passivePatterns = /\b(is|are|was|were|be|been|being)\s+\w+ed\b/gi;
   const passiveMatches = (text.match(passivePatterns) || []).length;
   const passiveRate = passiveMatches / sentences.length;
   const passiveScore = Math.min(100, passiveRate * 120);
 
-  // ── 5. HEDGE PHRASE OVERUSE ───────────────────────────────
   const hedges = ['various','significant','important','essential','crucial','fundamental','comprehensive','robust','innovative','leverag','implement','utiliz','facilitat','endeavor','demonstrate','exhibit','provide','ensure','maintain','consider'];
   let hedgeCount = 0;
   hedges.forEach(h => { const re = new RegExp(h, 'gi'); const m = text.match(re); if(m) hedgeCount += m.length; });
   const hedgeScore = Math.min(100, (hedgeCount / words.length) * 800);
 
-  // ── 6. SENTENCE STARTER VARIETY ───────────────────────────
   const starters = sentences.map(s => s.split(/\s+/)[0]?.toLowerCase() || '');
   const uniqueStarters = new Set(starters);
   const starterVariety = uniqueStarters.size / starters.length;
   const starterScore = Math.max(0, Math.min(100, (0.6 - starterVariety) * 200));
 
-  // ── SENTENCE SCORING ──────────────────────────────────────
   const scoredSentences = sentences.map(sent => {
     const sentLower = sent.toLowerCase();
     const sentWords = sent.split(/\s+/);
     let risk = 0;
     const flags = [];
-
-    // Transition words
     const sentTrans = aiTransitions.filter(t => sentLower.includes(t));
     if(sentTrans.length > 0) { risk += 35; flags.push(`transition: "${sentTrans[0]}"`); }
-
-    // Very uniform length (close to mean, suspicious if everything is)
     const lenDiff = Math.abs(sentWords.length - meanLen);
     if(lenDiff < 2 && sentences.length > 4) { risk += 10; }
-
-    // Passive voice in sentence
     if(passivePatterns.test(sent)) { risk += 20; flags.push('passive voice'); passivePatterns.lastIndex=0; }
-
-    // Hedge words
     const sentHedges = hedges.filter(h => sentLower.includes(h));
     if(sentHedges.length >= 2) { risk += 25; flags.push(`vague: "${sentHedges[0]}"`); }
-
-    // Opening with AI-common starters
     const aiStarters = ['the','this','these','it is','there are','in','as'];
     if(aiStarters.some(s => sentLower.startsWith(s))) { risk += 8; }
-
-    // Very long sentence with many clauses (AI loves complexity)
     if(sentWords.length > 30) { risk += 15; flags.push('very long sentence'); }
-
     risk = Math.min(100, risk);
     return { text: sent, risk, flags, words: sentWords.length };
   });
 
-  // ── OVERALL SCORE ─────────────────────────────────────────
   const weights = { burstiness: 0.25, lexical: 0.15, transition: 0.25, passive: 0.10, hedge: 0.15, starter: 0.10 };
   const overall = Math.round(
     burstinessScore * weights.burstiness +
@@ -624,11 +825,8 @@ function runAnalysis(text) {
   };
 }
 
-// ── RENDER ───────────────────────────────────────────────────
 function renderResults(r) {
   const score = r.overall;
-
-  // Score dial
   const circumference = 2 * Math.PI * 52;
   const offset = circumference - (score / 100) * circumference;
   const arc = document.getElementById('dial-arc');
@@ -639,7 +837,6 @@ function renderResults(r) {
   document.getElementById('score-num').style.color = color;
   document.querySelector('.score-verdict').style.color = color;
 
-  // Verdict
   let verdict, explain, caveats;
   if(score >= 75) {
     verdict = 'Likely AI-generated';
@@ -663,7 +860,6 @@ function renderResults(r) {
   document.getElementById('verdict-explain').textContent = explain;
   document.getElementById('verdict-caveats').textContent = caveats;
 
-  // Metrics
   const mg = document.getElementById('metrics-grid');
   mg.innerHTML = Object.entries(r.metrics).map(([key, m]) => {
     const badgeLevel = m.val >= 65 ? 'high' : m.val >= 35 ? 'med' : 'low';
@@ -680,7 +876,6 @@ function renderResults(r) {
     </div>`;
   }).join('');
 
-  // What to fix
   const fixes = [];
   if(r.metrics.transition.val >= 35) fixes.push({ level:'err', icon:'⚠️', title:`Replace AI transition words (${r.transitionHits.length} found)`, desc:`Found: "${r.transitionHits.join('", "')}" — These phrases are heavily overrepresented in AI text. Replace with more direct connections between ideas, or remove them entirely.` });
   if(r.metrics.burstiness.val >= 50) fixes.push({ level:'err', icon:'📏', title:'Vary your sentence lengths', desc:`Average sentence: ${r.avgSentLen} words. Your sentences are too uniform (variation score: ${r.cv}). Mix short punchy sentences with longer ones. Break a long sentence into two. Combine two short ones.` });
@@ -696,7 +891,6 @@ function renderResults(r) {
     </div>
   `).join('');
 
-  // Annotated text
   const annotated = r.sentences.map(s => {
     const cls = s.risk >= 60 ? 'span-ai-high' : s.risk >= 30 ? 'span-ai-med' : s.risk > 0 ? 'span-ai-low' : 'span-human';
     const title = s.flags.length ? `Flagged: ${s.flags.join(', ')}` : '';
@@ -704,7 +898,6 @@ function renderResults(r) {
   }).join('');
   document.getElementById('annotated-text').innerHTML = annotated;
 
-  // Sentence list (only flagged)
   const flagged = r.sentences.filter(s => s.risk >= 25).sort((a,b)=>b.risk-a.risk).slice(0,10);
   document.getElementById('sentence-list').innerHTML = flagged.length === 0
     ? '<div style="font-size:0.82rem;color:var(--text3);padding:0.5rem 0">No individual sentences were significantly flagged.</div>'
