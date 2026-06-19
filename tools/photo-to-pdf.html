@@ -54,9 +54,6 @@ body{background:var(--mist);color:var(--tx1);font-family:var(--body);-webkit-fon
 h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.025em;margin-bottom:0.375rem}
 .subtitle{color:var(--tx2);font-size:0.9rem;font-weight:300;margin-bottom:2rem;line-height:1.65}
 
-/* AD SLOT */
-.ad-slot{background:var(--white);border:1px dashed var(--rule2);border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center;font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
-
 /* ── MAIN SCANNER UI ─────────────────────────────────── */
 .scanner-shell{background:var(--white);border:1px solid var(--rule2);border-radius:20px;overflow:hidden}
 
@@ -167,9 +164,6 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.025em;margin-
 .capture-flash{position:fixed;inset:0;background:white;z-index:9999;opacity:0;pointer-events:none;transition:opacity 0.08s}
 .capture-flash.flash{opacity:1}
 
-/* ── STICKY AD ───────────────────────────────────────── */
-#sticky-ad{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-top:1px solid var(--rule2);padding:0.5rem 1.5rem;display:none;align-items:center;justify-content:center}
-
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media(max-width:500px){
   .nk-nav,.page{padding-left:1rem;padding-right:1rem}
@@ -197,8 +191,6 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.025em;margin-
 <div class="page">
   <h1>Photo to Scanned PDF</h1>
   <p class="subtitle">Point your camera at a document, handwritten notes or receipt. Auto-detects edges and fixes perspective. Add as many pages as you need, then export as a clean scanned PDF.</p>
-
-  <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
 
   <div class="scanner-shell" id="scanner-shell">
 
@@ -332,13 +324,6 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.025em;margin-
     </div>
 
   </div><!-- scanner-shell -->
-
-  <div class="ad-slot" style="margin-top:1.5rem" aria-label="Advertisement">Advertisement</div>
-</div>
-
-<div id="sticky-ad" role="complementary" aria-label="Advertisement">
-  <button onclick="document.getElementById('sticky-ad').style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--tx3);cursor:pointer;font-size:0.875rem">✕</button>
-  <div style="font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;min-height:50px;display:flex;align-items:center;justify-content:center;width:100%">Advertisement</div>
 </div>
 
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
@@ -893,7 +878,171 @@ function toast(msg,dur=2500){
 }
 
 window.addEventListener('beforeunload',stopCamera);
-setTimeout(()=>{document.getElementById('sticky-ad').style.display='flex';},5000);
+</script>
+<style>
+.nk-content{padding-bottom:4rem}
+.nk-section{background:var(--white);border:1.5px solid var(--rule2);border-radius:12px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:var(--tx1);margin-bottom:0.875rem;font-family:var(--display)}
+.nk-section p{font-size:0.9rem;color:var(--tx2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:#f4f4f8;border-radius:10px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--tx1);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--tx2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:#f4f4f8;border-radius:10px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--tx1);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--tx2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--rule2);border-radius:10px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--body);font-size:0.875rem;font-weight:700;color:var(--tx1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:#f4f4f8}
+.faq-arrow{color:var(--tx3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--tx2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:rgba(123,143,212,0.08);color:#7b8fd4;font-size:0.78rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid rgba(123,143,212,0.2);transition:all 0.15s}
+.nk-chain-chip:hover{background:#7b8fd4;color:#fff}
+.nk-tip{background:rgba(123,143,212,0.08);border-left:3px solid #7b8fd4;border-radius:0 8px 8px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--tx2);line-height:1.7}
+.nk-tip strong{color:#7b8fd4}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Tips for clean document scans</h2>
+    <div class="nk-tip"><strong>Auto-capture is your best friend.</strong> Hold the camera steady over the document and let the tool detect the edges and capture automatically — it produces more consistent results than tapping manually.</div>
+    <div class="nk-tip"><strong>Dark background, white paper.</strong> Place your document on a dark surface — a dark desk, a folder, or dark cloth. The contrast helps the edge detection algorithm find the document borders cleanly.</div>
+    <div class="nk-tip"><strong>Even lighting across the whole page.</strong> Shadows on one side of the document create uneven exposure that makes text harder to read. Move to a well-lit spot or turn on overhead lights before scanning.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How the document scanner works</h2>
+    <p>This tool uses your device's camera to scan physical documents and convert them to PDF — entirely in the browser. The scanner uses real-time edge detection based on the Sobel operator, a computer vision algorithm that identifies sharp boundaries between your document and its background.</p>
+    <p>When auto-capture is enabled, the tool continuously analyses the camera feed and triggers a capture when it detects a stable document rectangle. The captured image is processed, perspective-corrected, and added to your document stack. Once you have all pages, convert to a single PDF with one click — no uploads required.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🔍</div>
+        <div class="nk-card-title">Edge detection</div>
+        <div class="nk-card-desc">Live Sobel edge detection finds your document's corners in real time. The green overlay shows what the tool has detected — adjust position until the overlay fits the document cleanly.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">⚡</div>
+        <div class="nk-card-title">Auto-capture</div>
+        <div class="nk-card-desc">Hold the camera steady and the tool captures automatically when the document edges are stable. No need to tap — hands-free scanning for multi-page documents.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📐</div>
+        <div class="nk-card-title">Perspective correction</div>
+        <div class="nk-card-desc">Even if you photograph the document at a slight angle, the tool corrects the perspective so the output looks like a flat, straight scan rather than an angled photo.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📄</div>
+        <div class="nk-card-title">Multi-page PDF</div>
+        <div class="nk-card-desc">Scan as many pages as you need. Each capture adds a page to your document. When done, convert all pages to a single PDF in one step.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What people scan with this tool</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📋</div>
+        <div>
+          <div class="nk-use-title">Handwritten forms</div>
+          <div class="nk-use-desc">Filled-in application forms, questionnaires, or consent forms that need to be submitted digitally. Scan each page and export as a single multi-page PDF.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🧾</div>
+        <div>
+          <div class="nk-use-title">Receipts and invoices</div>
+          <div class="nk-use-desc">Paper receipts for expense reports, reimbursement claims, or tax records. Scan and save as PDF immediately before the paper fades or gets lost.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📝</div>
+        <div>
+          <div class="nk-use-title">Signed contracts</div>
+          <div class="nk-use-desc">Physical contracts and agreements that have been signed by hand. Scan to create a digital record that can be emailed, stored, or shared with all parties.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📒</div>
+        <div>
+          <div class="nk-use-title">Lecture and meeting notes</div>
+          <div class="nk-use-desc">Handwritten notes from class or meetings. Scan and save as a searchable-ready PDF for sharing with classmates or colleagues.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏛️</div>
+        <div>
+          <div class="nk-use-title">Official correspondence</div>
+          <div class="nk-use-desc">Letters from government agencies, banks, or institutions that need to be submitted as part of an application or appeal. Scan to PDF for digital submission.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📚</div>
+        <div>
+          <div class="nk-use-title">Reference documents</div>
+          <div class="nk-use-desc">Physical books, manuals, or printed reports that you need a digital copy of for reference, annotation, or sharing. Scan each page into a multi-page PDF.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my camera feed uploaded anywhere? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. The camera feed is processed entirely in your browser using the WebRTC API and JavaScript canvas operations. Nothing from your camera is transmitted to any server. The edge detection, image capture, and PDF generation all happen locally on your device.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">The edge detection isn't finding my document — what should I do? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Try placing the document on a dark background — the contrast between white paper and a dark surface is what the edge detection uses to find document boundaries. Make sure the lighting is even across the whole document with no strong shadows on one side. If it still struggles, use manual capture mode and tap to capture when the document is well-positioned.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I use this on a laptop without a rear camera? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. The tool works with any camera the browser can access — including laptop webcams. Place the document flat on the desk and position your laptop so the webcam can see it from above. The upload option is also available if you'd rather photograph with your phone and upload the image.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many pages can I scan in one session? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">There is no hard limit. Each capture adds a page to your stack. Very long documents (50+ pages) may use significant memory on lower-end devices — if the browser becomes slow, split into two sessions and merge the resulting PDFs using the PDF Merge tool.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between this and the Images to PDF tool? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">This tool is designed for scanning physical documents in real time using your camera, with edge detection and auto-capture. The Images to PDF tool is for converting existing image files (photos already saved on your device) into a PDF. Use this tool when you're sitting with a physical document. Use Images to PDF when you already have photos saved.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Scanned your document? Here are common next steps.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="pdf-merge.html">🔗 Merge with other PDFs</a>
+      <a class="nk-chain-chip" href="id-card-to-pdf.html">🪪 ID card to PDF</a>
+      <a class="nk-chain-chip" href="images-to-pdf.html">🖼️ Images to PDF</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress an image</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
 </script>
 </body>
 </html>

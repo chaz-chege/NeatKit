@@ -398,5 +398,165 @@ buildSelects();
 convert('from');
 updateAllConversions();
 </script>
+<style>
+.nk-content{max-width:1100px;margin:0 auto;padding:0 2rem 4rem}
+.nk-section{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.875rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg3);border-radius:10px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.78rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg3);border-radius:10px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.75rem;color:var(--text2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.faq-item{border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.125rem;text-align:left;font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.65rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.125rem 0.875rem;font-size:0.8rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--bg3);color:var(--text2);font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid var(--border2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--accent);color:var(--accent)}
+.nk-tip{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.82rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent);font-family:var(--mono)}
+.nk-ref-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.8rem}
+.nk-ref-table th{text-align:left;padding:0.5rem 0.875rem;background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border2)}
+.nk-ref-table td{padding:0.625rem 0.875rem;border-bottom:1px solid var(--border);color:var(--text2);line-height:1.5;vertical-align:top}
+.nk-ref-table tr:last-child td{border-bottom:none}
+.nk-ref-table td:first-child{font-family:var(--mono);color:var(--accent);white-space:nowrap}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}.nk-content{padding:0 1rem 3rem}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content" style="max-width:760px">
+
+  <div class="nk-section">
+    <h2>Everyday conversion reference</h2>
+    <div class="nk-tip"><strong>Click any conversion result card</strong> in the tool above to instantly set it as your target unit — no need to find it in the dropdown.</div>
+    <div class="nk-tip"><strong>Temperature conversions</strong> are the trickiest because they involve addition, not just multiplication. The tool handles this automatically, but the formula for Celsius to Fahrenheit is: multiply by 9/5 then add 32. Fahrenheit to Celsius: subtract 32 then multiply by 5/9.</div>
+    <div class="nk-tip"><strong>Data units</strong> in this tool use the standard SI decimal definitions (1 KB = 1,000 bytes). Some operating systems (Windows) use binary definitions (1 KB = 1,024 bytes). If your file sizes don't match exactly, this is why.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Most-searched unit conversions</h2>
+    <p>A quick reference for the conversions people look up most frequently. Bookmark this page and skip the search next time.</p>
+    <table class="nk-ref-table">
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>1 km</td><td>Miles</td><td>0.621371</td></tr>
+        <tr><td>1 mile</td><td>Kilometers</td><td>1.60934</td></tr>
+        <tr><td>1 kg</td><td>Pounds (lbs)</td><td>2.20462</td></tr>
+        <tr><td>1 lb</td><td>Kilograms</td><td>0.453592</td></tr>
+        <tr><td>1 metre</td><td>Feet</td><td>3.28084</td></tr>
+        <tr><td>1 foot</td><td>Metres</td><td>0.3048</td></tr>
+        <tr><td>1 inch</td><td>Centimetres</td><td>2.54</td></tr>
+        <tr><td>1 litre</td><td>US gallons</td><td>0.264172</td></tr>
+        <tr><td>1 US gallon</td><td>Litres</td><td>3.78541</td></tr>
+        <tr><td>1 hectare</td><td>Acres</td><td>2.47105</td></tr>
+        <tr><td>1 acre</td><td>Hectares</td><td>0.404686</td></tr>
+        <tr><td>1 m/s</td><td>km/h</td><td>3.6</td></tr>
+        <tr><td>1 mph</td><td>km/h</td><td>1.60934</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nk-section">
+    <h2>Temperature conversion formulas</h2>
+    <table class="nk-ref-table">
+      <thead><tr><th>From → To</th><th>Formula</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>°C → °F</td><td>(°C × 9/5) + 32</td><td>100°C = 212°F</td></tr>
+        <tr><td>°F → °C</td><td>(°F − 32) × 5/9</td><td>98.6°F = 37°C</td></tr>
+        <tr><td>°C → K</td><td>°C + 273.15</td><td>0°C = 273.15 K</td></tr>
+        <tr><td>K → °C</td><td>K − 273.15</td><td>373.15 K = 100°C</td></tr>
+        <tr><td>°F → K</td><td>(°F − 32) × 5/9 + 273.15</td><td>32°F = 273.15 K</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nk-section">
+    <h2>Metric vs imperial — a practical guide</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🌍</div>
+        <div>
+          <div class="nk-use-title">Who uses metric</div>
+          <div class="nk-use-desc">Almost every country in the world including Kenya, all of Europe, China, India, Australia, and Canada. The international standard for science, medicine, and most engineering.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🇺🇸</div>
+        <div>
+          <div class="nk-use-title">Who uses imperial</div>
+          <div class="nk-use-desc">Primarily the United States. Myanmar and Liberia officially use imperial but in practice mix both. The UK uses a mix: metric for most things, miles for road distances, pints for beer.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔬</div>
+        <div>
+          <div class="nk-use-title">Science always uses metric</div>
+          <div class="nk-use-desc">Scientific publications, medical dosages, and engineering specifications use SI (metric) units universally regardless of the country of origin. Convert to metric for any technical work.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏗️</div>
+        <div>
+          <div class="nk-use-title">Construction varies</div>
+          <div class="nk-use-desc">Building materials are sold in metric in Kenya and most countries. US lumber uses imperial (2×4 inches). If importing materials or following US construction plans, watch unit conversions closely.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why are data storage units sometimes different from what my computer shows? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">There are two competing standards. SI decimal (used by storage manufacturers and this tool): 1 KB = 1,000 bytes, 1 MB = 1,000,000 bytes. Binary (used by most operating systems): 1 KiB = 1,024 bytes, 1 MiB = 1,048,576 bytes. A hard drive advertised as 1 TB (1,000,000,000,000 bytes) shows as about 931 GB in Windows, which uses binary definitions. Mac switched to decimal in 2009 so it shows the advertised size.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is a nautical mile and why does it exist? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">A nautical mile (1,852 metres) is defined as one minute of arc of latitude along any meridian. This makes it directly useful for navigation — 1 nautical mile corresponds to 1 minute of latitude on a map. Ships and aircraft still use nautical miles for this reason. Speed at sea is measured in knots (nautical miles per hour).</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between weight and mass? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Mass is the amount of matter in an object (kilograms, grams). Weight is the gravitational force acting on that mass — it changes depending on gravity. On the Moon, your mass is the same but you weigh about 1/6th as much. In everyday use, people say "weight" when they mean mass. This tool converts mass units (kg, lbs, etc.) — technically mass, colloquially called weight.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are my conversions calculated or looked up from a table? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">All conversions (except temperature) are calculated using a base unit factor — each unit has a conversion factor to a common base (metres for length, grams for weight, etc.). The tool converts your input to the base unit then to the target unit. Temperature uses direct formulas because Celsius, Fahrenheit, and Kelvin scales have different zero points, making simple multiplication insufficient.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="color-converter.html">🎨 Color Converter</a>
+      <a class="nk-chain-chip" href="json-formatter.html">📋 JSON Formatter</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ QR Generator</a>
+      <a class="nk-chain-chip" href="word-counter.html">📝 Word Counter</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

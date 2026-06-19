@@ -133,7 +133,7 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
   </div>
 
   <div class="input-row">
-    <input class="hex-input" id="hex-input" value="#c8f04a" placeholder="#rrggbb" oninput="fromHex(this.value)" maxlength="7">
+    <div style="display:flex;gap:0.5rem;align-items:center;flex:1"><input class="hex-input" id="hex-input" style="flex:1" value="#c8f04a" placeholder="#rrggbb" oninput="fromHex(this.value)" maxlength="7"><button onclick="navigator.clipboard.writeText(document.getElementById('hex-input').value).then(()=>{this.textContent='✓ Copied';setTimeout(()=>this.textContent='Copy HEX',1500)})" style="background:var(--bg2);border:1px solid var(--border2);color:var(--text2);font-family:var(--mono);font-size:0.72rem;padding:0.5rem 0.875rem;border-radius:6px;cursor:pointer;white-space:nowrap;transition:all 0.12s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text2)'">Copy HEX</button></div>
   </div>
 
   <div class="sliders" id="sliders">
@@ -290,6 +290,177 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
   }
 
   update();
+</script>
+<style>
+.nk-content{max-width:1100px;margin:0 auto;padding:0 2rem 4rem}
+.nk-section{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.875rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg3);border-radius:10px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.78rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg3);border-radius:10px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.75rem;color:var(--text2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.faq-item{border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.125rem;text-align:left;font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.65rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.125rem 0.875rem;font-size:0.8rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--bg3);color:var(--text2);font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid var(--border2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--accent);color:var(--accent)}
+.nk-tip{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.82rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent);font-family:var(--mono)}
+.nk-ref-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.8rem}
+.nk-ref-table th{text-align:left;padding:0.5rem 0.875rem;background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border2)}
+.nk-ref-table td{padding:0.625rem 0.875rem;border-bottom:1px solid var(--border);color:var(--text2);line-height:1.5;vertical-align:top}
+.nk-ref-table tr:last-child td{border-bottom:none}
+.nk-ref-table td:first-child{font-family:var(--mono);color:var(--accent);white-space:nowrap}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}.nk-content{padding:0 1rem 3rem}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content" style="max-width:800px">
+
+  <div class="nk-section">
+    <h2>Tips for working with colors</h2>
+    <div class="nk-tip"><strong>Click any format card to copy</strong> the value directly to your clipboard — ready to paste into CSS, Figma, Tailwind config, or wherever you need it.</div>
+    <div class="nk-tip"><strong>Use HSL for programmatic color manipulation.</strong> HSL (Hue, Saturation, Lightness) is the most intuitive format for generating color variations. Keeping hue and saturation fixed while varying lightness produces a consistent shade palette — which is exactly what the palette strip below your color does.</div>
+    <div class="nk-tip"><strong>CMYK is for print.</strong> Screens use RGB light mixing. Printers use CMYK ink mixing. If you're preparing colors for a print design, check the CMYK values and verify them with your print provider — screen-to-print color matching requires calibration.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Understanding color formats</h2>
+    <p>The same color can be expressed in several formats depending on where you're using it. Here is what each format is for and when to use it.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🔵</div>
+        <div class="nk-card-title">HEX (#rrggbb)</div>
+        <div class="nk-card-desc">Six hexadecimal digits representing red, green, and blue channels (00–FF each). The universal format for web. Used in HTML, CSS, SVG, and most design tools. Three-digit shorthand (#rgb) works when each pair repeats.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🟢</div>
+        <div class="nk-card-title">RGB / RGBA</div>
+        <div class="nk-card-desc">Red, Green, Blue values from 0–255. RGBA adds an alpha channel (0–1) for transparency. Widely supported in CSS. Easier to reason about than HEX when mixing colors mentally.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🌈</div>
+        <div class="nk-card-title">HSL / HSV</div>
+        <div class="nk-card-desc">Hue (0–360°), Saturation (0–100%), Lightness or Value (0–100%). More intuitive than RGB for humans — hue describes the color, saturation its intensity, lightness how bright it is. Great for generating consistent palettes.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🖨️</div>
+        <div class="nk-card-title">CMYK</div>
+        <div class="nk-card-desc">Cyan, Magenta, Yellow, Key (black) — the four ink colors used in print. Unlike RGB (additive light), CMYK is subtractive ink mixing. Use when preparing assets for physical printing or working with a print designer.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Common web colors and their values</h2>
+    <p>A quick reference for frequently used colors in web design. Click any color name in your browser's dev tools to open a color picker that outputs any of these formats.</p>
+    <table class="nk-ref-table">
+      <thead><tr><th>Color</th><th>HEX</th><th>RGB</th><th>HSL</th></tr></thead>
+      <tbody>
+        <tr><td>Pure white</td><td>#FFFFFF</td><td>rgb(255,255,255)</td><td>hsl(0,0%,100%)</td></tr>
+        <tr><td>Pure black</td><td>#000000</td><td>rgb(0,0,0)</td><td>hsl(0,0%,0%)</td></tr>
+        <tr><td>Mid grey</td><td>#808080</td><td>rgb(128,128,128)</td><td>hsl(0,0%,50%)</td></tr>
+        <tr><td>Pure red</td><td>#FF0000</td><td>rgb(255,0,0)</td><td>hsl(0,100%,50%)</td></tr>
+        <tr><td>Pure green</td><td>#00FF00</td><td>rgb(0,255,0)</td><td>hsl(120,100%,50%)</td></tr>
+        <tr><td>Pure blue</td><td>#0000FF</td><td>rgb(0,0,255)</td><td>hsl(240,100%,50%)</td></tr>
+        <tr><td>Tailwind blue-500</td><td>#3B82F6</td><td>rgb(59,130,246)</td><td>hsl(217,91%,60%)</td></tr>
+        <tr><td>Tailwind green-500</td><td>#22C55E</td><td>rgb(34,197,94)</td><td>hsl(142,71%,45%)</td></tr>
+        <tr><td>Tailwind red-500</td><td>#EF4444</td><td>rgb(239,68,68)</td><td>hsl(0,84%,60%)</td></tr>
+        <tr><td>Tailwind slate-900</td><td>#0F172A</td><td>rgb(15,23,42)</td><td>hsl(222,47%,11%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nk-section">
+    <h2>Color accessibility — contrast ratios</h2>
+    <p>Web accessibility guidelines (WCAG) require sufficient contrast between text and background colors. The contrast ratio is calculated from the relative luminance of both colors.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">✅</div>
+        <div>
+          <div class="nk-use-title">WCAG AA — 4.5:1</div>
+          <div class="nk-use-desc">Minimum contrast ratio for normal text (under 18pt). Required for most accessibility standards. Large text (18pt+ or 14pt bold) only needs 3:1.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">⭐</div>
+        <div>
+          <div class="nk-use-title">WCAG AAA — 7:1</div>
+          <div class="nk-use-desc">Enhanced contrast for the highest accessibility level. Recommended for body text in interfaces used by people with low vision. Hard to achieve with coloured text on coloured backgrounds.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">⚫</div>
+        <div>
+          <div class="nk-use-title">Black on white: 21:1</div>
+          <div class="nk-use-desc">Maximum possible contrast ratio. Pure black (#000) on pure white (#FFF). Most readable combination. Off-blacks like #111 or #0f0f12 are nearly as readable and feel less harsh.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">⚠️</div>
+        <div>
+          <div class="nk-use-title">Common failures</div>
+          <div class="nk-use-desc">Light grey text on white backgrounds. Yellow or light green text on white. Any pastel text on a white or light background. These frequently fail WCAG AA even when they look fine on a designer's calibrated monitor.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why do my HEX and RGB values look right but the printed color looks different? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Screens use additive RGB light mixing — they emit red, green, and blue light. Printers use subtractive CMYK ink mixing — they absorb light. The color gamut (range of reproducible colors) differs between the two. Some bright RGB colors (like saturated greens and blues) cannot be reproduced in CMYK print and will shift to a duller equivalent. Always do a physical proof print before final production runs.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between HSL and HSV? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Both describe color using Hue and Saturation, but differ in the third component. HSL (Lightness) defines 100% as pure white — a fully saturated color at 50% lightness is the purest form of that hue. HSV (Value) defines 100% as the brightest form of the color — 100% value with 100% saturation gives you the pure hue, while 0% value is always black. HSL is more common in CSS; HSV is used in many color picker interfaces.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I add transparency to a color? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Use RGBA in CSS: rgba(200, 240, 74, 0.5) where the last value is alpha from 0 (fully transparent) to 1 (fully opaque). In modern CSS you can also use 8-digit HEX: #c8f04a80 where the last two digits are the alpha (00=transparent, FF=opaque). The RGBA value shown in this tool always uses alpha=1 (fully opaque) — adjust the last value in your CSS for transparency.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What does the palette strip show? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The palette strip shows two sets of swatches: lightness variations (10% to 90% lightness at your color's hue and saturation), and harmonic colors (complementary at 180°, triadic at 120° and 240°). Click any swatch to load that color into the converter. This is useful for building a consistent color system from a single brand color.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress images</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ QR Generator</a>
+      <a class="nk-chain-chip" href="json-formatter.html">📋 JSON Formatter</a>
+      <a class="nk-chain-chip" href="unit-converter.html">📐 Unit Converter</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
 </script>
 </body>
 </html>

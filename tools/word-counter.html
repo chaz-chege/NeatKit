@@ -324,5 +324,205 @@ Speak time (130wpm): ${document.getElementById('speak').textContent}`;
 
   input.addEventListener('input', analyze);
 </script>
+<style>
+.nk-content{max-width:900px;margin:0 auto;padding:0 2rem 4rem}
+.nk-section{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.875rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg3);border-radius:10px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.78rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg3);border-radius:10px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.75rem;color:var(--text2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.faq-item{border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.125rem;text-align:left;font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.65rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.125rem 0.875rem;font-size:0.8rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--bg3);color:var(--text2);font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid var(--border2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--accent);color:var(--accent)}
+.nk-tip{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.82rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent);font-family:var(--mono)}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Understanding your stats</h2>
+    <div class="nk-tip"><strong>Reading time</strong> is calculated at 200 words per minute — the average adult silent reading speed. Academic and technical content is typically slower (150 wpm); casual reading is faster (250+ wpm).</div>
+    <div class="nk-tip"><strong>Speaking time</strong> uses 130 words per minute, the average conversational pace. For presentations you want to allow more time — nervous speakers tend to rush, so aim for 120 wpm when planning.</div>
+    <div class="nk-tip"><strong>Character count with vs without spaces</strong> matters for different platforms. Twitter's 280-character limit counts spaces. SMS messages count spaces. Some databases count without. Check which one applies to your use case.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What the word counter measures</h2>
+    <p>The tool analyses your text in real time as you type or paste, giving you an instant breakdown of multiple metrics simultaneously. All counting happens in your browser — no text is sent anywhere.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">📝</div>
+        <div class="nk-card-title">Words</div>
+        <div class="nk-card-desc">Counts sequences of non-whitespace characters separated by spaces, tabs, or newlines. Hyphenated words like "well-known" count as one word. Numbers count as words.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔤</div>
+        <div class="nk-card-title">Characters</div>
+        <div class="nk-card-desc">Total characters including spaces, punctuation, and special characters. Also shown without spaces — useful for platforms that measure text density differently.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📄</div>
+        <div class="nk-card-title">Sentences & paragraphs</div>
+        <div class="nk-card-desc">Sentences split on full stops, question marks, and exclamation marks. Paragraphs are separated by blank lines. Useful for checking readability and structure.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">⏱️</div>
+        <div class="nk-card-title">Reading & speaking time</div>
+        <div class="nk-card-desc">Estimated time to read or speak the text based on average adult reading speed (200 wpm) and average speaking pace (130 wpm).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Word and character limits by platform</h2>
+    <p>A reference guide for the limits you're most likely to hit. Paste your text, check the count, and trim to fit.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🐦</div>
+        <div>
+          <div class="nk-use-title">X / Twitter</div>
+          <div class="nk-use-desc">280 characters per tweet (including spaces). URLs count as 23 characters regardless of length. Images and polls don't count toward the limit.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">💼</div>
+        <div>
+          <div class="nk-use-title">LinkedIn</div>
+          <div class="nk-use-desc">Posts: 3,000 characters. Article headlines: 220 characters. Profile summary: 2,600 characters. Job descriptions: 5,000 characters.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📸</div>
+        <div>
+          <div class="nk-use-title">Instagram</div>
+          <div class="nk-use-desc">Captions: 2,200 characters, but only the first 125 show before "more". Bio: 150 characters. Comments: 1,000 characters.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📧</div>
+        <div>
+          <div class="nk-use-title">Email subject lines</div>
+          <div class="nk-use-desc">Most email clients show 40–60 characters before cutting off. Mobile shows even less — around 30. Keep subject lines under 50 characters for full visibility.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🎓</div>
+        <div>
+          <div class="nk-use-title">Academic writing</div>
+          <div class="nk-use-desc">Essay word counts vary: 500w (short answer), 1,500–2,000w (standard essay), 4,000–6,000w (dissertation chapter), 15,000–20,000w (full dissertation).</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔍</div>
+        <div>
+          <div class="nk-use-title">SEO meta descriptions</div>
+          <div class="nk-use-desc">Google displays approximately 155–160 characters in search results. Meta titles should be 50–60 characters. Write for the limit, not under it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What makes a good word count for different content types?</h2>
+    <p>Word count affects readability, SEO performance, and audience engagement differently depending on content type. Here is a quick guide to typical targets.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📰</div>
+        <div>
+          <div class="nk-use-title">Blog posts</div>
+          <div class="nk-use-desc">300–500 words for short news updates. 800–1,200 words for standard posts. 1,500–2,500 words for in-depth guides. Long-form content (2,500+) tends to rank better in search.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📜</div>
+        <div>
+          <div class="nk-use-title">Cover letters</div>
+          <div class="nk-use-desc">250–400 words is the standard advice. One page maximum. Hiring managers spend an average of 7 seconds on an initial CV scan — keep cover letters focused and short.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🎤</div>
+        <div>
+          <div class="nk-use-title">Speeches and presentations</div>
+          <div class="nk-use-desc">At 130 wpm: 5 minutes = ~650 words, 10 minutes = ~1,300 words, 20 minutes = ~2,600 words. Always add 10–15% buffer time for pauses and audience reaction.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📱</div>
+        <div>
+          <div class="nk-use-title">WhatsApp / SMS</div>
+          <div class="nk-use-desc">SMS: 160 characters per message (GSM encoding). After 160 characters it splits into multiple messages. Keep important information in the first 160 characters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How does the tool count words? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The tool splits text on whitespace — spaces, tabs, and line breaks — and counts the resulting non-empty segments. Hyphenated words like "well-known" count as one word. Contractions like "don't" count as one word. Numbers and standalone punctuation marks that appear between spaces may count depending on how they're spaced.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does it count characters with or without spaces? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Both. The tool shows character count with spaces (total characters including spaces) and without spaces (only non-space characters). Most social media platforms count with spaces. Some academic submission systems specify one or the other — check your guidelines.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my text saved or sent anywhere? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. All analysis runs locally in your browser using JavaScript. Your text is never sent to any server and is not stored anywhere after you close the tab.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How accurate is the reading time estimate? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The estimate uses 200 words per minute, which is a widely cited average for adult silent reading of standard prose. Technical content, dense academic writing, or unfamiliar vocabulary will take longer. Casual reading of familiar content may be faster. Treat it as a useful approximation, not an exact figure.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I count words in a PDF or Word document? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Paste the text content directly into the tool for the most accurate count. For PDFs, open the file, select all text (Ctrl+A), copy, and paste here. For Word documents, the word count shown in Word's status bar is typically the most reliable source for that file type.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Done counting? Here are related tools on Neatkit.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="case-converter.html">🔤 Case Converter</a>
+      <a class="nk-chain-chip" href="ai-detector.html">🤖 AI Text Detector</a>
+      <a class="nk-chain-chip" href="json-formatter.html">📋 JSON Formatter</a>
+      <a class="nk-chain-chip" href="base64.html">🔐 Base64 Encoder</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

@@ -426,5 +426,216 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
     document.getElementById('file-input').value = '';
   }
 </script>
+
+<style>
+/* ── CONTENT SECTIONS ── */
+.nk-content { max-width: 960px; margin: 0 auto; padding: 0 2rem 4rem; }
+.nk-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-top: 2rem; }
+.nk-section h2 { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+.nk-section p { font-size: 0.875rem; color: var(--text2); line-height: 1.8; margin-bottom: 0.875rem; }
+.nk-section p:last-child { margin-bottom: 0; }
+.nk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+.nk-card { background: var(--bg3); border-radius: 10px; padding: 1.25rem; }
+.nk-card-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.nk-card-title { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+.nk-card-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.65; }
+.nk-use-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.875rem; margin-top: 1.25rem; }
+.nk-use-card { display: flex; gap: 0.75rem; background: var(--bg3); border-radius: 10px; padding: 1rem; }
+.nk-use-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.nk-use-title { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.nk-use-desc { font-size: 0.75rem; color: var(--text2); line-height: 1.6; }
+.nk-faq { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.faq-item { border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+.faq-q { width: 100%; background: transparent; border: none; padding: 0.875rem 1.125rem; text-align: left; font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background 0.15s; }
+.faq-q:hover { background: var(--bg3); }
+.faq-arrow { color: var(--text3); font-size: 0.65rem; transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { display: none; padding: 0 1.125rem 0.875rem; font-size: 0.8rem; color: var(--text2); line-height: 1.75; }
+.faq-item.open .faq-a { display: block; }
+.nk-chain { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.nk-chain-chip { display: inline-flex; align-items: center; gap: 0.375rem; background: var(--bg3); color: var(--text2); font-family: var(--mono); font-size: 0.72rem; font-weight: 600; padding: 0.4rem 0.875rem; border-radius: 100px; text-decoration: none; border: 1px solid var(--border2); transition: all 0.15s; }
+.nk-chain-chip:hover { border-color: var(--accent); color: var(--accent); }
+.nk-tip { background: var(--bg3); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 0.875rem 1.125rem; margin: 1rem 0; font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+.nk-tip strong { color: var(--accent); font-family: var(--mono); }
+@media(max-width:600px){ .nk-grid,.nk-use-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:420px){ .nk-grid,.nk-use-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="nk-content">
+
+  <!-- QUICK TIP between tool and content — gives AdSense a natural break -->
+  <div class="nk-section">
+    <h2>Quick tips for best results</h2>
+    <div class="nk-tip"><strong>80% quality</strong> is the sweet spot for most photos — invisible quality difference, roughly half the file size. Drop to 60–70% for web thumbnails where speed matters more than sharpness.</div>
+    <div class="nk-tip"><strong>Convert PNG → WebP</strong> for the biggest size reduction. WebP is 25–35% smaller than JPEG at the same quality and supported by all modern browsers.</div>
+    <div class="nk-tip"><strong>Use Max Width</strong> to simultaneously resize and compress. A phone photo at 4000px wide served on a website that displays it at 800px is wasting 80% of its data — cap it.</div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="nk-section">
+    <h2>How browser-based compression works</h2>
+    <p>Most online image compressors upload your file to a server, process it remotely, then send it back. This tool skips all of that. It uses the HTML5 Canvas API built into your browser to decode, redraw, and re-encode your image locally — the same rendering engine that powers browser-based image editors like Photopea.</p>
+    <p>When you adjust the quality slider, the browser re-encodes the image using its built-in JPEG or WebP codec at the specified compression level. Lower values tell the codec to discard more high-frequency detail (fine textures, sharp edges) that the human eye is less sensitive to — resulting in a smaller file with a visual quality that's often indistinguishable from the original.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🎚️</div>
+        <div class="nk-card-title">Quality slider</div>
+        <div class="nk-card-desc">Controls the JPEG/WebP compression level from 1–100. PNG uses lossless compression so the slider has less effect — converting to WebP gives better size reduction for PNGs.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔄</div>
+        <div class="nk-card-title">Format conversion</div>
+        <div class="nk-card-desc">Convert between JPEG, PNG, and WebP in the same step. WebP is the most efficient modern format — browsers, phones, and most social platforms support it.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">↔️</div>
+        <div class="nk-card-title">Max width cap</div>
+        <div class="nk-card-desc">Optionally cap the output width. Aspect ratio is preserved automatically. Great for reducing phone photos from 4000px+ to web-friendly sizes like 1200px.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔒</div>
+        <div class="nk-card-title">100% private</div>
+        <div class="nk-card-desc">Your images never leave your device. No server, no upload, no account required. Nothing is stored after you close the tab.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNDERSTANDING FILE FORMATS -->
+  <div class="nk-section">
+    <h2>JPEG vs PNG vs WebP — which should you use?</h2>
+    <p>Choosing the right format before compressing can make a bigger difference than the quality slider itself.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📷</div>
+        <div>
+          <div class="nk-use-title">JPEG — photos and gradients</div>
+          <div class="nk-use-desc">Best for photographs, product images, and anything with smooth colour gradients. Lossy compression. Doesn't support transparency. The universal format for sharing photos.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🖼️</div>
+        <div>
+          <div class="nk-use-title">PNG — logos and screenshots</div>
+          <div class="nk-use-desc">Best for logos, icons, screenshots, and images with sharp edges or transparency. Lossless — no quality loss. But files are much larger than JPEG for photos.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">⚡</div>
+        <div>
+          <div class="nk-use-title">WebP — web use</div>
+          <div class="nk-use-desc">Best for websites and apps. Supports both lossy and lossless compression, handles transparency, and produces files 25–35% smaller than JPEG. Use this for anything going online.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="nk-section">
+    <h2>When people use this tool</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🌐</div>
+        <div>
+          <div class="nk-use-title">Website images</div>
+          <div class="nk-use-desc">Large images are the #1 cause of slow page loads. Compress before uploading to WordPress, Wix, or Squarespace. Page speed directly affects Google search rankings and bounce rate.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📧</div>
+        <div>
+          <div class="nk-use-title">Email attachments</div>
+          <div class="nk-use-desc">Most email providers cap attachments at 10–25MB. Smartphone photos are typically 4–8MB each — compress a few and suddenly they fit. No need to use cloud storage links.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📋</div>
+        <div>
+          <div class="nk-use-title">Form and portal uploads</div>
+          <div class="nk-use-desc">Government portals, job applications, and university admissions forms cap uploads at 1–2MB. Get your ID photo, certificate scan, or passport copy under the limit instantly.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🛍️</div>
+        <div>
+          <div class="nk-use-title">E-commerce products</div>
+          <div class="nk-use-desc">Product images on Shopify or WooCommerce need to load fast. Compress to under 200KB per image for optimal page speed without visible quality loss on screens.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📱</div>
+        <div>
+          <div class="nk-use-title">Social media uploads</div>
+          <div class="nk-use-desc">Platforms re-compress your images on upload. Pre-compressing gives you control over quality and ensures you stay under file size limits without the platform degrading your image further.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">☁️</div>
+        <div>
+          <div class="nk-use-title">Cloud storage</div>
+          <div class="nk-use-desc">Compress before backing up to Google Drive, Dropbox, or iCloud. Store more photos within your free-tier storage quota without switching to a paid plan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does this tool upload my images to a server? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Everything runs in your browser. Your images are processed locally using JavaScript and the HTML5 Canvas API and never sent to any server. There is no backend — not even for analytics on the images themselves.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What quality setting should I use? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">80% is a solid default — visually indistinguishable from the original for most photos while cutting file size by roughly 50–60%. For portfolio or product photography where print quality matters, use 85–90%. For web thumbnails and background images, 60–70% works well and produces much smaller files.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why doesn't PNG compress as much as JPEG? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">PNG uses lossless compression — it preserves every pixel exactly, so there's a floor on how small it can get. The quality slider primarily affects JPEG and WebP (lossy formats). If you need maximum compression for a PNG file, convert it to WebP using the format selector — you'll typically cut file size by 60–80% with barely any visible change.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is WebP and should I use it? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">WebP is a modern image format developed by Google. It produces files 25–35% smaller than JPEG at the same visual quality, supports transparency (unlike JPEG), and is supported by all modern browsers — Chrome, Firefox, Safari 14+, and Edge. For website and app images, WebP is the best choice in almost every scenario.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I compress multiple images at once? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Currently the tool processes one image at a time to show the side-by-side comparison. Load your image, set the quality, download, then load the next one. The comparison view is intentional — it helps you dial in the right quality setting before committing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will my compressed image look worse? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">At 75–85% quality, the difference is invisible on most screens. Use the side-by-side preview to compare before downloading — zoom in on detail areas like hair, fabric texture, or small text. If you see blocky artifacts (JPEG compression artefacts), increase the quality slider by 5–10 points.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the maximum file size? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The tool accepts files up to 20MB. Very large images (above 6000×6000 pixels) may take a second or two to process on lower-end devices but will complete correctly. If your source file is larger than 20MB, try opening it in your phone's photo editor, exporting at a slightly lower resolution, then compressing here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOL CHAIN -->
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Done compressing? Here are the most common next steps people take after reducing an image's file size.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="image-resize.html">↔️ Resize the image</a>
+      <a class="nk-chain-chip" href="images-to-pdf.html">📄 Convert to PDF</a>
+      <a class="nk-chain-chip" href="photo-to-pdf.html">📷 Photo to PDF</a>
+      <a class="nk-chain-chip" href="pdf-merge.html">🔗 Merge PDFs</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ Generate QR code</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

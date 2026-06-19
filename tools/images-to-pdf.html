@@ -383,5 +383,181 @@ function resetResult(){
   document.getElementById('prog-fill').style.width='0%';
 }
 </script>
+
+<style>
+/* ── CONTENT SECTIONS ── */
+.nk-content { padding-bottom: 4rem; }
+.nk-section { background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--r-xl); padding: 2rem; margin-top: 2rem; }
+.nk-section h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.875rem; }
+.nk-section p { font-size: 0.9rem; color: var(--text2); line-height: 1.8; margin-bottom: 0.875rem; }
+.nk-section p:last-child { margin-bottom: 0; }
+.nk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+.nk-card { background: var(--bg2); border-radius: var(--r-lg); padding: 1.25rem; }
+.nk-card-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.nk-card-title { font-size:0.875rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.nk-card-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.65; }
+.nk-use-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.875rem; margin-top: 1.25rem; }
+.nk-use-card { display: flex; gap: 0.75rem; background: var(--bg2); border-radius: var(--r-lg); padding: 1rem; }
+.nk-use-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.nk-use-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.nk-use-desc { font-size: 0.775rem; color: var(--text2); line-height: 1.6; }
+.nk-faq { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.625rem; }
+.faq-item { border: 1.5px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.faq-q { width: 100%; background: transparent; border: none; padding: 0.875rem 1.25rem; text-align: left; font-family: var(--sans); font-size: 0.875rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background 0.15s; }
+.faq-q:hover { background: var(--bg2); }
+.faq-arrow { color: var(--text3); font-size: 0.7rem; transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { display: none; padding: 0 1.25rem 0.875rem; font-size: 0.875rem; color: var(--text2); line-height: 1.75; }
+.faq-item.open .faq-a { display: block; }
+.nk-chain { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.nk-chain-chip { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--accent-light); color: var(--accent); font-size: 0.78rem; font-weight: 600; padding: 0.375rem 0.875rem; border-radius: 100px; text-decoration: none; border: 1px solid rgba(123,143,212,0.2); transition: all 0.15s; }
+.nk-chain-chip:hover { background: var(--accent); color: #fff; }
+.nk-tip { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 0.875rem 1.125rem; margin: 1rem 0; font-size: 0.875rem; color: var(--text2); line-height: 1.7; }
+.nk-tip strong { color: var(--accent); }
+@media(max-width:600px){ .nk-grid,.nk-use-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:420px){ .nk-grid,.nk-use-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Tips before you convert</h2>
+    <div class="nk-tip"><strong>Compress large images first.</strong> A PDF made from 10 uncompressed phone photos can be 40–60MB. Run them through the Image Compressor before converting and the PDF will be a fraction of that size.</div>
+    <div class="nk-tip"><strong>Drag to reorder before converting.</strong> The page order in the PDF matches the grid. Rearrange thumbnails first — you can't reorder pages inside the PDF after it's created without a separate tool.</div>
+    <div class="nk-tip"><strong>Use A4 for official documents.</strong> A4 is the standard paper size in Kenya and most of the world. Letter is the US standard. When in doubt, choose A4.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How images to PDF conversion works</h2>
+    <p>This tool converts your images to a PDF entirely in your browser using PDF-lib, an open-source JavaScript library for creating and modifying PDF files. Your images are read locally using the FileReader API and embedded into the PDF document without ever leaving your device.</p>
+    <p>Each image becomes one page in the PDF. The tool handles sizing — fitting or filling the page — by calculating the scale factor needed to make the image fill the target page dimensions while maintaining aspect ratio. The resulting PDF is generated as a binary file in memory and then triggered as a browser download.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">📄</div>
+        <div class="nk-card-title">Paper sizes</div>
+        <div class="nk-card-desc">A4 (595×842pt, standard internationally), Letter (612×792pt, US standard), or Auto which sizes each page to fit the image exactly with no borders or padding.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🖼️</div>
+        <div class="nk-card-title">Image fit modes</div>
+        <div class="nk-card-desc">Fit page scales the image to fill the page while preserving aspect ratio with white borders. Fill page stretches to cover the full page. Actual size places the image at its native pixel dimensions.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">↕️</div>
+        <div class="nk-card-title">Drag to reorder</div>
+        <div class="nk-card-desc">Drag thumbnails in the grid to reorder pages before converting. The final PDF reflects the grid order exactly. Remove individual images using the × on each thumbnail.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔒</div>
+        <div class="nk-card-title">100% private</div>
+        <div class="nk-card-desc">No uploads. No server. PDF-lib runs entirely in the browser. Your images and the generated PDF never leave your device.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>When to convert images to PDF</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏛️</div>
+        <div>
+          <div class="nk-use-title">Official document submissions</div>
+          <div class="nk-use-desc">Government portals, banks, HELB, universities — most require documents as a single PDF. Convert your phone photos of certificates, IDs, or transcripts into a compliant submission.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📑</div>
+        <div>
+          <div class="nk-use-title">Scanned document pages</div>
+          <div class="nk-use-desc">Scanned pages saved as separate JPEGs from a phone or scanner can be combined into one multi-page PDF — contracts, agreements, medical records, receipts.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📧</div>
+        <div>
+          <div class="nk-use-title">Email attachments</div>
+          <div class="nk-use-desc">A single PDF is easier to attach and open than five separate image files. Combine photos of a multi-page document before emailing to a client or employer.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🧾</div>
+        <div>
+          <div class="nk-use-title">Expense and receipt records</div>
+          <div class="nk-use-desc">Photograph receipts throughout the month and compile into a monthly expense PDF for accounting, reimbursement claims, or tax records.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📒</div>
+        <div>
+          <div class="nk-use-title">Handwritten notes</div>
+          <div class="nk-use-desc">Photograph handwritten lecture notes, meeting notes, or whiteboards and convert to a PDF for sharing with colleagues or storing alongside digital files.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📸</div>
+        <div>
+          <div class="nk-use-title">Photo portfolios</div>
+          <div class="nk-use-desc">Compile a selection of photos into a PDF portfolio for sharing or printing. Use Auto page size to let each image fill its own page without borders.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are my images uploaded to a server? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. The entire conversion runs in your browser using PDF-lib and the FileReader API. Your images are never sent anywhere. The PDF is generated and downloaded locally on your device with no server involved at any point.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many images can I convert at once? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">There is no hard limit built into the tool. In practice, converting 20–30 images of average phone-camera size works smoothly on most devices. Very large numbers of high-resolution images may slow down on lower-end hardware — if that happens, split the batch into two PDFs and merge them with the PDF Merge tool.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What image formats are supported? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">JPEG, PNG, and WebP are supported. PDF-lib embeds JPEG images natively (most efficient) and handles PNG automatically. If you have images in other formats like HEIC (iPhone), convert them to JPEG or PNG first using your phone's Files app or a converter tool.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I control the page order? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. Drag the image thumbnails to reorder them before clicking Convert. The pages in the final PDF will match the grid order exactly. You can also remove individual images using the × button on each thumbnail before converting.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between A4 and Letter? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">A4 (210×297mm) is the standard paper size used in Kenya, most of Africa, Europe, and Asia. Letter (216×279mm) is the US standard. For submissions to Kenyan institutions, government offices, or most international organisations, A4 is the correct choice.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why is my PDF file very large? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">PDF size is driven by the image quality and number of pages. If your PDF is too large for an upload portal, compress your images first using the Image Compressor — setting quality to 70–80% typically cuts file size by 50% or more with barely any visible quality change. Then convert the compressed images to PDF.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I merge this PDF with other PDFs after? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. After downloading your PDF, use the PDF Merge tool on Neatkit to combine it with other PDF files into one document. The merge tool also runs entirely in your browser with no uploads.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Got your PDF? Here are the most common follow-up steps.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="pdf-merge.html">🔗 Merge with other PDFs</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress images first</a>
+      <a class="nk-chain-chip" href="image-resize.html">↔️ Resize images first</a>
+      <a class="nk-chain-chip" href="photo-to-pdf.html">📷 Photo to PDF tool</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

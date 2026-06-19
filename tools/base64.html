@@ -39,7 +39,7 @@ body{background:var(--mist);color:var(--tx1);font-family:var(--body);line-height
 .page{max-width:980px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
 h1{font-family:var(--display);font-size:2rem;letter-spacing:-0.025em;margin-bottom:0.375rem}
 .subtitle{color:var(--tx2);font-size:0.9rem;font-weight:300;margin-bottom:2rem}
-.ad-slot{background:var(--white);border:1px dashed var(--rule2);border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center;font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+
 .mode-switch{display:flex;background:var(--white);border:1px solid var(--rule2);border-radius:12px;padding:4px;gap:3px;width:fit-content;margin-bottom:1.5rem}
 .mode-btn{padding:0.55rem 1.5rem;border-radius:9px;border:none;font-family:var(--body);font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.18s var(--ease);color:var(--tx3);background:transparent}
 .mode-btn.active{background:var(--ink);color:var(--white);box-shadow:0 2px 8px rgba(0,0,0,0.15)}
@@ -83,7 +83,7 @@ textarea.file-output{width:100%;min-height:100px;background:var(--mist);border:1
 .info-card-title{font-size:0.82rem;font-weight:600;color:var(--tx1);margin-bottom:0.375rem}
 .info-card-body{font-size:0.78rem;color:var(--tx2);line-height:1.65;font-weight:300}
 .info-card-body code{font-family:var(--code);font-size:0.72rem;background:var(--mist);padding:0.1rem 0.35rem;border-radius:4px}
-#sticky-ad{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-top:1px solid var(--rule2);padding:0.5rem 1.5rem;display:none;align-items:center;justify-content:center}
+
 @media(max-width:640px){
   .nk-nav{padding:0 1rem}.page{padding:1.5rem 1rem 4rem}h1{font-size:1.625rem}
   .options-bar{gap:0.875rem}.info-grid{grid-template-columns:1fr}
@@ -104,8 +104,6 @@ textarea.file-output{width:100%;min-height:100px;background:var(--mist);border:1
 <div class="page">
   <h1>Base64 Encoder & Decoder</h1>
   <p class="subtitle">Encode text or files to Base64, or decode Base64 back to text. URL-safe mode, live encoding, file upload. Nothing leaves your browser.</p>
-
-  <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
 
   <div class="mode-switch">
     <button class="mode-btn active" id="btn-encode" onclick="setMode('encode')">⬆ Encode</button>
@@ -191,8 +189,6 @@ textarea.file-output{width:100%;min-height:100px;background:var(--mist);border:1
     </div>
   </div>
 
-  <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
-
   <div class="info-grid">
     <div class="info-card">
       <div class="info-card-title">What is Base64?</div>
@@ -211,11 +207,6 @@ textarea.file-output{width:100%;min-height:100px;background:var(--mist);border:1
       <div class="info-card-body">RFC 2045 requires Base64 in emails to be split into 76-character lines separated by CRLF. Enable "76-char lines" when preparing Base64 for email attachments or MIME content.</div>
     </div>
   </div>
-</div>
-
-<div id="sticky-ad" role="complementary" aria-label="Advertisement">
-  <button onclick="document.getElementById('sticky-ad').style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--tx3);cursor:pointer;font-size:0.875rem">✕</button>
-  <div style="font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;min-height:50px;display:flex;align-items:center;justify-content:center;width:100%">Advertisement</div>
 </div>
 
 <script>
@@ -362,8 +353,175 @@ function toast(msg){
   t.textContent=msg;document.body.appendChild(t);
   setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2200);
 }
+</script>
+<style>
+.nk-content{padding-bottom:4rem}
+.nk-section{background:#ffffff;border:1.5px solid rgba(180,180,210,0.45);border-radius:12px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:var(--tx1);margin-bottom:0.875rem}
+.nk-section p{font-size:0.9rem;color:var(--tx2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:#f4f4f8;border-radius:10px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--tx1);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--tx2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:#f4f4f8;border-radius:10px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--tx1);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--tx2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid rgba(180,180,210,0.45);border-radius:10px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--body);font-size:0.875rem;font-weight:700;color:var(--tx1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:#f4f4f8}
+.faq-arrow{color:var(--tx3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--tx2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:rgba(123,143,212,0.08);color:#7b8fd4;font-size:0.78rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid rgba(123,143,212,0.2);transition:all 0.15s}
+.nk-chain-chip:hover{background:#7b8fd4;color:#fff}
+.nk-tip{background:rgba(123,143,212,0.08);border-left:3px solid #7b8fd4;border-radius:0 8px 8px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--tx2);line-height:1.7}
+.nk-tip strong{color:#7b8fd4}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content" style="max-width:1100px;margin:0 auto;padding:0 2rem 4rem">
 
-setTimeout(()=>{document.getElementById('sticky-ad').style.display='flex';},5000);
+  <div class="nk-section">
+    <h2>What Base64 is and when to use it</h2>
+    <div class="nk-tip"><strong>Base64 is not encryption.</strong> It is an encoding scheme — it makes binary data safe to transmit as text, but anyone can decode it instantly. Never use Base64 to secure sensitive data. Use it to transport data, not to protect it.</div>
+    <div class="nk-tip"><strong>Encoded output is always ~33% larger</strong> than the input. Three bytes of input become four Base64 characters. A 100KB image encoded to Base64 becomes ~133KB. Factor this into decisions about inline embedding vs external file references.</div>
+    <div class="nk-tip"><strong>URL-safe Base64</strong> replaces <code>+</code> with <code>-</code> and <code>/</code> with <code>_</code>. Use this variant when embedding Base64 in URLs or query parameters to avoid encoding conflicts.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How Base64 encoding works</h2>
+    <p>Base64 converts binary data into a string of 64 printable ASCII characters: A–Z, a–z, 0–9, and the symbols + and /. The name comes from this character set of 64 characters.</p>
+    <p>The encoding process takes three bytes (24 bits) of input at a time and splits them into four groups of 6 bits each. Each 6-bit group maps to one of the 64 characters in the Base64 alphabet. If the input isn't divisible by 3, padding characters (=) are added to complete the final group. This process makes binary data safe to include in text-based systems that only handle ASCII.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🔄</div>
+        <div class="nk-card-title">Encode text</div>
+        <div class="nk-card-desc">Convert plain text or binary data into a Base64 string. Useful for embedding data in JSON, HTML, CSS, or any text format that doesn't safely handle raw binary.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔓</div>
+        <div class="nk-card-title">Decode Base64</div>
+        <div class="nk-card-desc">Convert a Base64 string back to its original text or binary content. Useful for reading encoded API responses, inspecting JWT payloads, or decoding embedded assets.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🖼️</div>
+        <div class="nk-card-title">Image encoding</div>
+        <div class="nk-card-desc">Encode image files to Base64 for embedding directly in HTML or CSS as data URIs — eliminating a separate HTTP request for small icons or inline images.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">⚡</div>
+        <div class="nk-card-title">Live mode</div>
+        <div class="nk-card-desc">Toggle live mode to encode or decode as you type, without pressing a button. Useful when you're iterating quickly or testing how different inputs encode.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Where Base64 is used in practice</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔑</div>
+        <div>
+          <div class="nk-use-title">JWT tokens</div>
+          <div class="nk-use-desc">JSON Web Tokens use Base64url encoding for the header and payload sections. You can decode the middle section of any JWT to read its claims — paste it here and decode to inspect what's inside.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🌐</div>
+        <div>
+          <div class="nk-use-title">Data URIs in HTML/CSS</div>
+          <div class="nk-use-desc">Embed images directly in HTML or CSS without a separate file request: <code>src="data:image/png;base64,..."</code>. Useful for small icons, loading spinners, and inline SVGs in emails.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📧</div>
+        <div>
+          <div class="nk-use-title">Email attachments</div>
+          <div class="nk-use-desc">The MIME standard uses Base64 to encode email attachments and HTML email content so binary files can be safely transmitted through text-based email protocols (SMTP).</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔌</div>
+        <div>
+          <div class="nk-use-title">API authentication</div>
+          <div class="nk-use-desc">HTTP Basic Authentication sends credentials as Base64: <code>Authorization: Basic base64(username:password)</code>. Decode any Basic Auth header to see the credentials inside.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">☁️</div>
+        <div>
+          <div class="nk-use-title">Cloud and DevOps configs</div>
+          <div class="nk-use-desc">Kubernetes secrets, GitHub Actions secrets, and many cloud configs store sensitive values as Base64-encoded strings. This tool helps you encode config values or decode them for inspection.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📦</div>
+        <div>
+          <div class="nk-use-title">Binary data in JSON</div>
+          <div class="nk-use-desc">JSON only supports text. When an API needs to include binary data (images, files, certificates) in a JSON response, it Base64-encodes it. Decode to get the original binary content.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is Base64 the same as encryption? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Base64 is an encoding scheme, not encryption. Encoding transforms data into a different representation — it's fully reversible without any key and is not designed to protect data from being read. Anyone with the Base64 string can decode it instantly. If you need to protect data, use actual encryption (AES, RSA, etc.) not encoding.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why is Base64 output always longer than the input? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Base64 maps every 3 bytes of input to 4 characters of output — a 4/3 ratio, meaning output is always approximately 33% larger than the input. This size overhead is the trade-off for making binary data safe to transmit as ASCII text. For large files, this matters — a 1MB image becomes ~1.33MB Base64.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What are the = padding characters at the end? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Base64 processes data in groups of 3 bytes. If the input length isn't divisible by 3, the last group is shorter. Padding = characters are added to complete the 4-character output block. One = means the last group had 2 bytes; two == means it had 1 byte. Padding is required by the standard but some implementations omit it.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is URL-safe Base64? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Standard Base64 uses + and / characters, which have special meanings in URLs. URL-safe Base64 replaces + with - and / with _ so the encoded string can be safely included in a URL or query parameter without percent-encoding. JWT tokens use URL-safe Base64 for this reason.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I encode images with this tool? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes — use the file upload option to encode image files to Base64. The output can be used directly in HTML as a data URI: wrap it in <code>data:image/png;base64,</code> (or the appropriate MIME type) for use in an img src attribute or CSS background-image.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my data sent to a server when I encode or decode? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. All encoding and decoding runs locally in your browser using JavaScript's built-in btoa() and atob() functions. Your data never leaves your device. This is important if you're decoding tokens, credentials, or other sensitive data.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Done encoding? Here are related tools on Neatkit.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="json-formatter.html">📋 JSON Formatter</a>
+      <a class="nk-chain-chip" href="case-converter.html">🔤 Case Converter</a>
+      <a class="nk-chain-chip" href="word-counter.html">📝 Word Counter</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ QR Generator</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
 </script>
 </body>
 </html>

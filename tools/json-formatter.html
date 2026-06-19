@@ -244,5 +244,176 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
     document.getElementById('tree-view').innerHTML = renderValue(data);
   }
 </script>
+<style>
+.nk-content{max-width:1100px;margin:0 auto;padding:0 2rem 4rem}
+.nk-section{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.875rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg3);border-radius:10px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.78rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg3);border-radius:10px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.75rem;color:var(--text2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.faq-item{border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.125rem;text-align:left;font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.65rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.125rem 0.875rem;font-size:0.8rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--bg3);color:var(--text2);font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid var(--border2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--accent);color:var(--accent)}
+.nk-tip{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.82rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent);font-family:var(--mono)}
+.nk-ref-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.8rem}
+.nk-ref-table th{text-align:left;padding:0.5rem 0.875rem;background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border2)}
+.nk-ref-table td{padding:0.625rem 0.875rem;border-bottom:1px solid var(--border);color:var(--text2);line-height:1.5;vertical-align:top}
+.nk-ref-table tr:last-child td{border-bottom:none}
+.nk-ref-table td:first-child{font-family:var(--mono);color:var(--accent);white-space:nowrap}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}.nk-content{padding:0 1rem 3rem}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Tips for working with JSON</h2>
+    <div class="nk-tip"><strong>Tree view</strong> is the fastest way to explore a deeply nested JSON object. Click ▶ to collapse nodes and focus on the parts you care about. Use it when the formatted text output is too long to navigate easily.</div>
+    <div class="nk-tip"><strong>Minify before sending.</strong> Pretty-printed JSON can be 30–50% larger than minified due to whitespace. Minify before including JSON in API requests, config files, or anywhere size matters. Format it again here when you need to read it back.</div>
+    <div class="nk-tip"><strong>The error message tells you exactly where the problem is.</strong> JSON parse errors include a position indicator — count characters from the start, or look for the common mistakes: trailing commas (not allowed in JSON), single quotes instead of double quotes, or unquoted keys.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How the JSON formatter works</h2>
+    <p>This tool parses your JSON using JavaScript's built-in <code>JSON.parse()</code> — the same parser your browser uses for API responses. If the JSON is valid, it re-serialises it using <code>JSON.stringify()</code> with your chosen indent level, producing consistently formatted output.</p>
+    <p>The tree view builds a collapsible HTML representation of the parsed object, colour-coding each value type: keys in purple, strings in green, numbers in orange, booleans in blue, and null in red. This makes it easier to spot structure and data types at a glance without reading raw text.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">✨</div>
+        <div class="nk-card-title">Format / pretty-print</div>
+        <div class="nk-card-desc">Adds consistent indentation and line breaks to make JSON readable. Choose 2 spaces (most common), 4 spaces, or tabs depending on your project's style guide.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📦</div>
+        <div class="nk-card-title">Minify</div>
+        <div class="nk-card-desc">Removes all whitespace to produce the smallest possible JSON string. Use before sending API requests or embedding JSON in code where readability isn't needed.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">✅</div>
+        <div class="nk-card-title">Validate</div>
+        <div class="nk-card-desc">Any JSON that formats without an error message is valid. The error display shows the exact parse error from the JavaScript engine, making it easy to find syntax mistakes.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🌲</div>
+        <div class="nk-card-title">Tree view</div>
+        <div class="nk-card-desc">Renders JSON as a collapsible tree. Click ▼ to collapse any node into a single line. Useful for exploring large API responses without scrolling through hundreds of lines of text.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Common JSON syntax errors and how to fix them</h2>
+    <p>Most JSON errors come from a small set of mistakes. Here are the most common ones and what to look for.</p>
+    <table class="nk-ref-table">
+      <thead><tr><th>Error</th><th>What it means</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Unexpected token ,</td><td>Trailing comma after the last item in an array or object</td><td>Remove the final comma before ] or }</td></tr>
+        <tr><td>Unexpected token '</td><td>Single quotes used instead of double quotes</td><td>Replace all ' with " for both keys and string values</td></tr>
+        <tr><td>Unexpected token &lt;key&gt;</td><td>Object key is not quoted</td><td>Wrap all keys in double quotes: key → "key"</td></tr>
+        <tr><td>Unexpected end of JSON</td><td>Missing closing bracket or brace</td><td>Check that every { has a matching } and every [ has a matching ]</td></tr>
+        <tr><td>Unexpected token u</td><td>undefined value in the JSON</td><td>JSON doesn't support undefined — replace with null</td></tr>
+        <tr><td>Unexpected token /</td><td>Comment in the JSON</td><td>JSON doesn't support comments — remove all // and /* */ lines</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nk-section">
+    <h2>JSON vs related formats</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📋</div>
+        <div>
+          <div class="nk-use-title">JSON vs YAML</div>
+          <div class="nk-use-desc">YAML is more human-readable (no quotes, indentation-based), supports comments, and is common in config files (Docker, Kubernetes, GitHub Actions). JSON is better for APIs and data exchange — every language has a JSON parser built in.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📄</div>
+        <div>
+          <div class="nk-use-title">JSON vs XML</div>
+          <div class="nk-use-desc">XML uses opening and closing tags and is significantly more verbose. JSON is lighter and easier to parse. Most modern APIs have moved from XML to JSON. XML is still common in enterprise systems, SOAP APIs, and document formats like .docx.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">⚡</div>
+        <div>
+          <div class="nk-use-title">JSON vs JSON5</div>
+          <div class="nk-use-desc">JSON5 is a superset of JSON that allows trailing commas, single quotes, comments, and unquoted keys — making it friendlier for humans to write by hand. Not all parsers support it; standard JSON is safer for data exchange.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔐</div>
+        <div>
+          <div class="nk-use-title">JSON in JWTs</div>
+          <div class="nk-use-desc">JSON Web Tokens contain Base64-encoded JSON in their header and payload sections. Paste the middle section of any JWT into the Base64 decoder on Neatkit to read the raw JSON claims inside.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my JSON data sent to a server? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. The tool uses JavaScript's built-in JSON.parse() and JSON.stringify() functions, which run entirely in your browser. Your JSON data never leaves your device. This matters if you're working with API keys, user data, or other sensitive payloads in your JSON.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between 2-space and 4-space indentation? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">It's purely a style preference. 2 spaces is the most common convention in JavaScript and Node.js projects. 4 spaces is common in Python and some other ecosystems. Tabs are preferred by some teams because they allow each developer to set their own visual indentation width in their editor. Pick whichever matches your project's style guide.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why doesn't JSON support comments? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">JSON was designed as a data interchange format, not a config file format. Comments were intentionally excluded because they complicate parsing and serve no purpose in data exchange — the receiver shouldn't need explanations embedded in the data. If you need comments in a config file, use YAML or JSON5 instead.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can JSON keys be duplicated? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The JSON specification technically allows duplicate keys but calls it undefined behaviour. In practice, most parsers keep only the last value for a duplicated key, silently discarding the earlier ones. This tool will format JSON with duplicate keys without error, but you should treat it as a bug in the source data.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the maximum size JSON this tool can handle? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">There is no hard limit — it depends on your browser's JavaScript memory. In practice, JSON files up to several megabytes parse and format instantly. Very large files (10MB+) may be slow to render in tree view since it builds HTML for every node. For very large JSON, the text view with minify is faster.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="base64.html">🔐 Base64 Encoder/Decoder</a>
+      <a class="nk-chain-chip" href="case-converter.html">🔤 Case Converter</a>
+      <a class="nk-chain-chip" href="word-counter.html">📝 Word Counter</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ QR Generator</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

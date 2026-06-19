@@ -379,5 +379,178 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
   // Hide quality row initially for PNG
   document.getElementById('quality-row').style.display='flex';
 </script>
+
+<style>
+/* ── CONTENT SECTIONS ── */
+.nk-content { padding-bottom: 4rem; }
+.nk-section { background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--r-xl); padding: 2rem; margin-top: 2rem; }
+.nk-section h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.875rem; }
+.nk-section p { font-size: 0.9rem; color: var(--text2); line-height: 1.8; margin-bottom: 0.875rem; }
+.nk-section p:last-child { margin-bottom: 0; }
+.nk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+.nk-card { background: var(--bg2); border-radius: var(--r-lg); padding: 1.25rem; }
+.nk-card-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.nk-card-title { font-size:0.875rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.nk-card-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.65; }
+.nk-use-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.875rem; margin-top: 1.25rem; }
+.nk-use-card { display: flex; gap: 0.75rem; background: var(--bg2); border-radius: var(--r-lg); padding: 1rem; }
+.nk-use-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.nk-use-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.nk-use-desc { font-size: 0.775rem; color: var(--text2); line-height: 1.6; }
+.nk-faq { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.625rem; }
+.faq-item { border: 1.5px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.faq-q { width: 100%; background: transparent; border: none; padding: 0.875rem 1.25rem; text-align: left; font-family: var(--sans); font-size: 0.875rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background 0.15s; }
+.faq-q:hover { background: var(--bg2); }
+.faq-arrow { color: var(--text3); font-size: 0.7rem; transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { display: none; padding: 0 1.25rem 0.875rem; font-size: 0.875rem; color: var(--text2); line-height: 1.75; }
+.faq-item.open .faq-a { display: block; }
+.nk-chain { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.nk-chain-chip { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--accent-light); color: var(--accent); font-size: 0.78rem; font-weight: 600; padding: 0.375rem 0.875rem; border-radius: 100px; text-decoration: none; border: 1px solid rgba(123,143,212,0.2); transition: all 0.15s; }
+.nk-chain-chip:hover { background: var(--accent); color: #fff; }
+.nk-tip { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 0.875rem 1.125rem; margin: 1rem 0; font-size: 0.875rem; color: var(--text2); line-height: 1.7; }
+.nk-tip strong { color: var(--accent); }
+@media(max-width:600px){ .nk-grid,.nk-use-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:420px){ .nk-grid,.nk-use-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Tips for getting the right size</h2>
+    <div class="nk-tip"><strong>Keep aspect ratio locked</strong> unless you have a specific reason to distort. Unlocking and setting different proportions stretches the image — useful for forcing a cover photo into a banner slot, not for portraits.</div>
+    <div class="nk-tip"><strong>Use presets when possible.</strong> Platform specs change — 1080×1080 is correct for Instagram feed today, but Stories and Reels have different requirements. Use the presets as a starting point and verify with the platform's current guide.</div>
+    <div class="nk-tip"><strong>Downscale, don't upscale.</strong> Making an image larger than its original dimensions creates pixels the tool has to invent — results are always blurrier than the original. Always start from the highest-resolution version you have.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How the image resizer works</h2>
+    <p>This tool resizes images entirely in your browser using the HTML5 Canvas API. You set the target dimensions — by typing exact pixel values, picking a common preset, or dragging the percentage slider — and the tool redraws your image onto a canvas at the new size, then exports it as a downloadable file.</p>
+    <p>The aspect ratio lock works by calculating the ratio of your original width to height. When you change one dimension, the other updates automatically using that ratio. Unlocking it lets you set both dimensions freely — useful for cropping to a specific format like square or widescreen without caring about the original proportions.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">📐</div>
+        <div class="nk-card-title">Exact pixel dimensions</div>
+        <div class="nk-card-desc">Type the exact width and height you need. Aspect ratio lock adjusts the other dimension automatically. Unlock to force specific dimensions regardless of proportions.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">⚡</div>
+        <div class="nk-card-title">Quick presets</div>
+        <div class="nk-card-desc">One-click presets for 1920×1080 (FHD), 1080×1080 (Instagram), 1080×1920 (Stories), 512×512 (AI tools), 400×400 (avatars), and more common sizes.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📊</div>
+        <div class="nk-card-title">Percentage scaling</div>
+        <div class="nk-card-desc">Drag the scale slider from 1% to 200%. Useful when you need the image at roughly half or double the size without knowing the exact pixel count.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🎨</div>
+        <div class="nk-card-title">Format + quality</div>
+        <div class="nk-card-desc">Output as JPEG, PNG, or WebP while resizing. For JPEG and WebP you can also set compression quality. Resize and convert format in one step.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Common image sizes for every platform</h2>
+    <p>A reference guide for the most frequently needed image dimensions. Use the presets or type these into the custom dimensions fields.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📸</div>
+        <div>
+          <div class="nk-use-title">Instagram</div>
+          <div class="nk-use-desc">Feed square: 1080×1080. Feed portrait: 1080×1350. Feed landscape: 1080×566. Stories and Reels: 1080×1920.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🐦</div>
+        <div>
+          <div class="nk-use-title">X / Twitter</div>
+          <div class="nk-use-desc">In-feed image: 1200×675. Profile photo: 400×400. Header banner: 1500×500. Card image: 800×418.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">💼</div>
+        <div>
+          <div class="nk-use-title">LinkedIn</div>
+          <div class="nk-use-desc">Profile photo: 400×400. Cover photo: 1584×396. Post image: 1200×627. Company logo: 300×300.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🤖</div>
+        <div>
+          <div class="nk-use-title">AI image tools</div>
+          <div class="nk-use-desc">Stable Diffusion and most AI generators work best with 512×512 or 1024×1024 inputs. Use the AI preset for instant sizing.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🖨️</div>
+        <div>
+          <div class="nk-use-title">Print sizes</div>
+          <div class="nk-use-desc">A4 at 300dpi: 2480×3508px. A5 at 300dpi: 1748×2480px. Passport photo: 600×800px (standard). Always print from the highest res available.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🌐</div>
+        <div>
+          <div class="nk-use-title">Web images</div>
+          <div class="nk-use-desc">Hero images: 1920×1080 max. Blog content: 1200px wide. Thumbnails: 400–600px wide. Serving images at display size improves page speed scores.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will resizing make my image look worse? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Downscaling (making smaller) looks good — you're just using fewer pixels, and the browser averages them intelligently. Upscaling (making larger than the original) always reduces sharpness because the tool has to invent pixels that don't exist. Start from the largest version of your image and scale down.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why does unlocking aspect ratio distort my image? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">When you unlock and set a different width-to-height ratio than the original, the image is stretched to fill the new dimensions. This is intentional — sometimes you need to force an image into a specific slot like a banner or avatar that has fixed proportions different from your photo. If you see distortion you didn't want, re-lock the aspect ratio and adjust from there.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a maximum file size? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The tool accepts images up to 30MB. Very large images above 8000×8000 pixels may take a moment to process on lower-end devices but will complete correctly. Most phone and camera photos process instantly.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does this tool work on animated GIFs? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The tool accepts GIF files but only processes the first frame — animated GIFs lose their animation and are saved as a static image. For resizing animated GIFs you need a dedicated tool that handles frame-by-frame processing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are my images uploaded anywhere? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. The entire resize operation runs locally in your browser using JavaScript and the HTML5 Canvas API. Your images never leave your device and there is no server involved at any point.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What's the difference between resizing and cropping? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Resizing changes the dimensions of the entire image, either stretching or scaling all content. Cropping removes parts of the image to achieve a different ratio or focus — the content you keep stays at its original resolution. This tool resizes. If you need to crop, use a tool that supports canvas-based cropping.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Done resizing? Here are common follow-up steps.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress the image</a>
+      <a class="nk-chain-chip" href="images-to-pdf.html">📄 Convert to PDF</a>
+      <a class="nk-chain-chip" href="photo-to-pdf.html">📷 Photo to PDF</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ Generate QR code</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

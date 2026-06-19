@@ -438,5 +438,205 @@ function resetAll() {
   });
 });
 </script>
+<style>
+.nk-content{padding-bottom:4rem}
+.nk-section{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;margin-top:2rem}
+.nk-section h2{font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:var(--text);margin-bottom:0.875rem}
+.nk-section p{font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg2);border-radius:var(--r-lg);padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg2);border-radius:var(--r-lg);padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--text2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--sans);font-size:0.875rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg2)}
+.faq-arrow{color:var(--text3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--accent-light);color:var(--accent);font-size:0.78rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid rgba(123,143,212,0.2);transition:all 0.15s}
+.nk-chain-chip:hover{background:var(--accent);color:#fff}
+.nk-tip{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent)}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Tips for the best ID card PDF</h2>
+    <div class="nk-tip"><strong>Good lighting is everything.</strong> Take the photo near a window with natural light. Avoid flash — it creates glare on laminated cards and makes text hard to read.</div>
+    <div class="nk-tip"><strong>Fill the frame.</strong> Get as close as possible so the card fills most of the camera view. The tool will handle alignment and cropping, but starting with a clean, close shot gives the best result.</div>
+    <div class="nk-tip"><strong>Front and back on one PDF.</strong> Add both sides as separate images — they'll become separate pages in the PDF. This is the standard format required by most institutions when submitting ID copies.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How the ID card to PDF tool works</h2>
+    <p>This tool converts photos of ID cards, driving licences, student cards, and similar documents into a clean, properly formatted PDF — entirely in your browser. No uploads, no server, no account required.</p>
+    <p>You can upload a photo from your gallery or use your device's camera to capture the card directly. The tool processes the image locally using the HTML5 Canvas API and PDF-lib to generate a downloadable PDF sized and formatted for document submission.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">📷</div>
+        <div class="nk-card-title">Camera capture</div>
+        <div class="nk-card-desc">Use your phone or laptop camera to photograph the card directly in the tool. No need to save the photo first — capture and convert in one step.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📁</div>
+        <div class="nk-card-title">Upload from gallery</div>
+        <div class="nk-card-desc">Already have a photo of your ID? Upload it directly from your phone gallery or computer files. JPG, PNG, and WebP are all supported.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📄</div>
+        <div class="nk-card-title">Clean PDF output</div>
+        <div class="nk-card-desc">The tool generates a properly formatted PDF with your ID card centred on the page — ready for submission to portals, employers, or institutions.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔒</div>
+        <div class="nk-card-title">100% private</div>
+        <div class="nk-card-desc">Your ID photos are sensitive. Everything runs locally in your browser — nothing is sent to any server at any point. The PDF is generated and downloaded on your device only.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Where you'll need an ID card PDF</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏛️</div>
+        <div>
+          <div class="nk-use-title">Government portals</div>
+          <div class="nk-use-desc">eCitizen, KRA iTax, NHIF, NSSF, and other government platforms require ID copies as PDF when registering or making applications. Phone photos won't upload — PDFs do.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏦</div>
+        <div>
+          <div class="nk-use-title">Bank account opening</div>
+          <div class="nk-use-desc">Most banks and SACCOs require a scanned copy of your national ID or passport as part of KYC (Know Your Customer) documentation — usually as a PDF.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">💼</div>
+        <div>
+          <div class="nk-use-title">Job applications</div>
+          <div class="nk-use-desc">Many online job applications and HR onboarding forms ask for a copy of your national ID. Convert your phone photo to a clean PDF before attaching.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🎓</div>
+        <div>
+          <div class="nk-use-title">University applications</div>
+          <div class="nk-use-desc">KUCCPS and university direct applications require national ID or birth certificate copies. Student portals typically accept PDF only, not image files.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏥</div>
+        <div>
+          <div class="nk-use-title">Insurance and medical</div>
+          <div class="nk-use-desc">Health insurance registration and medical scheme applications often require ID copies as part of beneficiary or member registration documentation.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📋</div>
+        <div>
+          <div class="nk-use-title">Rental agreements</div>
+          <div class="nk-use-desc">Landlords and letting agents commonly request a copy of a tenant's national ID as part of the lease agreement process before handing over keys.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Photographing your ID for best results</h2>
+    <p>The quality of your ID PDF depends almost entirely on the quality of the photo. Here is what makes the difference between a clear, accepted submission and one that gets rejected for being illegible.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">☀️</div>
+        <div>
+          <div class="nk-use-title">Use natural light</div>
+          <div class="nk-use-desc">Place the card near a window. Indirect natural light gives even, shadow-free illumination. Avoid direct sunlight which creates harsh shadows, and avoid indoor fluorescent lighting which causes colour casts.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📵</div>
+        <div>
+          <div class="nk-use-title">No flash</div>
+          <div class="nk-use-desc">Flash creates white glare spots on laminated cards that can make text completely unreadable. Turn flash off and rely on ambient light instead.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📐</div>
+        <div>
+          <div class="nk-use-title">Flat and straight</div>
+          <div class="nk-use-desc">Place the card on a flat, dark surface. Hold the phone directly above it, parallel to the card. Angling the camera causes perspective distortion that makes text harder to read.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔍</div>
+        <div>
+          <div class="nk-use-title">Check before converting</div>
+          <div class="nk-use-desc">Zoom into the preview to verify all text — especially the ID number, name, and date of birth — is sharp and readable before generating the PDF. Re-shoot if anything is blurry.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is it safe to use this tool with my national ID? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. Your ID photo is never uploaded to any server. The entire conversion runs locally in your browser using JavaScript. The photo stays on your device from start to finish — only the generated PDF is downloaded, and that happens locally too.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I add both the front and back of my ID? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. Add both sides as separate images and they will become separate pages in the PDF. This is the standard format most institutions require when asking for an ID copy — front on page 1, back on page 2.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">My submission portal says the PDF is too large. What do I do? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Compress your ID photo first using the Image Compressor tool — set quality to around 70–75%, which is plenty for readable text. Then convert the smaller image to PDF. This typically brings the file size under 500KB which is within most portal limits.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What formats can I upload? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">JPG, PNG, and WebP are supported. If your photo is in HEIC format (common on iPhones), first open it in your Files app, share it, and save as JPEG — then upload that version here.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will the camera work on my phone? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The camera feature works on all modern smartphones and laptops. You'll need to grant the browser permission to access your camera when prompted. If camera access is denied, use the upload option instead — take a photo with your phone camera app first, then upload it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Got your ID PDF? Here are common next steps.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="pdf-merge.html">🔗 Merge with other documents</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress the photo first</a>
+      <a class="nk-chain-chip" href="images-to-pdf.html">🖼️ Multiple images to PDF</a>
+      <a class="nk-chain-chip" href="photo-to-pdf.html">📷 Scan a document</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>

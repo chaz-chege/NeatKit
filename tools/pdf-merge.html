@@ -587,5 +587,174 @@ body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antia
     document.getElementById('split-input').value = '';
   }
 </script>
+<style>
+.nk-content{padding-bottom:4rem}
+.nk-section{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;margin-top:2rem}
+.nk-section h2{font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:var(--text);margin-bottom:0.875rem}
+.nk-section p{font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg2);border-radius:var(--r-lg);padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg2);border-radius:var(--r-lg);padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--text2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--sans);font-size:0.875rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg2)}
+.faq-arrow{color:var(--text3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--accent-light);color:var(--accent);font-size:0.78rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1px solid rgba(123,143,212,0.2);transition:all 0.15s}
+.nk-chain-chip:hover{background:var(--accent);color:#fff}
+.nk-tip{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent)}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div class="nk-content">
+
+  <div class="nk-section">
+    <h2>Tips for merging PDFs</h2>
+    <div class="nk-tip"><strong>Drag to reorder before merging.</strong> The final PDF pages follow the file order in the list. Drag files into the correct sequence — you can't reorder pages after merging without splitting and re-merging.</div>
+    <div class="nk-tip"><strong>Check file sizes first.</strong> Merging 10 large PDFs can produce a very large output file. If your merged PDF needs to stay under a portal's upload limit, compress the individual PDFs or the source images before merging.</div>
+    <div class="nk-tip"><strong>Password-protected PDFs won't merge.</strong> If a PDF is password protected, you'll need to unlock it first. This tool works with standard, unprotected PDF files.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How PDF merging works</h2>
+    <p>This tool merges multiple PDF files into one entirely in your browser using PDF-lib, an open-source JavaScript library. Your files are never uploaded to any server — they're read locally using the FileReader API and combined in memory, then downloaded as a single PDF file.</p>
+    <p>The merge process reads each PDF's page structure, copies all pages into a new document in the order you specify, and saves the result. The output PDF preserves the original page dimensions and content of each source file — nothing is re-encoded or compressed.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🔗</div>
+        <div class="nk-card-title">Combine any PDFs</div>
+        <div class="nk-card-desc">Merge two or more PDFs into one. The output contains all pages from all input files in the order you specify. Works with PDFs of any page count or size mix.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">↕️</div>
+        <div class="nk-card-title">Drag to reorder</div>
+        <div class="nk-card-desc">Drag files in the list to set the page order before merging. File 1 becomes pages 1–N, File 2 continues from there. Rearrange as many times as you need before clicking merge.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📊</div>
+        <div class="nk-card-title">Page count preview</div>
+        <div class="nk-card-desc">Each file in the list shows its page count before merging so you can verify the right files are loaded and in the right order.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔒</div>
+        <div class="nk-card-title">100% private</div>
+        <div class="nk-card-desc">Your PDFs never leave your device. No uploads, no server processing, no account. Everything runs locally in the browser.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>When people merge PDFs</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📑</div>
+        <div>
+          <div class="nk-use-title">Document submissions</div>
+          <div class="nk-use-desc">Many applications — jobs, university, government, loans — require all supporting documents as a single PDF. Merge your CV, ID copy, certificates, and cover letter into one file before submitting.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🧾</div>
+        <div>
+          <div class="nk-use-title">Invoice and receipt bundling</div>
+          <div class="nk-use-desc">Combine monthly invoices or receipts into a single PDF for accounting records, expense claims, or sending to a client or employer as a single attachment.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📚</div>
+        <div>
+          <div class="nk-use-title">Report assembly</div>
+          <div class="nk-use-desc">Combine a cover page, main report, appendices, and references into one deliverable PDF. Useful when different sections are created separately then assembled.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🎓</div>
+        <div>
+          <div class="nk-use-title">Academic submissions</div>
+          <div class="nk-use-desc">Merge your assignment, marking rubric, and any supporting appendices into a single submission PDF. Many university portals only accept one file per submission.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏠</div>
+        <div>
+          <div class="nk-use-title">Property and legal docs</div>
+          <div class="nk-use-desc">Combine title deeds, sale agreements, valuations, and ID copies into one property transaction document package for lawyers or conveyancers.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">💼</div>
+        <div>
+          <div class="nk-use-title">Tender documents</div>
+          <div class="nk-use-desc">Procurement and tender submissions often have many required attachments. Merge company registration, tax compliance, financial statements, and technical documents into one submission file.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are my PDF files uploaded to a server? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. The merge runs entirely in your browser using PDF-lib. Your files are read locally and combined in memory — nothing is sent to any server at any point. The merged PDF is generated and downloaded on your device only.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many PDFs can I merge at once? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">There is no hard limit built into the tool. In practice, merging 10–20 standard PDFs works smoothly on most devices. Very large files (each 50MB+) may slow down on lower-end hardware because the browser holds all files in memory simultaneously during the merge process.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will the merge preserve the original quality? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. PDF-lib copies pages directly without re-encoding content. Images, fonts, and formatting in the source PDFs are preserved exactly in the output. The merged PDF is not compressed or re-rendered in any way.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I merge password-protected PDFs? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Password-protected PDFs cannot be read by the tool without the password, and the current version does not support entering passwords. You will need to remove the password protection first using another tool before merging.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I split a PDF instead of merging? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The merge tool also includes a split function — you can extract specific page ranges from a PDF into a new file. Look for the Split tab in the tool interface to access this feature.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">The merged PDF is very large — how do I reduce its size? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">PDF-lib doesn't compress the output, so if your source PDFs contain large embedded images the merged file will be large too. The best approach is to compress the source PDFs before merging — or, if they originated from images, compress those images with the Image Compressor tool first before converting to PDF.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <p>Got your merged PDF? Here are common follow-up steps.</p>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="images-to-pdf.html">🖼️ Images to PDF</a>
+      <a class="nk-chain-chip" href="id-card-to-pdf.html">🪪 ID card to PDF</a>
+      <a class="nk-chain-chip" href="photo-to-pdf.html">📷 Scan a document</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress images</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>
