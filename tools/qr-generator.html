@@ -39,7 +39,6 @@ body{background:var(--mist);color:var(--tx1);font-family:var(--body);line-height
 .page{max-width:980px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
 h1{font-family:var(--display);font-size:2rem;letter-spacing:-0.025em;margin-bottom:0.375rem}
 .subtitle{color:var(--tx2);font-size:0.9rem;font-weight:300;margin-bottom:2rem}
-.ad-slot{background:var(--white);border:1px dashed var(--rule2);border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center;font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
 .layout{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start}
 .panel{background:var(--white);border:1px solid var(--rule2);border-radius:16px;overflow:hidden}
 .panel-header{padding:0.875rem 1.5rem;border-bottom:1px solid var(--rule);background:var(--mist);display:flex;justify-content:space-between;align-items:center}
@@ -95,8 +94,6 @@ canvas#qr-canvas{display:block}
 .btn-outline{display:inline-flex;align-items:center;gap:0.4rem;background:transparent;color:var(--tx2);font-family:var(--body);font-size:0.8rem;font-weight:600;padding:0.55rem 1rem;border-radius:100px;border:1px solid var(--rule2);cursor:pointer;transition:all 0.15s}
 .btn-outline:hover{border-color:var(--tx1);color:var(--tx1)}
 .qr-data{font-family:var(--code);font-size:0.68rem;color:var(--tx3);text-align:center;padding:0 1rem;word-break:break-all;max-height:60px;overflow:hidden;text-overflow:ellipsis}
-
-#sticky-ad{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-top:1px solid var(--rule2);padding:0.5rem 1.5rem;display:none;align-items:center;justify-content:center}
 @media(max-width:760px){
   .nk-nav{padding:0 1rem}.page{padding:1.5rem 1rem 4rem}h1{font-size:1.625rem}
   .layout{grid-template-columns:1fr}
@@ -117,8 +114,6 @@ canvas#qr-canvas{display:block}
 <div class="page">
   <h1>QR Code Generator</h1>
   <p class="subtitle">Create QR codes for URLs, WiFi credentials, contact cards, SMS, email and plain text. Custom colors, download PNG or SVG. Completely free.</p>
-
-  <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
 
   <div class="layout">
     <!-- LEFT: FORM -->
@@ -187,15 +182,8 @@ canvas#qr-canvas{display:block}
           </div>
         </div>
       </div>
-
-      <div class="ad-slot" style="margin-top:1rem" aria-label="Advertisement">Advertisement</div>
     </div>
   </div>
-</div>
-
-<div id="sticky-ad" role="complementary" aria-label="Advertisement">
-  <button onclick="document.getElementById('sticky-ad').style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--tx3);cursor:pointer;font-size:0.875rem">✕</button>
-  <div style="font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;min-height:50px;display:flex;align-items:center;justify-content:center;width:100%">Advertisement</div>
 </div>
 
 <!-- qrcode-generator (v1.4.4) - pure JS, no server needed -->
@@ -470,8 +458,241 @@ function toast(msg){
   t.textContent=msg;document.body.appendChild(t);
   setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2200);
 }
+</script>
+<style>
+.nk-content{padding-bottom:4rem}
+.nk-section{background:var(--white);border:1.5px solid var(--rule2);border-radius:16px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--tx1);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.9rem;color:var(--tx2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--mist);border-radius:12px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--tx1);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--tx2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--mist);border-radius:12px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--tx1);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--tx2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--rule2);border-radius:12px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--body);font-size:0.875rem;font-weight:700;color:var(--tx1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--mist)}
+.faq-arrow{color:var(--tx3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--tx2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--mist);color:var(--tx2);font-family:var(--code);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1.5px solid var(--rule2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--ink);color:var(--tx1)}
+.nk-tip{background:var(--mist);border-left:3px solid var(--ink);border-radius:0 10px 10px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--tx2);line-height:1.7}
+.nk-tip strong{color:var(--tx1)}
+.nk-ref-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.82rem}
+.nk-ref-table th{text-align:left;padding:0.5rem 0.875rem;background:var(--mist);color:var(--tx3);font-family:var(--code);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid var(--rule2)}
+.nk-ref-table td{padding:0.625rem 0.875rem;border-bottom:1px solid var(--rule);color:var(--tx2);line-height:1.5;vertical-align:top}
+.nk-ref-table tr:last-child td{border-bottom:none}
+.nk-ref-table td:first-child{font-family:var(--code);font-weight:600;color:var(--tx1);white-space:nowrap}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div style="max-width:980px;margin:0 auto;padding:0 1.5rem">
 
-setTimeout(()=>{document.getElementById('sticky-ad').style.display='flex';},5000);
+  <div class="nk-section">
+    <h2>Tips for better QR codes</h2>
+    <div class="nk-tip"><strong>Higher error correction = more scannable.</strong> Use Level H (30% recovery) for QR codes that will be printed on textured surfaces, merchandise, or anywhere that might get worn or dirty. Use Level L for clean digital displays where scan speed matters more.</div>
+    <div class="nk-tip"><strong>Test before printing.</strong> Always scan your QR code with multiple phones before committing to a print run. Test in different lighting conditions and at different distances. If it scans reliably on three different devices, it'll work in the field.</div>
+    <div class="nk-tip"><strong>Size matters.</strong> The minimum printable size for a QR code is about 2×2cm (0.8×0.8in) for most phone cameras. For outdoor billboards or large posters, scale proportionally and ensure there is always a quiet zone (white border) of at least 4 modules around the code.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How QR codes work</h2>
+    <p>QR (Quick Response) codes are two-dimensional barcodes that encode data in a grid of black and white squares. They were invented in 1994 by Denso Wave for tracking car parts in manufacturing and have since become universal for linking physical objects to digital content.</p>
+    <p>The code is structured into several regions: finder patterns (the three large squares in corners that help cameras locate and orient the code), alignment patterns (smaller squares in larger codes that help correct for perspective distortion), timing patterns (alternating black/white stripes that define the grid), and the data region (the actual encoded information with error correction redundancy).</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🔗</div>
+        <div class="nk-card-title">URL / Website</div>
+        <div class="nk-card-desc">The most common use. Encodes a full URL including https://. When scanned, the phone's camera app opens the link directly in the browser. Keep URLs short — shorter data means simpler QR codes that scan faster.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📶</div>
+        <div class="nk-card-title">WiFi credentials</div>
+        <div class="nk-card-desc">Encodes the WiFi SSID, password, and security type in a standard format (WPA/WPA2). Guests scan the code and their phone connects automatically — no need to read out a complex password.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">👤</div>
+        <div class="nk-card-title">vCard / contact</div>
+        <div class="nk-card-desc">Encodes contact information in vCard format. When scanned, the phone offers to add the contact directly to the address book — name, phone, email, company, and website in one scan.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">💬</div>
+        <div class="nk-card-title">SMS / Email</div>
+        <div class="nk-card-desc">Pre-fills an SMS or email with the number/address and optional message body. Useful for feedback systems, appointment bookings, or any call-to-action that requires a message.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Error correction levels explained</h2>
+    <p>QR codes use Reed-Solomon error correction to remain scannable even when partially damaged or obscured. Higher error correction adds more redundancy — meaning the code can lose more of its data and still decode correctly, but also makes the code visually denser.</p>
+    <table class="nk-ref-table">
+      <thead><tr><th>Level</th><th>Recovery capacity</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>L — Low</td><td>Up to 7% damage</td><td>Clean digital displays, screens, PDF documents</td></tr>
+        <tr><td>M — Medium</td><td>Up to 15% damage</td><td>General purpose, most printed materials</td></tr>
+        <tr><td>Q — Quartile</td><td>Up to 25% damage</td><td>Industrial use, labels, product packaging</td></tr>
+        <tr><td>H — High</td><td>Up to 30% damage</td><td>Merchandise, outdoor prints, textured surfaces, logo overlay</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nk-section">
+    <h2>Where people use QR codes</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🍽️</div>
+        <div>
+          <div class="nk-use-title">Restaurant menus</div>
+          <div class="nk-use-desc">Table QR codes linking to a digital menu. Update the menu content without reprinting codes — as long as the URL stays the same, the QR code doesn't change.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📇</div>
+        <div>
+          <div class="nk-use-title">Business cards</div>
+          <div class="nk-use-desc">A vCard QR code on your business card lets people scan and save your contact instantly. No typing, no spelling errors. Works even without internet access.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🛍️</div>
+        <div>
+          <div class="nk-use-title">Product packaging</div>
+          <div class="nk-use-desc">Link to product instructions, warranty registration, how-to videos, or a reorder page. Use error correction Level H for packaging that may be handled, folded, or stored in humid conditions.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📣</div>
+        <div>
+          <div class="nk-use-title">Marketing materials</div>
+          <div class="nk-use-desc">Flyers, banners, posters, and billboards linking to landing pages, social profiles, or promotions. Use a URL shortener before generating so the QR is simpler and scans faster.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🎫</div>
+        <div>
+          <div class="nk-use-title">Event tickets</div>
+          <div class="nk-use-desc">Each ticket gets a unique QR code encoding the booking reference or ticket ID. Scannable at entry without printing full ticket details — just the code and the attendee name.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📶</div>
+        <div>
+          <div class="nk-use-title">WiFi sharing</div>
+          <div class="nk-use-desc">Print a WiFi QR code and stick it near your router, in your Airbnb, or at your office reception. Guests scan and connect without you having to read out the password every time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>PNG vs SVG — which format to download?</h2>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🖼️</div>
+        <div>
+          <div class="nk-use-title">Download PNG</div>
+          <div class="nk-use-desc">Best for: WhatsApp, social media, email, presentations, anywhere you're inserting an image. PNG is a raster format — fixed resolution. Download at the largest size you need, since scaling up reduces quality.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📐</div>
+        <div>
+          <div class="nk-use-title">Download SVG</div>
+          <div class="nk-use-desc">Best for: print design, business cards, large format printing, Illustrator/Inkscape/Figma. SVG is vector — infinitely scalable with no quality loss. Always use SVG for anything that will be printed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do QR codes expire? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Static QR codes generated by this tool never expire — they encode data directly and will work forever as long as the destination (e.g. a URL) remains valid. If you delete or change the URL your QR code points to, the code will still scan but the link will be broken. Dynamic QR codes (offered by third-party services) redirect through their server and can be updated, but this tool generates static codes only.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my QR code data sent to a server? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. This tool generates QR codes entirely in your browser using the qrcode.js library. Your data — including WiFi passwords and contact details — is never sent to any server. The QR image is generated locally and downloaded directly from your browser.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I add a logo to my QR code? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">This tool generates clean QR codes without logo overlays. To add a logo: download the SVG, open it in Figma, Illustrator, or Inkscape, place your logo in the centre, and export. Use error correction Level H when doing this — a logo covers roughly 10–15% of the code, and Level H allows up to 30% damage recovery. Always test scannability after adding a logo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the maximum amount of data a QR code can hold? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">A QR code can hold up to 4,296 alphanumeric characters or 7,089 numeric digits at the maximum version (Version 40). However, more data means a denser, more complex code that requires higher-resolution printing and closer scanning. For practical use, keep URL QR codes under 100 characters and use a URL shortener for long links.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I scan QR codes without a dedicated app? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. The native camera apps on iPhone (iOS 11+) and most Android phones (Android 8+) scan QR codes automatically without any additional app. Just open the camera, point at the code, and tap the notification that appears. Samsung's Bixby Vision, Google Lens, and WhatsApp's camera also scan QR codes directly.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How small can I print a QR code? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The minimum recommended print size is 2cm × 2cm (about 0.8in × 0.8in) for most modern smartphones scanning at normal distance. Below this size, older phones or low-resolution cameras may struggle. For business cards, 2.5–3cm works well. Always maintain a quiet zone (white border) of at least 4 modules (grid squares) around all edges — this is required for reliable scanning.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="qr-scanner.html">📷 Scan a QR code</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress the QR image</a>
+      <a class="nk-chain-chip" href="color-converter.html">🎨 Color Converter</a>
+      <a class="nk-chain-chip" href="unit-converter.html">📐 Unit Converter</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+
+<script>
+// Enhancement: show character count and estimated QR complexity
+(function(){
+  const inputs = document.querySelectorAll('input[type="text"], input[type="url"], input[type="email"], textarea');
+  function addCounter(el) {
+    if (el.dataset.counterAdded) return;
+    el.dataset.counterAdded = true;
+    const wrap = el.parentElement;
+    const counter = document.createElement('div');
+    counter.style.cssText = 'font-family:var(--code);font-size:0.65rem;color:var(--tx3);margin-top:0.375rem;text-align:right;';
+    wrap.appendChild(counter);
+    el.addEventListener('input', () => {
+      const len = el.value.length;
+      const complexity = len < 50 ? 'Simple' : len < 150 ? 'Medium' : len < 300 ? 'Complex' : 'Very complex';
+      counter.textContent = len + ' chars · ' + complexity + ' QR';
+    });
+  }
+  // Run after tool renders its inputs
+  setTimeout(() => { document.querySelectorAll('.field input, .field textarea').forEach(addCounter); }, 500);
+  // Re-run when type changes
+  document.addEventListener('click', e => {
+    if (e.target.classList.contains('type-btn')) {
+      setTimeout(() => { document.querySelectorAll('.field input, .field textarea').forEach(addCounter); }, 200);
+    }
+  });
+})();
 </script>
 </body>
 </html>

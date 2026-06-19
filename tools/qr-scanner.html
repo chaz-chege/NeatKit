@@ -39,7 +39,6 @@ body{background:var(--mist);color:var(--tx1);font-family:var(--body);line-height
 .page{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
 h1{font-family:var(--display);font-size:2rem;letter-spacing:-0.025em;margin-bottom:0.375rem}
 .subtitle{color:var(--tx2);font-size:0.9rem;font-weight:300;margin-bottom:2rem}
-.ad-slot{background:var(--white);border:1px dashed var(--rule2);border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center;font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
 .panel{background:var(--white);border:1px solid var(--rule2);border-radius:16px;overflow:hidden;margin-bottom:1.25rem}
 .panel-header{padding:0.875rem 1.5rem;border-bottom:1px solid var(--rule);background:var(--mist);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
 .panel-title{font-family:var(--code);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--tx2)}
@@ -105,8 +104,6 @@ canvas#cam-canvas{display:none}
 .history-time{font-family:var(--code);font-size:0.65rem;color:var(--tx3);flex-shrink:0}
 .btn-sm{font-size:0.68rem;padding:0.3rem 0.7rem;border-radius:8px;border:1px solid var(--rule2);background:transparent;color:var(--tx2);cursor:pointer;font-family:var(--code);transition:all 0.15s;letter-spacing:0.04em;text-transform:uppercase}
 .btn-sm:hover{border-color:var(--tx1);color:var(--tx1)}
-
-#sticky-ad{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-top:1px solid var(--rule2);padding:0.5rem 1.5rem;display:none;align-items:center;justify-content:center}
 @media(max-width:600px){
   .nk-nav{padding:0 1rem}.page{padding:1.5rem 1rem 4rem}h1{font-size:1.625rem}
   .scan-actions,.camera-controls{flex-direction:column}
@@ -126,8 +123,6 @@ canvas#cam-canvas{display:none}
 <div class="page">
   <h1>QR Code Scanner</h1>
   <p class="subtitle">Upload an image containing a QR code, or use your camera to scan in real time. No app needed — runs entirely in your browser.</p>
-
-  <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
 
   <!-- INPUT PANEL -->
   <div class="panel">
@@ -210,13 +205,6 @@ canvas#cam-canvas{display:none}
     </div>
     <div class="history-list" id="history-list"></div>
   </div>
-
-  <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
-</div>
-
-<div id="sticky-ad" role="complementary" aria-label="Advertisement">
-  <button onclick="document.getElementById('sticky-ad').style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--tx3);cursor:pointer;font-size:0.875rem">✕</button>
-  <div style="font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;min-height:50px;display:flex;align-items:center;justify-content:center;width:100%">Advertisement</div>
 </div>
 
 <!-- jsQR - pure JS QR decoder, no server -->
@@ -445,7 +433,182 @@ function toast(msg, dur=2200) {
 
 // Cleanup on page leave
 window.addEventListener('beforeunload', stopCamera);
-setTimeout(()=>{document.getElementById('sticky-ad').style.display='flex';},5000);
+</script>
+<style>
+.nk-content{padding-bottom:4rem}
+.nk-section{background:var(--white);border:1.5px solid var(--rule2);border-radius:16px;padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--tx1);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.9rem;color:var(--tx2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--mist);border-radius:12px;padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--tx1);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--tx2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--mist);border-radius:12px;padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--tx1);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--tx2);line-height:1.6}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--rule2);border-radius:12px;overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--body);font-size:0.875rem;font-weight:700;color:var(--tx1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--mist)}
+.faq-arrow{color:var(--tx3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--tx2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--mist);color:var(--tx2);font-family:var(--code);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1.5px solid var(--rule2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--ink);color:var(--tx1)}
+.nk-tip{background:var(--mist);border-left:3px solid var(--ink);border-radius:0 10px 10px 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--tx2);line-height:1.7}
+.nk-tip strong{color:var(--tx1)}
+.nk-ref-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.82rem}
+.nk-ref-table th{text-align:left;padding:0.5rem 0.875rem;background:var(--mist);color:var(--tx3);font-family:var(--code);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid var(--rule2)}
+.nk-ref-table td{padding:0.625rem 0.875rem;border-bottom:1px solid var(--rule);color:var(--tx2);line-height:1.5;vertical-align:top}
+.nk-ref-table tr:last-child td{border-bottom:none}
+.nk-ref-table td:first-child{font-family:var(--code);font-weight:600;color:var(--tx1);white-space:nowrap}
+@media(max-width:600px){.nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+<div style="max-width:980px;margin:0 auto;padding:0 1.5rem">
+
+  <div class="nk-section">
+    <h2>Tips for reliable QR scanning</h2>
+    <div class="nk-tip"><strong>Hold steady at the right distance.</strong> Most phone cameras need the QR code to fill roughly 30–50% of the frame. Too close and the camera can't focus; too far and the code is too small to resolve. Find the sweet spot and hold still for a moment.</div>
+    <div class="nk-tip"><strong>Upload a screenshot instead of photographing a screen.</strong> If you need to scan a QR code from another phone, website, or PDF, take a screenshot and upload it here — the result is always cleaner than photographing a screen through a camera lens.</div>
+    <div class="nk-tip"><strong>Improve lighting if scanning fails.</strong> QR scanning struggles in low contrast conditions. Turn on a light, increase your screen brightness, or move to a better-lit area. The scanner needs clear contrast between the dark modules and the white quiet zone.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How QR code scanning works</h2>
+    <p>Scanning a QR code is a computer vision process. The scanner first locates the three finder patterns — the large squares in three corners — to determine the code's position, size, and rotation. It then corrects for any perspective distortion (if the code is photographed at an angle), samples each module (grid square) as black or white, and reads the encoded bit pattern.</p>
+    <p>This tool uses the ZXing library (Zebra Crossing), an open-source barcode reading library originally developed by Google, running entirely in your browser. Your camera feed and uploaded images are processed locally — nothing is sent to any server.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">📁</div>
+        <div class="nk-card-title">Upload an image</div>
+        <div class="nk-card-desc">Upload any JPG, PNG, WebP, or screenshot containing a QR code. The scanner finds and decodes the code even if it's at an angle, partially obscured, or one of several QR codes in the image.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📷</div>
+        <div class="nk-card-title">Use your camera</div>
+        <div class="nk-card-desc">Continuous camera scanning with real-time decode. Point at any QR code and the result appears automatically — no button press needed. Works with both front and rear cameras.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔍</div>
+        <div class="nk-card-title">Auto-detect content type</div>
+        <div class="nk-card-desc">The scanner recognises what's inside the QR code — URL, WiFi credentials, vCard contact, email, SMS, plain text — and formats the result accordingly with the appropriate action buttons.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔒</div>
+        <div class="nk-card-title">100% private</div>
+        <div class="nk-card-desc">Camera feed and uploaded images never leave your device. The ZXing library processes everything locally. No images, URLs, or decoded content is sent to any server.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What QR codes can contain</h2>
+    <p>When you scan a QR code, the result depends entirely on what was encoded. Here is what the different content types look like and what to expect.</p>
+    <table class="nk-ref-table">
+      <thead><tr><th>Content type</th><th>What it looks like decoded</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td>URL</td><td>https://example.com/page</td><td>Browser opens the link</td></tr>
+        <tr><td>WiFi</td><td>WIFI:T:WPA;S:MyNetwork;P:password123;;</td><td>Phone offers to connect to the network</td></tr>
+        <tr><td>vCard contact</td><td>BEGIN:VCARD
+FN:John Doe
+...</td><td>Phone offers to save contact</td></tr>
+        <tr><td>Email</td><td>mailto:name@example.com?subject=Hello</td><td>Opens email app pre-filled</td></tr>
+        <tr><td>SMS</td><td>SMSTO:+254700000000:Your message</td><td>Opens SMS app pre-filled</td></tr>
+        <tr><td>Phone number</td><td>tel:+254700000000</td><td>Opens dialler with number</td></tr>
+        <tr><td>Plain text</td><td>Any other string</td><td>Displays the text directly</td></tr>
+        <tr><td>Geo location</td><td>geo:1.2921,36.8219</td><td>Opens maps app at coordinates</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nk-section">
+    <h2>QR code safety — what to watch for</h2>
+    <p>QR codes themselves are harmless data containers, but they can link to harmful content just like any URL. Here is how to stay safe when scanning unknown QR codes.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">👁️</div>
+        <div>
+          <div class="nk-use-title">Check the URL before tapping</div>
+          <div class="nk-use-desc">After scanning, your phone shows the URL before opening it. Read it carefully. Look for misspellings of known domains (paypa1.com, g00gle.com) or unfamiliar shortened URLs that hide the real destination.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📌</div>
+        <div>
+          <div class="nk-use-title">Beware of sticker tampering</div>
+          <div class="nk-use-desc">A common scam places a fraudulent QR code sticker over a legitimate one in public places — parking meters, restaurant tables, shop windows. If a QR code sticker looks like it's been placed over something, don't scan it.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔐</div>
+        <div>
+          <div class="nk-use-title">WiFi QR codes and passwords</div>
+          <div class="nk-use-desc">WiFi QR codes contain the network password in plain text inside the code. Anyone who scans the code can read the password. Don't display WiFi QR codes in public if you want to restrict access to a private network.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">💳</div>
+        <div>
+          <div class="nk-use-title">Payment QR fraud</div>
+          <div class="nk-use-desc">Fraudsters replace legitimate M-Pesa or payment QR codes with their own. Always verify the recipient name shown after scanning a payment QR before completing any transaction.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my camera feed uploaded anywhere? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. The camera feed is processed entirely in your browser using the WebRTC API and the ZXing JavaScript library. Nothing from your camera is ever transmitted to any server. The decoding happens locally on your device in real time.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why can't the scanner read my QR code? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Common causes: the code is too small or too far away (fill more of the frame), poor lighting or low contrast, a heavily damaged or dirty code, camera focus issues (tap the screen to focus), or the code uses a non-standard format the library doesn't support. Try uploading a clean digital screenshot of the code instead of using the camera — image upload scanning is more reliable than live camera for difficult codes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I scan barcodes (not just QR codes)? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The ZXing library supports multiple barcode formats including Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, ITF, Codabar, and Data Matrix in addition to QR codes. Point the camera at a standard product barcode and it will read it. The decoded number is the barcode value — typically a GTIN product identifier.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">The camera permission was denied — what do I do? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">If you denied camera access, you need to reset it in your browser settings. In Chrome: click the lock icon in the address bar → Site settings → Camera → Allow. In Safari on iPhone: Settings → Safari → Camera → Allow. After changing the permission, refresh the page and try again. Alternatively, use the upload option — take a photo with your camera app first, then upload the image here.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I scan multiple QR codes from one image? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The tool returns the first QR code found in the uploaded image. If an image contains multiple QR codes, only one will be decoded. For multiple codes, crop each one separately and scan individually, or use the camera mode to scan them one at a time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ Generate a QR code</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress an image</a>
+      <a class="nk-chain-chip" href="photo-to-pdf.html">📷 Scan a document</a>
+      <a class="nk-chain-chip" href="id-card-to-pdf.html">🪪 ID card to PDF</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
 </script>
 </body>
 </html>
