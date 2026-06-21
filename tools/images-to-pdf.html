@@ -20,20 +20,39 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
-  --bg:#fff;--bg2:#f7f7fb;--bg3:#f0f0f7;
-  --glass:rgba(255,255,255,0.75);
-  --text:#1a1a2e;--text2:#5a5a7a;--text3:#9898b8;
-  --border:rgba(180,180,220,0.35);--border2:rgba(180,180,220,0.6);
-  --accent:#7b8fd4;--accent-light:rgba(123,143,212,0.1);
-  --success:#22c55e;--error:#ef4444;
-  --shadow-sm:0 1px 3px rgba(100,100,160,0.08);
-  --shadow-md:0 4px 16px rgba(100,100,160,0.10);
+  --display:'DM Serif Display',Georgia,serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --code:'DM Mono',monospace;
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.12);
   --sans:'Plus Jakarta Sans',system-ui,sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:#f4f4f8;--bg2:#ffffff;--bg3:#f0f0f7;
+    --text:#0f0f12;--text2:#54546a;--text3:#9898b2;
+    --border:rgba(180,180,220,0.35);--border2:rgba(180,180,220,0.6);
+    --accent:#7b8fd4;--accent-light:rgba(123,143,212,0.1);
+    --accent-text:#ffffff;
+    --nav-bg:rgba(255,255,255,0.9);--nav-border:rgba(180,180,210,0.25);
+    --success:#16a34a;--error:#dc2626;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;
+    --text:#e8e6e0;--text2:#8a8880;--text3:#5a5856;
+    --border:#2a2a2a;--border2:#3a3a3a;
+    --accent:#c8f04a;--accent-light:rgba(200,240,74,0.08);
+    --accent-text:#0c0c0c;
+    --nav-bg:rgba(12,12,12,0.92);--nav-border:#2a2a2a;
+    --success:#4ade80;--error:#f87171;
+  }
+}
 body{background:var(--bg2);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
-nav{position:sticky;top:0;z-index:200;background:var(--glass);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.9);padding:0 2rem;display:flex;align-items:center;height:60px;gap:1rem}
+nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--nav-border);padding:0 2rem;display:flex;align-items:center;height:60px;gap:1rem}
 .logo{display:flex;align-items:center;gap:0.625rem;text-decoration:none;font-weight:700;font-size:1.1rem;color:var(--text)}
 .logo-mark{width:30px;height:30px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
 .breadcrumb{color:var(--text3);font-size:0.82rem;display:flex;align-items:center;gap:0.4rem}
