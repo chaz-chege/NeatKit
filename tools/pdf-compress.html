@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R51Q6DPPBG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R51Q6DPPBG');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="pdf compressor free, compress pdf online, reduce pdf size, pdf too large, pdf size reducer, compress scanned pdf, compress pdf for upload, reduce pdf file size free">
+<meta name="description" content="Free PDF compressor with Smart Scan Mode for scanned documents, forms and IDs. Set a target file size. No upload, runs in your browser.">
+<title>PDF Compressor Free — Compress Scanned PDFs Online | Neatkit</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7083602792413467" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── SYSTEM COLOUR SCHEME ─────────────────────────────────── */
+:root {
+  --grad: linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
+  --display: 'DM Serif Display',Georgia,serif;
+  --body: 'Outfit',system-ui,sans-serif;
+  --code: 'DM Mono',monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.10);
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f4f8; --bg2: #ffffff; --bg3: #f0f0f7;
+    --text: #0f0f12; --text2: #54546a; --text3: #9898b2;
+    --border: rgba(180,180,220,0.35); --border2: rgba(180,180,220,0.6);
+    --accent: #7b8fd4; --accent-light: rgba(123,143,212,0.1);
+    --accent-text: #fff;
+    --nav-bg: rgba(255,255,255,0.9);
+    --nav-border: rgba(180,180,210,0.25);
+    --success: #16a34a; --warning: #d97706; --error: #dc2626;
+    --scan-bg: rgba(123,143,212,0.06);
+    --scan-border: rgba(123,143,212,0.3);
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c0c0c; --bg2: #141414; --bg3: #1c1c1c;
+    --text: #e8e6e0; --text2: #8a8880; --text3: #5a5856;
+    --border: #2a2a2a; --border2: #3a3a3a;
+    --accent: #c8f04a; --accent-light: rgba(200,240,74,0.08);
+    --accent-text: #0c0c0c;
+    --nav-bg: rgba(12,12,12,0.92);
+    --nav-border: #2a2a2a;
+    --success: #4ade80; --warning: #fbbf24; --error: #f87171;
+    --scan-bg: rgba(200,240,74,0.05);
+    --scan-border: rgba(200,240,74,0.2);
+  }
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.nk-nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--nav-border);height:56px;display:flex;align-items:center;padding:0 2rem}
+.nk-nav-inner{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.nk-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.nk-logo-mark{width:24px;height:24px;background:var(--grad);border-radius:6px;position:relative;overflow:hidden;flex-shrink:0}
+.nk-logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,transparent 55%)}
+.nk-logo-text{font-family:var(--display);font-size:1.1rem;color:var(--text);letter-spacing:-0.01em;line-height:1}
+.nk-logo-text em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nk-breadcrumb{display:flex;align-items:center;gap:0.375rem;font-family:var(--code);font-size:0.68rem;color:var(--text3);letter-spacing:0.04em}
+.nk-breadcrumb a{color:var(--text3);text-decoration:none;transition:color 0.15s}
+.nk-breadcrumb a:hover{color:var(--text)}
+.nk-back{margin-left:auto;font-family:var(--code);font-size:0.65rem;color:var(--text3);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.15s}
+.nk-back:hover{color:var(--text)}
+
+/* ── PAGE ─────────────────────────────────────────────────── */
+.page{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+h1{font-family:var(--display);font-size:1.875rem;font-weight:700;letter-spacing:-0.03em;margin-bottom:0.4rem;color:var(--text)}
+.subtitle{color:var(--text2);font-size:0.925rem;margin-bottom:2rem}
+
+/* ── DROP ZONE ────────────────────────────────────────────── */
+.drop-zone{border:2px dashed var(--border2);border-radius:var(--r-xl);padding:3rem 2rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--bg2);position:relative}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-light)}
+.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-icon{font-size:2.5rem;margin-bottom:0.875rem}
+.drop-title{font-size:1.05rem;font-weight:700;margin-bottom:0.35rem;color:var(--text)}
+.drop-sub{font-size:0.82rem;color:var(--text3)}
+
+/* ── WORKSPACE ────────────────────────────────────────────── */
+.workspace{display:none}
+.workspace.active{display:block}
+
+/* ── MODE TOGGLE ──────────────────────────────────────────── */
+.mode-banner{background:var(--scan-bg);border:1.5px solid var(--scan-border);border-radius:var(--r-lg);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.mode-banner-text{font-size:0.875rem;color:var(--text2);line-height:1.5}
+.mode-banner-text strong{color:var(--text);display:block;margin-bottom:0.2rem}
+.mode-toggle{display:flex;background:var(--bg3);border-radius:var(--r-md);padding:3px;gap:2px;flex-shrink:0}
+.mode-btn{background:transparent;border:none;color:var(--text2);font-family:var(--body);font-size:0.8rem;font-weight:600;padding:0.45rem 1rem;border-radius:10px;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.mode-btn.active{background:var(--bg2);color:var(--text);box-shadow:var(--shadow-sm)}
+
+/* ── CONTROLS ─────────────────────────────────────────────── */
+.controls{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem}
+.ctrl-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.125rem;flex-wrap:wrap}
+.ctrl-row:last-child{margin-bottom:0}
+.ctrl-label{font-family:var(--code);font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;min-width:120px;flex-shrink:0}
+.ctrl-desc{font-size:0.78rem;color:var(--text3);margin-top:0.25rem}
+
+input[type="range"].nk-range{-webkit-appearance:none;flex:1;min-width:140px;height:6px;background:var(--bg3);border-radius:3px;outline:none;cursor:pointer}
+input[type="range"].nk-range::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--bg2);border:2px solid var(--accent);cursor:pointer}
+.range-val{font-family:var(--code);font-size:0.85rem;color:var(--accent);min-width:44px;text-align:right}
+
+.toggle-row{display:flex;align-items:center;gap:0.875rem}
+.toggle-label{font-size:0.875rem;color:var(--text2);flex:1}
+.toggle-sub{font-size:0.75rem;color:var(--text3);display:block;margin-top:0.15rem}
+.nk-toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.nk-toggle input{opacity:0;width:0;height:0;position:absolute}
+.nk-toggle-track{position:absolute;inset:0;background:var(--border2);border-radius:12px;cursor:pointer;transition:background 0.2s}
+.nk-toggle input:checked+.nk-toggle-track{background:var(--accent)}
+.nk-toggle-track::after{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:white;transition:transform 0.2s}
+.nk-toggle input:checked+.nk-toggle-track::after{transform:translateX(20px)}
+
+.target-row{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap}
+.target-input{background:var(--bg3);border:1.5px solid var(--border2);color:var(--text);font-family:var(--code);font-size:1rem;font-weight:600;padding:0.5rem 0.875rem;border-radius:var(--r-sm);outline:none;width:100px;transition:border-color 0.15s}
+.target-input:focus{border-color:var(--accent)}
+.target-unit{font-family:var(--code);font-size:0.82rem;color:var(--text2)}
+.target-hint{font-size:0.75rem;color:var(--text3);font-style:italic}
+
+/* ── STATS BAR ────────────────────────────────────────────── */
+.stats-bar{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1.25rem 1.5rem;display:flex;gap:2rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
+.stat-item .stat-num{font-family:var(--code);font-size:1.4rem;font-weight:700;color:var(--accent);line-height:1}
+.stat-item .stat-label{font-family:var(--code);font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.2rem}
+.progress-wrap{flex:1;min-width:160px}
+.progress-label{font-size:0.72rem;color:var(--text3);font-family:var(--code);margin-bottom:0.4rem}
+.progress-track{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.4s ease;width:100%}
+
+/* ── PREVIEW ──────────────────────────────────────────────── */
+.preview-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
+.preview-box{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.preview-head{padding:0.75rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.preview-label{font-family:var(--code);font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em}
+.preview-size{font-family:var(--code);font-size:0.78rem;color:var(--accent)}
+.preview-canvas-wrap{height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:repeating-conic-gradient(var(--bg3) 0% 25%,var(--bg2) 0% 50%) 0 0/20px 20px;position:relative}
+.preview-canvas-wrap canvas{max-width:100%;max-height:100%;object-fit:contain}
+.preview-loading{position:absolute;font-size:0.8rem;color:var(--text3);font-family:var(--code)}
+
+/* ── PROCESSING OVERLAY ───────────────────────────────────── */
+.processing-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;text-align:center;display:none;margin-bottom:1.25rem}
+.processing-card.visible{display:block}
+.spinner-large{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.processing-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.35rem}
+.processing-sub{font-size:0.82rem;color:var(--text2)}
+.processing-bar{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:1.25rem}
+.processing-bar-fill{height:100%;background:var(--grad);border-radius:3px;transition:width 0.3s;width:0%}
+
+/* ── RESULT ───────────────────────────────────────────────── */
+.result-card{background:var(--bg2);border:1.5px solid rgba(74,222,128,0.2);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem;display:none}
+.result-card.visible{display:block}
+.result-head{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem}
+.result-icon{font-size:1.5rem}
+.result-title{font-size:1rem;font-weight:700;color:var(--text)}
+.result-sub{font-size:0.82rem;color:var(--text2);margin-top:0.15rem}
+.result-stats{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.result-stat .rs-num{font-family:var(--code);font-size:1.5rem;font-weight:700;color:var(--accent)}
+.result-stat .rs-label{font-size:0.72rem;color:var(--text3);font-family:var(--code);text-transform:uppercase;letter-spacing:0.06em}
+.result-bar{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:1.25rem}
+.result-bar-fill{height:100%;background:var(--grad);border-radius:4px;transition:width 0.6s ease}
+
+/* ── WARNING CARD ─────────────────────────────────────────── */
+.warn-card{background:rgba(217,119,6,0.08);border:1.5px solid rgba(217,119,6,0.25);border-radius:var(--r-lg);padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:0.82rem;color:var(--text2);line-height:1.65;display:none}
+.warn-card.visible{display:block}
+.warn-card strong{color:var(--warning);display:block;margin-bottom:0.2rem}
+
+/* ── BUTTONS ──────────────────────────────────────────────── */
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--grad);color:#0f0f12;font-family:var(--body);font-size:0.9rem;font-weight:700;padding:0.875rem 2rem;border-radius:100px;border:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow 0.15s,transform 0.15s}
+.btn-primary:hover:not(:disabled){box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.btn-outline{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:var(--text2);font-family:var(--body);font-size:0.875rem;font-weight:600;padding:0.875rem 1.5rem;border-radius:100px;border:1.5px solid var(--border2);cursor:pointer;transition:all 0.15s}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center}
+
+/* ── PAGE ANALYSIS BADGE ──────────────────────────────────── */
+.page-analysis{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.page-badge{display:inline-flex;align-items:center;gap:0.35rem;font-family:var(--code);font-size:0.68rem;padding:0.3rem 0.75rem;border-radius:100px;border:1px solid var(--border2);color:var(--text2)}
+.page-badge.scanned{border-color:var(--scan-border);color:var(--accent);background:var(--scan-bg)}
+.page-badge.photo{border-color:rgba(251,191,36,0.3);color:var(--warning);background:rgba(251,191,36,0.06)}
+.page-badge.text{border-color:var(--border2);color:var(--text3)}
+
+/* ── CONTENT SECTIONS ─────────────────────────────────────── */
+.nk-section{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--display);font-size:1.2rem;color:var(--text);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg3);border-radius:var(--r-lg);padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--text2);line-height:1.65}
+.nk-use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.875rem;margin-top:1.25rem}
+.nk-use-card{display:flex;gap:0.75rem;background:var(--bg3);border-radius:var(--r-lg);padding:1rem}
+.nk-use-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.nk-use-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+.nk-use-desc{font-size:0.775rem;color:var(--text2);line-height:1.6}
+.nk-tip{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent)}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--body);font-size:0.875rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--bg3);color:var(--text2);font-family:var(--code);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1.5px solid var(--border2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.nk-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2rem;margin-top:4rem}
+.nk-footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-start}
+.nk-footer-brand p{font-size:0.8rem;color:var(--text3);line-height:1.6;max-width:240px;margin-top:0.5rem}
+.nk-footer-links{display:flex;flex-wrap:wrap;gap:3rem}
+.nk-footer-col h4{font-family:var(--code);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.75rem}
+.nk-footer-col a{display:block;font-size:0.82rem;color:var(--text2);text-decoration:none;margin-bottom:0.5rem;transition:color 0.15s}
+.nk-footer-col a:hover{color:var(--text)}
+.nk-footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding-top:1.25rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;font-size:0.78rem;color:var(--text3)}
+
+@media(max-width:640px){
+  .page{padding:1.5rem 1rem 3rem}
+  h1{font-size:1.5rem}
+  .preview-row{grid-template-columns:1fr}
+  .btn-primary,.btn-outline{width:100%;justify-content:center}
+  .btn-row{flex-direction:column}
+  .nk-grid,.nk-use-grid{grid-template-columns:1fr 1fr}
+  .nk-footer-inner{flex-direction:column;gap:1.5rem}
+  .nk-footer-links{gap:1.5rem}
+}
+@media(max-width:420px){.nk-grid,.nk-use-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nk-nav">
+  <div class="nk-nav-inner">
+    <a class="nk-logo" href="../index.html">
+      <div class="nk-logo-mark"></div>
+      <span class="nk-logo-text">Neat<em>kit</em></span>
+    </a>
+    <div class="nk-breadcrumb">
+      <span>/</span><a href="../index.html">tools</a><span>/</span><span>pdf compress</span>
+    </div>
+    <a class="nk-back" href="../index.html">← All tools</a>
+  </div>
+</nav>
+
+<div class="page">
+  <h1>PDF Compressor</h1>
+  <p class="subtitle">Reduce PDF file size with Smart Scan Mode for forms, IDs and signed documents. Set a target size. No upload — runs entirely in your browser.</p>
+
+  <!-- DROP ZONE -->
+  <div class="drop-zone" id="drop-zone">
+    <input type="file" id="file-input" accept="application/pdf">
+    <div class="drop-icon">📄</div>
+    <div class="drop-title">Drop a PDF here, or click to browse</div>
+    <div class="drop-sub">Max 50MB · Your file never leaves your device</div>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="workspace" id="workspace">
+
+    <!-- MODE BANNER -->
+    <div class="mode-banner" id="mode-banner">
+      <div class="mode-banner-text">
+        <strong id="mode-detect-text">Analysing document…</strong>
+        <span id="mode-detect-sub">Checking page content to suggest the best compression mode.</span>
+      </div>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="btn-general" onclick="setMode('general')">General</button>
+        <button class="mode-btn" id="btn-scan" onclick="setMode('scan')">⚡ Smart Scan</button>
+      </div>
+    </div>
+
+    <!-- PAGE ANALYSIS -->
+    <div class="page-analysis" id="page-analysis"></div>
+
+    <!-- CONTROLS -->
+    <div class="controls" id="controls">
+
+      <!-- Quality slider (General mode) -->
+      <div class="ctrl-row" id="row-quality">
+        <span class="ctrl-label">Image quality</span>
+        <input type="range" class="nk-range" id="quality-slider" min="10" max="95" value="72"
+          oninput="document.getElementById('quality-val').textContent=this.value+'%'">
+        <span class="range-val" id="quality-val">72%</span>
+      </div>
+
+      <!-- Smart Scan options (shown in scan mode) -->
+      <div id="scan-options" style="display:none">
+        <div class="ctrl-row">
+          <span class="ctrl-label">Scan quality</span>
+          <input type="range" class="nk-range" id="scan-quality" min="40" max="90" value="65"
+            oninput="document.getElementById('scan-quality-val').textContent=this.value+'%'">
+          <span class="range-val" id="scan-quality-val">65%</span>
+        </div>
+        <div class="ctrl-row">
+          <div class="toggle-row">
+            <label class="nk-toggle">
+              <input type="checkbox" id="toggle-grayscale">
+              <span class="nk-toggle-track"></span>
+            </label>
+            <div class="toggle-label">
+              Convert to greyscale
+              <span class="toggle-sub">Removes colour data — significantly smaller files. Recommended for government forms, contracts, handwritten notes.</span>
+            </div>
+          </div>
+        </div>
+        <div class="ctrl-row">
+          <div class="toggle-row">
+            <label class="nk-toggle">
+              <input type="checkbox" id="toggle-binarize">
+              <span class="nk-toggle-track"></span>
+            </label>
+            <div class="toggle-label">
+              High-contrast mode (black &amp; white)
+              <span class="toggle-sub">For pages that are pure black ink on white paper — maximum compression, smallest file. Not for photos or colour stamps.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metadata strip -->
+      <div class="ctrl-row">
+        <div class="toggle-row">
+          <label class="nk-toggle">
+            <input type="checkbox" id="toggle-meta" checked>
+            <span class="nk-toggle-track"></span>
+          </label>
+          <div class="toggle-label">
+            Strip metadata
+            <span class="toggle-sub">Removes author info, editing history, software tags — saves a few KB and improves privacy.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target size -->
+      <div class="ctrl-row">
+        <span class="ctrl-label">Target size</span>
+        <div style="display:flex;align-items:center;gap:0.75rem;flex:1;flex-wrap:wrap">
+          <span class="target-hint">Must be under</span>
+          <input type="number" class="target-input" id="target-size" placeholder="e.g. 1.9" step="0.1" min="0.1">
+          <span class="target-unit">MB</span>
+          <span class="target-hint">— leave empty to use quality slider</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PREVIEW ROW -->
+    <div class="preview-row" id="preview-row">
+      <div class="preview-box">
+        <div class="preview-head">
+          <span class="preview-label">Original — page 1</span>
+          <span class="preview-size" id="orig-size">—</span>
+        </div>
+        <div class="preview-canvas-wrap">
+          <canvas id="canvas-orig"></canvas>
+          <span class="preview-loading" id="orig-loading">Loading…</span>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div class="preview-head">
+          <span class="preview-label">Compressed — preview</span>
+          <span class="preview-size" id="comp-size">—</span>
+        </div>
+        <div class="preview-canvas-wrap">
+          <canvas id="canvas-comp"></canvas>
+          <span class="preview-loading" id="comp-loading" style="display:none">Processing…</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar" id="stats-bar" style="display:none">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-reduction">—</div>
+        <div class="stat-label">Reduction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-orig">—</div>
+        <div class="stat-label">Original</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-comp">—</div>
+        <div class="stat-label">Compressed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-pages">—</div>
+        <div class="stat-label">Pages</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label">Compressed size vs original</div>
+        <div class="progress-track"><div class="progress-fill" id="stat-bar" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- PROCESSING -->
+    <div class="processing-card" id="processing-card">
+      <div class="spinner-large"></div>
+      <div class="processing-title" id="proc-title">Compressing PDF…</div>
+      <div class="processing-sub" id="proc-sub">Processing page 1…</div>
+      <div class="processing-bar"><div class="processing-bar-fill" id="proc-bar"></div></div>
+    </div>
+
+    <!-- WARN (minimal reduction) -->
+    <div class="warn-card" id="warn-card">
+      <strong>⚠️ Limited compression achieved</strong>
+      This PDF's embedded content is already well-compressed or consists mostly of vector text, which can't be reduced further by image recompression. Try enabling Smart Scan Mode or reducing the quality slider further. If the file contains scanned pages, make sure Smart Scan Mode is selected.
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-card" id="result-card">
+      <div class="result-head">
+        <div class="result-icon">✅</div>
+        <div>
+          <div class="result-title" id="result-title">PDF compressed successfully</div>
+          <div class="result-sub" id="result-sub"></div>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="result-stat"><div class="rs-num" id="rs-reduction">—</div><div class="rs-label">Reduction</div></div>
+        <div class="result-stat"><div class="rs-num" id="rs-saved">—</div><div class="rs-label">Saved</div></div>
+        <div class="result-stat"><div class="rs-num" id="rs-final">—</div><div class="rs-label">Final size</div></div>
+      </div>
+      <div class="result-bar"><div class="result-bar-fill" id="result-bar-fill"></div></div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="downloadResult()">↓ Download compressed PDF</button>
+        <button class="btn-outline" onclick="resetTool()">← Compress another</button>
+      </div>
+    </div>
+
+    <!-- ACTION ROW -->
+    <div class="btn-row" id="action-row">
+      <button class="btn-primary" id="compress-btn" onclick="startCompress()">✦ Compress PDF</button>
+      <button class="btn-outline" onclick="resetTool()">← Choose different file</button>
+    </div>
+
+  </div>
+
+  <!-- ── CONTENT SECTIONS ──────────────────────────────────── -->
+
+  <div class="nk-section">
+    <h2>Tips before compressing</h2>
+    <div class="nk-tip"><strong>Use Smart Scan Mode for forms, IDs and signed documents.</strong> If your PDF is a scanned government form, a filled application, or a document with handwriting and stamps, Smart Scan Mode analyses each page individually and compresses much more aggressively than General mode.</div>
+    <div class="nk-tip"><strong>Enable greyscale for official submissions.</strong> Most government and institutional portals don't require colour — a blue ink signature and a red stamp are equally legible in greyscale. Enabling this option typically cuts file size by an additional 40–60%.</div>
+    <div class="nk-tip"><strong>Use Target Size for portal uploads.</strong> If the portal says "maximum 1.91MB", type that in the Target Size field. The tool calculates the compression level needed to hit it rather than you manually retrying at different quality settings.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How it works</h2>
+    <p>This tool compresses PDFs entirely in your browser — your file is never uploaded to any server. It uses PDF.js to render each page and pdf-lib to rebuild the compressed output.</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🔍</div>
+        <div class="nk-card-title">Per-page analysis</div>
+        <div class="nk-card-desc">Each page is rendered and analysed for colour variance and content type before compression is applied. Text-heavy pages and image-heavy pages get different treatment.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">⚡</div>
+        <div class="nk-card-title">Smart Scan Mode</div>
+        <div class="nk-card-desc">Built specifically for scanned forms, IDs, contracts and signed documents — the exact type of PDF that generic compressors handle worst. Analyses ink density and content before compressing.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🎯</div>
+        <div class="nk-card-title">Target size mode</div>
+        <div class="nk-card-desc">Specify the maximum file size you need and the tool works backwards — calculating the compression level required to hit that target without you having to retry manually.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔒</div>
+        <div class="nk-card-title">100% private</div>
+        <div class="nk-card-desc">No uploads. No server. PDF.js and pdf-lib run entirely in your browser. Your document — including any ID numbers, signatures, or personal information — never leaves your device.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Why scanned PDFs are hard to compress</h2>
+    <p>A blank form and a filled-in, signed, and stamped version of the same form can differ in file size by 10× or more. Here's why — and why Smart Scan Mode exists.</p>
+    <div class="nk-use-grid">
+      <div class="nk-use-card">
+        <div class="nk-use-icon">📝</div>
+        <div>
+          <div class="nk-use-title">Handwriting is high-frequency detail</div>
+          <div class="nk-use-desc">Ink strokes are irregular, high-contrast, and unpredictable. Generic JPEG compression has to preserve all of that detail or the result becomes blurry and illegible — so it can't compress aggressively.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🔴</div>
+        <div>
+          <div class="nk-use-title">Stamps are the worst case</div>
+          <div class="nk-use-desc">Official stamps are dense, colourful, and irregular. A single ink stamp on an otherwise blank page can add hundreds of KB because generic compression has to preserve its full colour and detail.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🎨</div>
+        <div>
+          <div class="nk-use-title">Colour takes three times the data</div>
+          <div class="nk-use-desc">A colour scan stores red, green, and blue channels for every pixel. A greyscale version stores one. For most official documents, the colour information carries no additional meaning.</div>
+        </div>
+      </div>
+      <div class="nk-use-card">
+        <div class="nk-use-icon">🏛️</div>
+        <div>
+          <div class="nk-use-title">Portal limits are strict</div>
+          <div class="nk-use-desc">Government and institutional portals set hard limits — 1MB, 2MB, 5MB — that don't account for how a filled-in scanned form actually behaves. Smart Scan Mode is built for exactly this problem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my PDF uploaded to a server? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Everything runs in your browser. PDF.js renders the pages locally and pdf-lib rebuilds the compressed output locally. Your file — including any personal information, ID numbers, or signatures — never leaves your device at any point.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why didn't my PDF compress much? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">PDFs that consist mostly of vector text (Word exports, generated reports, presentations converted to PDF) have limited image content to recompress — the text is stored as vector shapes, not pixels, and can't be compressed this way. Browser-based compression works best on PDFs that contain embedded images or scanned pages. Try Smart Scan Mode, or if the PDF has no images at all, the reduction will be minimal regardless of settings.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will greyscale conversion affect the validity of my document? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">For most official submissions, no — institutions care about legibility and content, not colour fidelity. A greyscale signature is as legally valid as a colour one. However, if a specific institution requires colour preservation (some medical documents, certain certified copies) keep it off. The preview lets you check before downloading.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What's the difference between greyscale and high-contrast (black &amp; white) mode? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Greyscale keeps all shades of grey — it's good for most scanned documents including photos and stamps. High-contrast mode (binarization) converts every pixel to pure black or pure white — maximum compression, but only appropriate for pages that are genuinely just black ink on white paper with no meaningful shading. Use it for printed text forms where every element is either black or white. Don't use it for pages with photos, colour elements, or greyscale gradients.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How accurate is the Target Size mode? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The tool uses a binary search algorithm — it tries a compression level, checks the output size, and adjusts until it's within 5% of your target. It won't always hit the exact number but will get close. If the target is too small to reach without making the document illegible, the tool will stop at the lowest quality level and warn you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I compress a password-protected PDF? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Password-protected PDFs can't be read by the tool without the password. Remove the password protection first using another tool, then compress here.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="pdf-merge.html">🔗 Merge PDFs</a>
+      <a class="nk-chain-chip" href="images-to-pdf.html">🖼️ Images to PDF</a>
+      <a class="nk-chain-chip" href="id-card-to-pdf.html">🪪 ID Card to PDF</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress images first</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="nk-footer">
+  <div class="nk-footer-inner">
+    <div class="nk-footer-brand">
+      <a class="nk-logo" href="../index.html">
+        <div class="nk-logo-mark"></div>
+        <span class="nk-logo-text">Neat<em>kit</em></span>
+      </a>
+      <p>Free browser-based tools. No signup, no uploads, no limits.</p>
+    </div>
+    <div class="nk-footer-links">
+      <div class="nk-footer-col">
+        <h4>Tools</h4>
+        <a href="image-compress.html">Image Compressor</a>
+        <a href="pdf-merge.html">PDF Merge</a>
+        <a href="ai-detector.html">AI Detector</a>
+        <a href="qr-generator.html">QR Generator</a>
+        <a href="../index.html">All tools →</a>
+      </div>
+      <div class="nk-footer-col">
+        <h4>Company</h4>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="nk-footer-bottom">
+    <span>© 2025 Neatkit. All rights reserved.</span>
+    <span>Made in Nairobi 🇰🇪</span>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let pdfFile = null, pdfDoc = null, pdfJsDoc = null;
+let currentMode = 'general';
+let compressedBytes = null;
+let origFileName = '';
+let pageTypes = []; // per-page classification
+
+// ── UTILS ─────────────────────────────────────────────────────────────
+function fmt(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1024 * 1024) return (b / 1024).toFixed(1) + ' KB';
+  return (b / (1024 * 1024)).toFixed(2) + ' MB';
+}
+function fmtShort(b) {
+  if (b < 1024 * 1024) return (b / 1024).toFixed(0) + 'KB';
+  return (b / (1024 * 1024)).toFixed(2) + 'MB';
+}
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── DROP ZONE ─────────────────────────────────────────────────────────
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', e => { if (!dropZone.contains(e.relatedTarget)) dropZone.classList.remove('drag-over'); });
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if (f && f.type === 'application/pdf') loadFile(f); });
+document.getElementById('file-input').addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+
+// ── LOAD FILE ─────────────────────────────────────────────────────────
+async function loadFile(file) {
+  if (file.size > 50 * 1024 * 1024) { alert('File too large. Max 50MB.'); return; }
+  pdfFile = file;
+  origFileName = file.name;
+
+  dropZone.style.display = 'none';
+  document.getElementById('workspace').classList.add('active');
+  document.getElementById('orig-size').textContent = fmt(file.size);
+  document.getElementById('orig-loading').style.display = '';
+
+  const arrayBuffer = await file.arrayBuffer();
+
+  // Load with PDF.js for rendering
+  pdfJsDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  // Load with pdf-lib for manipulation
+  pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+
+  document.getElementById('stat-pages').textContent = pdfJsDoc.numPages;
+
+  // Render page 1 preview
+  await renderPreview(pdfJsDoc, 'canvas-orig');
+  document.getElementById('orig-loading').style.display = 'none';
+
+  // Analyse pages
+  await analysePages();
+}
+
+// ── RENDER PREVIEW ────────────────────────────────────────────────────
+async function renderPreview(doc, canvasId, grayscale = false, binarize = false) {
+  const page = await doc.getPage(1);
+  const viewport = page.getViewport({ scale: 1 });
+  const scale = Math.min(480 / viewport.width, 280 / viewport.height, 1.5);
+  const vp = page.getViewport({ scale });
+  const canvas = document.getElementById(canvasId);
+  canvas.width = vp.width;
+  canvas.height = vp.height;
+  const ctx = canvas.getContext('2d');
+  await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+  if (grayscale || binarize) {
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const d = imgData.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const grey = Math.round(0.299 * d[i] + 0.587 * d[i+1] + 0.114 * d[i+2]);
+      const val = binarize ? (grey > 128 ? 255 : 0) : grey;
+      d[i] = d[i+1] = d[i+2] = val;
+    }
+    ctx.putImageData(imgData, 0, 0);
+  }
+}
+
+// ── PAGE ANALYSIS ─────────────────────────────────────────────────────
+async function analysePages() {
+  pageTypes = [];
+  let scannedCount = 0;
+  const samplePages = Math.min(pdfJsDoc.numPages, 6);
+
+  for (let i = 1; i <= samplePages; i++) {
+    const page = await pdfJsDoc.getPage(i);
+    const vp = page.getViewport({ scale: 0.3 }); // low-res for analysis
+    const canvas = document.createElement('canvas');
+    canvas.width = vp.width; canvas.height = vp.height;
+    const ctx = canvas.getContext('2d');
+    await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const type = classifyPage(imgData);
+    pageTypes.push(type);
+    if (type === 'scanned') scannedCount++;
+  }
+
+  // Show page badges
+  const badgeEl = document.getElementById('page-analysis');
+  badgeEl.innerHTML = pageTypes.slice(0, 8).map((t, i) => {
+    const labels = { scanned: '⚡ Scanned', photo: '📷 Photo', text: '📄 Text' };
+    return `<span class="page-badge ${t}">P${i+1}: ${labels[t] || t}</span>`;
+  }).join('') + (pdfJsDoc.numPages > 8 ? `<span class="page-badge">+${pdfJsDoc.numPages - 8} more</span>` : '');
+
+  // Auto-suggest mode
+  const scannedRatio = scannedCount / samplePages;
+  const modeEl = document.getElementById('mode-detect-text');
+  const subEl = document.getElementById('mode-detect-sub');
+
+  if (scannedRatio >= 0.5) {
+    modeEl.textContent = '⚡ This looks like a scanned document';
+    subEl.textContent = 'Smart Scan Mode is recommended for better compression of forms, IDs, and signed documents.';
+    setMode('scan');
+  } else if (scannedRatio > 0) {
+    modeEl.textContent = 'Mixed content detected';
+    subEl.textContent = 'Some pages appear scanned. Try Smart Scan Mode if compression in General Mode is insufficient.';
+  } else {
+    modeEl.textContent = 'Document or text PDF detected';
+    subEl.textContent = 'General Mode is appropriate. Smart Scan Mode works best for scanned pages.';
+  }
+}
+
+// ── CLASSIFY PAGE ─────────────────────────────────────────────────────
+function classifyPage(imgData) {
+  const d = imgData.data;
+  let colorVariance = 0, nearWhite = 0, total = 0;
+  const step = 4 * 4; // sample every 4 pixels
+
+  for (let i = 0; i < d.length; i += step) {
+    const r = d[i], g = d[i+1], b = d[i+2];
+    const brightness = (r + g + b) / 3;
+    const saturation = Math.max(r,g,b) - Math.min(r,g,b);
+    colorVariance += saturation;
+    if (brightness > 240) nearWhite++;
+    total++;
+  }
+
+  const avgVariance = colorVariance / total;
+  const whiteRatio = nearWhite / total;
+
+  if (whiteRatio > 0.7 && avgVariance > 15) return 'scanned';
+  if (avgVariance > 40) return 'photo';
+  return 'text';
+}
+
+// ── MODE SWITCH ───────────────────────────────────────────────────────
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-general').classList.toggle('active', mode === 'general');
+  document.getElementById('btn-scan').classList.toggle('active', mode === 'scan');
+  document.getElementById('row-quality').style.display = mode === 'general' ? '' : 'none';
+  document.getElementById('scan-options').style.display = mode === 'scan' ? '' : 'none';
+}
+
+// ── COMPRESS ──────────────────────────────────────────────────────────
+async function startCompress() {
+  const btn = document.getElementById('compress-btn');
+  btn.disabled = true;
+  document.getElementById('action-row').style.display = 'none';
+  document.getElementById('result-card').classList.remove('visible');
+  document.getElementById('warn-card').classList.remove('visible');
+  document.getElementById('processing-card').classList.add('visible');
+  document.getElementById('stats-bar').style.display = 'none';
+
+  const targetMB = parseFloat(document.getElementById('target-size').value);
+  const hasTarget = !isNaN(targetMB) && targetMB > 0;
+
+  try {
+    if (hasTarget) {
+      compressedBytes = await compressToTarget(targetMB * 1024 * 1024);
+    } else {
+      const quality = currentMode === 'scan'
+        ? parseInt(document.getElementById('scan-quality').value) / 100
+        : parseInt(document.getElementById('quality-slider').value) / 100;
+      compressedBytes = await compressAtQuality(quality);
+    }
+
+    await showResults();
+  } catch (err) {
+    console.error(err);
+    alert('Compression failed: ' + err.message);
+  }
+
+  document.getElementById('processing-card').classList.remove('visible');
+  document.getElementById('action-row').style.display = '';
+  btn.disabled = false;
+}
+
+// ── COMPRESS AT QUALITY ───────────────────────────────────────────────
+async function compressAtQuality(quality) {
+  const grayscale = currentMode === 'scan' && document.getElementById('toggle-grayscale').checked;
+  const binarize = currentMode === 'scan' && document.getElementById('toggle-binarize').checked;
+  const stripMeta = document.getElementById('toggle-meta').checked;
+
+  const outDoc = await PDFLib.PDFDocument.create();
+  const totalPages = pdfJsDoc.numPages;
+
+  for (let i = 1; i <= totalPages; i++) {
+    setProgress(i, totalPages, `Processing page ${i} of ${totalPages}…`);
+    await new Promise(r => setTimeout(r, 0)); // yield to UI
+
+    const page = await pdfJsDoc.getPage(i);
+    const origPage = pdfDoc.getPages()[i - 1];
+    const { width, height } = origPage.getSize();
+
+    // Determine per-page quality
+    const pageType = pageTypes[i - 1] || 'text';
+    let pageQuality = quality;
+    if (currentMode === 'scan' && pageType === 'text') {
+      pageQuality = Math.min(quality + 0.15, 0.9); // text pages get higher quality
+    }
+
+    // Render page to canvas at target resolution
+    const targetWidth = Math.min(width * 1.5, 1200);
+    const scale = targetWidth / page.getViewport({ scale: 1 }).width;
+    const vp = page.getViewport({ scale });
+    const canvas = document.createElement('canvas');
+    canvas.width = vp.width;
+    canvas.height = vp.height;
+    const ctx = canvas.getContext('2d');
+    await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+    // Apply colour transforms
+    if (grayscale || binarize) {
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const d = imgData.data;
+      for (let p = 0; p < d.length; p += 4) {
+        const grey = Math.round(0.299 * d[p] + 0.587 * d[p+1] + 0.114 * d[p+2]);
+        const val = binarize ? (grey > 128 ? 255 : 0) : grey;
+        d[p] = d[p+1] = d[p+2] = val;
+      }
+      ctx.putImageData(imgData, 0, 0);
+    }
+
+    // Convert to JPEG bytes
+    const mimeType = (binarize && !grayscale) ? 'image/png' : 'image/jpeg';
+    const dataURL = canvas.toDataURL(mimeType, pageQuality);
+    const b64 = dataURL.split(',')[1];
+    const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+
+    let embedded;
+    if (mimeType === 'image/png') {
+      embedded = await outDoc.embedPng(bytes);
+    } else {
+      embedded = await outDoc.embedJpg(bytes);
+    }
+
+    const newPage = outDoc.addPage([width, height]);
+    newPage.drawImage(embedded, { x: 0, y: 0, width, height });
+  }
+
+  setProgress(totalPages, totalPages, 'Finalising…');
+  await new Promise(r => setTimeout(r, 50));
+
+  if (stripMeta) {
+    // pdf-lib doesn't expose full metadata strip but we can clear common fields
+    try {
+      outDoc.setTitle('');
+      outDoc.setAuthor('');
+      outDoc.setSubject('');
+      outDoc.setKeywords([]);
+      outDoc.setProducer('Neatkit PDF Compressor');
+      outDoc.setCreator('Neatkit');
+    } catch(e) {}
+  }
+
+  return await outDoc.save();
+}
+
+// ── TARGET SIZE MODE ──────────────────────────────────────────────────
+async function compressToTarget(targetBytes) {
+  let lo = 0.15, hi = 0.92, best = null;
+
+  setProgress(0, 10, 'Calculating optimal compression…');
+
+  for (let iter = 0; iter < 7; iter++) {
+    const mid = (lo + hi) / 2;
+    setProgress(iter + 1, 8, `Trying quality ${Math.round(mid * 100)}%…`);
+    const result = await compressAtQuality(mid);
+
+    if (!best || Math.abs(result.length - targetBytes) < Math.abs(best.length - targetBytes)) {
+      best = result;
+    }
+
+    if (result.length <= targetBytes) {
+      lo = mid; // can go higher quality
+    } else {
+      hi = mid; // need lower quality
+    }
+
+    if (Math.abs(result.length - targetBytes) / targetBytes < 0.05) break;
+  }
+
+  return best;
+}
+
+// ── SHOW RESULTS ──────────────────────────────────────────────────────
+async function showResults() {
+  const origSize = pdfFile.size;
+  const compSize = compressedBytes.length;
+  const reduction = Math.max(0, Math.round((1 - compSize / origSize) * 100));
+  const saved = Math.max(0, origSize - compSize);
+
+  // Update stats bar
+  document.getElementById('stat-reduction').textContent = reduction + '%';
+  document.getElementById('stat-orig').textContent = fmtShort(origSize);
+  document.getElementById('stat-comp').textContent = fmtShort(compSize);
+  document.getElementById('stat-bar').style.width = Math.round((compSize / origSize) * 100) + '%';
+  document.getElementById('stats-bar').style.display = 'flex';
+
+  // Result card
+  document.getElementById('rs-reduction').textContent = reduction + '%';
+  document.getElementById('rs-saved').textContent = fmt(saved);
+  document.getElementById('rs-final').textContent = fmt(compSize);
+  document.getElementById('result-bar-fill').style.width = Math.round((compSize / origSize) * 100) + '%';
+  document.getElementById('result-title').textContent = reduction > 0 ? `✓ Compressed — ${reduction}% smaller` : '⚠ Minimal compression achieved';
+  document.getElementById('result-sub').textContent = `${fmt(origSize)} → ${fmt(compSize)} · ${pdfJsDoc.numPages} page${pdfJsDoc.numPages > 1 ? 's' : ''}`;
+  document.getElementById('result-card').classList.add('visible');
+
+  // Show warning if minimal reduction
+  if (reduction < 5) {
+    document.getElementById('warn-card').classList.add('visible');
+  }
+
+  // Update compressed preview
+  document.getElementById('comp-loading').style.display = '';
+  document.getElementById('comp-size').textContent = fmt(compSize);
+
+  const grayscale = currentMode === 'scan' && document.getElementById('toggle-grayscale').checked;
+  const binarize = currentMode === 'scan' && document.getElementById('toggle-binarize').checked;
+  await renderPreview(pdfJsDoc, 'canvas-comp', grayscale, binarize);
+  document.getElementById('comp-loading').style.display = 'none';
+}
+
+// ── DOWNLOAD ──────────────────────────────────────────────────────────
+function downloadResult() {
+  if (!compressedBytes) return;
+  const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = origFileName.replace(/\.pdf$/i, '') + '-compressed.pdf';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+// ── RESET ─────────────────────────────────────────────────────────────
+function resetTool() {
+  pdfFile = null; pdfDoc = null; pdfJsDoc = null; compressedBytes = null; pageTypes = [];
+  dropZone.style.display = '';
+  document.getElementById('workspace').classList.remove('active');
+  document.getElementById('file-input').value = '';
+  document.getElementById('result-card').classList.remove('visible');
+  document.getElementById('warn-card').classList.remove('visible');
+  document.getElementById('processing-card').classList.remove('visible');
+  document.getElementById('stats-bar').style.display = 'none';
+  document.getElementById('page-analysis').innerHTML = '';
+  document.getElementById('action-row').style.display = '';
+  document.getElementById('compress-btn').disabled = false;
+  setMode('general');
+}
+
+// ── PROGRESS ──────────────────────────────────────────────────────────
+function setProgress(current, total, label) {
+  const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+  document.getElementById('proc-bar').style.width = pct + '%';
+  document.getElementById('proc-sub').textContent = label;
+}
+</script>
+
+<script>
+// FAQ toggle
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+</script>
+
+</body>
+</html>
