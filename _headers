@@ -5,7 +5,6 @@
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=()
   X-XSS-Protection: 1; mode=block
 
 # Cache JS/CSS assets aggressively (1 year) since they're content-hashed
@@ -34,3 +33,27 @@
 # robots.txt
 /robots.txt
   Cache-Control: public, max-age=86400
+
+# ── CAMERA TOOLS ─────────────────────────────────────────────────────
+# Allow camera/microphone on tools that need it
+# (QR scanner, photo-to-pdf, video tools)
+/tools/qr-scanner.html
+  Permissions-Policy: camera=(self)
+
+/tools/photo-to-pdf.html
+  Permissions-Policy: camera=(self)
+
+/tools/video-trim.html
+  Permissions-Policy: camera=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+
+/tools/video-compress.html
+  Permissions-Policy: camera=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+
+/tools/video-to-gif.html
+  Permissions-Policy: camera=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
