@@ -65,6 +65,23 @@ footer a:hover{color:var(--accent)}
 .nk-footer-bottom{max-width:1100px;margin:1.25rem auto 0;padding-top:1.125rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;font-size:0.75rem;color:var(--tx3)}
 @media(max-width:600px){.nk-footer-links{gap:1.5rem}.nk-footer-inner{flex-direction:column;gap:1.5rem}}
 
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f0f13;--bg2:#1a1a20;--bg3:#16161c;
+    --glass:rgba(15,15,19,0.88);
+    --text:#f0f0f5;--text2:#a8a8c2;--text3:#6e6e85;
+    --border:rgba(180,180,210,0.15);
+    --accent:#9aabdf;
+    /* nk-footer vars (from index system) */
+    --tx1:#f0f0f5;--tx2:#a8a8c2;--tx3:#6e6e85;
+    --rule:rgba(180,180,210,0.12);--rule2:rgba(180,180,210,0.22);
+    --white:#0f0f13;
+  }
+  body{background:#1a1a20}
+  nav{border-bottom-color:rgba(180,180,210,0.12)}
+  .highlight-box{background:#16161c}
+  .nk-footer{background:#0f0f13}
+}
 </style>
 </head>
 <body>
