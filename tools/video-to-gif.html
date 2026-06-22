@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R51Q6DPPBG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R51Q6DPPBG');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="video to gif converter free, mp4 to gif online, convert video to gif, make gif from video, gif maker online free, gif creator">
+<meta name="description" content="Free video to GIF converter. Smart frame reduction, two-pass palette optimisation for better colours. Set target size for Discord/Slack. No upload.">
+<title>Video to GIF Converter Free — MP4 to GIF Online | Neatkit</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7083602792413467" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
+  --display:'DM Serif Display',Georgia,serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --code:'DM Mono',monospace;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.12);
+}
+@media(prefers-color-scheme:light){:root{
+  --bg:#f4f4f8;--bg2:#ffffff;--bg3:#f0f0f7;
+  --text:#0f0f12;--text2:#54546a;--text3:#9898b2;
+  --border:rgba(180,180,220,0.35);--border2:rgba(180,180,210,0.45);
+  --accent:#7b8fd4;--accent-light:rgba(123,143,212,0.1);--accent-text:#fff;
+  --nav-bg:rgba(255,255,255,0.9);--nav-border:rgba(180,180,210,0.25);
+  --tx1:#0f0f12;--tx2:#54546a;--tx3:#9898b2;
+  --rule:rgba(180,180,210,0.25);--rule2:rgba(180,180,210,0.45);
+  --mist:#f4f4f8;--white:#ffffff;--ink:#0f0f12;
+  --warn-bg:rgba(217,119,6,0.08);--warn-border:rgba(217,119,6,0.25);--warn-text:#92400e;
+  --success-bg:rgba(22,163,74,0.08);--success-border:rgba(22,163,74,0.25);
+}}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;
+  --text:#e8e6e0;--text2:#8a8880;--text3:#5a5856;
+  --border:#2a2a2a;--border2:#3a3a3a;
+  --accent:#c8f04a;--accent-light:rgba(200,240,74,0.08);--accent-text:#0c0c0c;
+  --nav-bg:rgba(12,12,12,0.92);--nav-border:#2a2a2a;
+  --tx1:#e8e6e0;--tx2:#8a8880;--tx3:#5a5856;
+  --rule:#2a2a2a;--rule2:#3a3a3a;
+  --mist:#141414;--white:#1c1c1c;--ink:#e8e6e0;
+  --warn-bg:rgba(251,191,36,0.06);--warn-border:rgba(251,191,36,0.2);--warn-text:#fbbf24;
+  --success-bg:rgba(74,222,128,0.06);--success-border:rgba(74,222,128,0.2);
+}}
+body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
+.nk-nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--nav-border);height:56px;display:flex;align-items:center;padding:0 2rem}
+.nk-nav-inner{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.nk-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.nk-logo-mark{width:24px;height:24px;background:var(--grad);border-radius:6px;position:relative;overflow:hidden;flex-shrink:0}
+.nk-logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,transparent 55%)}
+.nk-logo-text{font-family:var(--display);font-size:1.1rem;color:var(--text);letter-spacing:-0.01em;line-height:1}
+.nk-logo-text em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nk-breadcrumb{display:flex;align-items:center;gap:0.375rem;font-family:var(--code);font-size:0.68rem;color:var(--text3)}
+.nk-breadcrumb a{color:var(--text3);text-decoration:none}.nk-breadcrumb a:hover{color:var(--text)}
+.nk-back{margin-left:auto;font-family:var(--code);font-size:0.65rem;color:var(--text3);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase}
+.nk-back:hover{color:var(--text)}
+.page{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-bottom:0.4rem;color:var(--text)}
+.subtitle{color:var(--text2);font-size:0.925rem;margin-bottom:2rem}
+
+.drop-zone{border:2px dashed var(--border2);border-radius:var(--r-xl);padding:3rem 2rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--bg2);position:relative}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-light)}
+.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-icon{font-size:2.5rem;margin-bottom:0.875rem}
+.drop-title{font-size:1.05rem;font-weight:700;margin-bottom:0.35rem;color:var(--text)}
+.drop-sub{font-size:0.82rem;color:var(--text3)}
+.workspace{display:none}.workspace.active{display:block}
+
+/* META BAR */
+.meta-bar{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;gap:2rem;flex-wrap:wrap;font-family:var(--code);font-size:0.72rem;color:var(--text3)}
+.meta-bar span{color:var(--accent)}
+
+/* TRIM SECTION */
+.ctrl-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.75rem;margin-bottom:1.25rem}
+.ctrl-card h2{font-family:var(--display);font-size:1.1rem;color:var(--text);margin-bottom:1.25rem;letter-spacing:-0.01em}
+.field-label{font-family:var(--code);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.625rem;display:block}
+
+/* CLIP RANGE */
+.clip-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
+.clip-field input{width:100%;background:var(--bg3);border:1.5px solid var(--border2);color:var(--text);font-family:var(--code);font-size:0.95rem;font-weight:600;padding:0.5rem 0.875rem;border-radius:var(--r-sm);outline:none;transition:border-color 0.15s}
+.clip-field input:focus{border-color:var(--accent)}
+.clip-duration{font-family:var(--code);font-size:0.75rem;color:var(--text3);margin-bottom:1.25rem;text-align:center}
+.clip-duration span{color:var(--accent)}
+
+/* SETTINGS GRID */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
+.setting-group{background:var(--bg3);border-radius:var(--r-lg);padding:1rem}
+.setting-title{font-family:var(--code);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.625rem}
+.setting-btns{display:flex;gap:0.375rem;flex-wrap:wrap}
+.setting-btn{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r-sm);padding:0.35rem 0.625rem;font-family:var(--code);font-size:0.7rem;font-weight:700;color:var(--text2);cursor:pointer;transition:all 0.15s}
+.setting-btn:hover{border-color:var(--accent);color:var(--accent)}
+.setting-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+
+/* FPS SLIDER */
+.fps-row{display:flex;align-items:center;gap:0.75rem;margin-top:0.5rem}
+.fps-slider{-webkit-appearance:none;flex:1;height:5px;background:var(--bg2);border-radius:3px;outline:none;cursor:pointer}
+.fps-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--bg2);border:2px solid var(--accent);cursor:pointer}
+.fps-val{font-family:var(--code);font-size:0.8rem;color:var(--accent);min-width:48px;text-align:right}
+
+/* TARGET SIZE */
+.target-row{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.target-check{display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.875rem;color:var(--text2)}
+.target-check input{accent-color:var(--accent);width:16px;height:16px;cursor:pointer}
+.target-input{background:var(--bg3);border:1.5px solid var(--border2);color:var(--text);font-family:var(--code);font-size:0.95rem;font-weight:600;padding:0.45rem 0.75rem;border-radius:var(--r-sm);outline:none;width:80px;transition:border-color 0.15s}
+.target-input:focus{border-color:var(--accent)}
+.target-unit{font-family:var(--code);font-size:0.82rem;color:var(--text2)}
+
+/* ESTIMATE */
+.gif-estimate{background:var(--bg3);border-radius:var(--r-lg);padding:0.875rem 1.125rem;margin-bottom:1.25rem;font-size:0.8rem;color:var(--text2);line-height:1.65}
+.gif-estimate strong{color:var(--text);font-family:var(--code)}
+
+/* PALETTE BADGE */
+.palette-badge{display:inline-flex;align-items:center;gap:0.375rem;background:var(--accent-light);color:var(--accent);font-family:var(--code);font-size:0.65rem;font-weight:700;padding:0.3rem 0.75rem;border-radius:100px;border:1px solid var(--border2);margin-bottom:1.25rem}
+
+/* PROCESSING */
+.processing-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;text-align:center;display:none;margin-bottom:1.25rem}
+.processing-card.visible{display:block}
+.spinner{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.proc-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.35rem}
+.proc-sub{font-size:0.75rem;color:var(--text2);font-family:var(--code);margin-bottom:1rem}
+.proc-stage{display:flex;gap:1rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
+.proc-stage-item{font-family:var(--code);font-size:0.65rem;padding:0.25rem 0.625rem;border-radius:100px;border:1px solid var(--border2);color:var(--text3)}
+.proc-stage-item.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.proc-stage-item.done{border-color:var(--text3);color:var(--text3);opacity:0.5}
+.proc-bar-wrap{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;max-width:400px;margin:0 auto 0.75rem}
+.proc-bar-fill{height:100%;background:var(--grad);border-radius:3px;transition:width 0.4s;width:0%}
+.proc-honest{font-size:0.75rem;color:var(--text3);font-style:italic}
+
+/* RESULT */
+.result-card{background:var(--bg2);border:1.5px solid var(--success-border);border-radius:var(--r-xl);padding:1.5rem;display:none;margin-bottom:1.25rem}
+.result-card.visible{display:block}
+.result-head{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem}
+.result-icon{font-size:1.5rem}
+.result-title{font-size:1rem;font-weight:700;color:var(--text)}
+.result-sub{font-size:0.82rem;color:var(--text2);margin-top:0.15rem}
+.result-gif-wrap{border-radius:var(--r-lg);overflow:hidden;background:repeating-conic-gradient(var(--bg3) 0% 25%,var(--bg2) 0% 50%) 0 0/16px 16px;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;min-height:120px}
+.result-gif-wrap img{max-width:100%;max-height:320px;display:block;border-radius:var(--r-lg)}
+.result-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.rs-num{font-family:var(--code);font-size:1.2rem;font-weight:700;color:var(--accent)}
+.rs-label{font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;font-family:var(--code);margin-top:0.15rem}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--grad);color:#0f0f12;font-family:var(--body);font-size:0.9rem;font-weight:700;padding:0.875rem 2rem;border-radius:100px;border:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow 0.15s,transform 0.15s}
+.btn-primary:hover:not(:disabled){box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.btn-primary:disabled{opacity:0.45;cursor:not-allowed;transform:none}
+.btn-outline{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:var(--text2);font-family:var(--body);font-size:0.875rem;font-weight:600;padding:0.875rem 1.5rem;border-radius:100px;border:1.5px solid var(--border2);cursor:pointer;transition:all 0.15s}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center}
+
+/* CONTENT */
+.nk-section{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;margin-top:2rem}
+.nk-section h2{font-family:var(--display);font-size:1.2rem;color:var(--text);margin-bottom:0.875rem;letter-spacing:-0.01em}
+.nk-section p{font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.nk-section p:last-child{margin-bottom:0}
+.nk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+.nk-card{background:var(--bg3);border-radius:var(--r-lg);padding:1.25rem}
+.nk-card-icon{font-size:1.4rem;margin-bottom:0.5rem}
+.nk-card-title{font-size:0.875rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.nk-card-desc{font-size:0.8rem;color:var(--text2);line-height:1.65}
+.nk-tip{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:0.875rem 1.125rem;margin:1rem 0;font-size:0.875rem;color:var(--text2);line-height:1.7}
+.nk-tip strong{color:var(--accent)}
+.nk-faq{margin-top:1.25rem;display:flex;flex-direction:column;gap:0.625rem}
+.faq-item{border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1.25rem;text-align:left;font-family:var(--body);font-size:0.875rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.25rem 0.875rem;font-size:0.875rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+.nk-chain{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.25rem}
+.nk-chain-chip{display:inline-flex;align-items:center;gap:0.35rem;background:var(--bg3);color:var(--text2);font-family:var(--code);font-size:0.72rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;text-decoration:none;border:1.5px solid var(--border2);transition:all 0.15s}
+.nk-chain-chip:hover{border-color:var(--accent);color:var(--accent)}
+
+.nk-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2rem;margin-top:4rem}
+.nk-footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-start}
+.nk-footer-brand p{font-size:0.8rem;color:var(--text3);line-height:1.6;max-width:240px;margin-top:0.5rem}
+.nk-footer-links{display:flex;flex-wrap:wrap;gap:3rem}
+.nk-footer-col h4{font-family:var(--code);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.75rem}
+.nk-footer-col a{display:block;font-size:0.82rem;color:var(--text2);text-decoration:none;margin-bottom:0.5rem;transition:color 0.15s}
+.nk-footer-col a:hover{color:var(--text)}
+.nk-footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding-top:1.25rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;font-size:0.78rem;color:var(--text3)}
+
+@media(max-width:640px){
+  .page{padding:1.5rem 1rem 3rem}h1{font-size:1.5rem}
+  .settings-grid{grid-template-columns:1fr}.clip-row{grid-template-columns:1fr}
+  .btn-row{flex-direction:column}.btn-primary,.btn-outline{width:100%;justify-content:center}
+  .nk-grid{grid-template-columns:1fr 1fr}
+  .nk-footer-inner{flex-direction:column;gap:1.5rem}.nk-footer-links{gap:1.5rem}
+}
+@media(max-width:420px){.nk-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nk-nav">
+  <div class="nk-nav-inner">
+    <a class="nk-logo" href="../index.html"><div class="nk-logo-mark"></div><span class="nk-logo-text">Neat<em>kit</em></span></a>
+    <div class="nk-breadcrumb"><span>/</span><a href="../index.html">tools</a><span>/</span><span>video to gif</span></div>
+    <a class="nk-back" href="../index.html">← All tools</a>
+  </div>
+</nav>
+
+<div class="page">
+  <h1>Video to GIF</h1>
+  <p class="subtitle">Convert a video clip to GIF with smart frame reduction and two-pass palette optimisation for better colours. Set a target size for Discord, Slack or Twitter. Runs entirely in your browser.</p>
+
+  <div class="drop-zone" id="drop-zone">
+    <input type="file" id="file-input" accept="video/*">
+    <div class="drop-icon">🎞️</div>
+    <div class="drop-title">Drop a video here, or click to browse</div>
+    <div class="drop-sub">MP4 · WebM · MOV · Any video format · Max 500MB</div>
+  </div>
+
+  <div class="workspace" id="workspace">
+
+    <div class="meta-bar">
+      <div>File: <span id="meta-name">—</span></div>
+      <div>Duration: <span id="meta-duration">—</span></div>
+      <div>Size: <span id="meta-size">—</span></div>
+      <div>Resolution: <span id="meta-res">—</span></div>
+    </div>
+
+    <div class="ctrl-card">
+      <h2>GIF settings</h2>
+
+      <!-- CLIP RANGE -->
+      <span class="field-label">Clip range — trim before converting</span>
+      <div class="clip-row">
+        <div class="clip-field">
+          <label class="field-label">Start time</label>
+          <input type="text" id="clip-start" placeholder="0:00.0" oninput="updateClipDuration()">
+        </div>
+        <div class="clip-field">
+          <label class="field-label">End time</label>
+          <input type="text" id="clip-end" placeholder="0:10.0" oninput="updateClipDuration()">
+        </div>
+      </div>
+      <div class="clip-duration" id="clip-duration">Duration: <span>—</span> · GIFs over 15 seconds become very large</div>
+
+      <!-- SETTINGS -->
+      <div class="settings-grid">
+        <div class="setting-group">
+          <div class="setting-title">Width (px)</div>
+          <div class="setting-btns">
+            <button class="setting-btn" id="w-320" onclick="setWidth(320)">320</button>
+            <button class="setting-btn active" id="w-480" onclick="setWidth(480)">480</button>
+            <button class="setting-btn" id="w-640" onclick="setWidth(640)">640</button>
+            <button class="setting-btn" id="w-orig" onclick="setWidth(0)">Original</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <div class="setting-title">Frame rate (fps)</div>
+          <div class="fps-row">
+            <input type="range" class="fps-slider" id="fps-slider" min="5" max="25" value="12" oninput="onFpsChange(this.value)">
+            <span class="fps-val" id="fps-val">12 fps</span>
+          </div>
+          <div style="font-size:0.7rem;color:var(--text3);margin-top:0.375rem">10–15fps looks natural and keeps GIFs small</div>
+        </div>
+        <div class="setting-group">
+          <div class="setting-title">Colour depth</div>
+          <div class="setting-btns">
+            <button class="setting-btn" id="c-64" onclick="setColors(64)">64</button>
+            <button class="setting-btn active" id="c-128" onclick="setColors(128)">128</button>
+            <button class="setting-btn" id="c-256" onclick="setColors(256)">256 (max)</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <div class="setting-title">Dithering</div>
+          <div class="setting-btns">
+            <button class="setting-btn" id="d-none" onclick="setDither('none')">None</button>
+            <button class="setting-btn active" id="d-bayer" onclick="setDither('bayer')">Bayer</button>
+            <button class="setting-btn" id="d-floyd" onclick="setDither('floyd_steinberg')">Floyd-S</button>
+          </div>
+          <div style="font-size:0.7rem;color:var(--text3);margin-top:0.375rem">Dithering improves gradients and smooth areas</div>
+        </div>
+      </div>
+
+      <!-- TARGET SIZE -->
+      <div class="target-row">
+        <label class="target-check">
+          <input type="checkbox" id="use-target" onchange="toggleTarget()">
+          Target size limit
+        </label>
+        <div id="target-inputs" style="display:none;display:flex;align-items:center;gap:0.5rem">
+          <input type="number" class="target-input" id="target-mb" placeholder="8" min="1" max="100" oninput="updateEstimate()">
+          <span class="target-unit">MB</span>
+          <span style="font-size:0.75rem;color:var(--text3)">— Discord/Slack/Twitter limit</span>
+        </div>
+      </div>
+
+      <!-- PALETTE BADGE -->
+      <div class="palette-badge">✨ Two-pass palette optimisation enabled — better colour than single-pass GIF tools</div>
+
+      <!-- ESTIMATE -->
+      <div class="gif-estimate" id="gif-estimate">
+        Set your clip range and settings above to see a size estimate.
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="convert-btn" onclick="startConvert()">🎞️ Create GIF</button>
+        <button class="btn-outline" onclick="resetTool()">← Choose different video</button>
+      </div>
+    </div>
+
+    <!-- PROCESSING -->
+    <div class="processing-card" id="processing-card">
+      <div class="spinner"></div>
+      <div class="proc-title" id="proc-title">Creating GIF…</div>
+      <div class="proc-sub" id="proc-sub">Initialising…</div>
+      <div class="proc-stage">
+        <div class="proc-stage-item active" id="stage-palette">1. Generate palette</div>
+        <div class="proc-stage-item" id="stage-encode">2. Encode GIF</div>
+      </div>
+      <div class="proc-bar-wrap"><div class="proc-bar-fill" id="proc-bar"></div></div>
+      <div class="proc-honest">GIF creation requires two passes through the video. Longer clips at higher resolution take more time. Keep this tab active while processing.</div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-card" id="result-card">
+      <div class="result-head">
+        <div class="result-icon">🎞️</div>
+        <div>
+          <div class="result-title" id="result-title">GIF created</div>
+          <div class="result-sub" id="result-sub"></div>
+        </div>
+      </div>
+      <div class="result-gif-wrap" id="result-gif-wrap">
+        <img id="result-gif" src="" alt="Generated GIF">
+      </div>
+      <div class="result-stats">
+        <div><div class="rs-num" id="rs-size">—</div><div class="rs-label">File size</div></div>
+        <div><div class="rs-num" id="rs-fps">—</div><div class="rs-label">Frame rate</div></div>
+        <div><div class="rs-num" id="rs-width">—</div><div class="rs-label">Width</div></div>
+        <div><div class="rs-num" id="rs-duration">—</div><div class="rs-label">Duration</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="downloadResult()">↓ Download GIF</button>
+        <button class="btn-outline" onclick="makeAnother()">Make another</button>
+        <button class="btn-outline" onclick="resetTool()">← New video</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTENT SECTIONS -->
+  <div class="nk-section">
+    <h2>Tips for smaller, better-looking GIFs</h2>
+    <div class="nk-tip"><strong>Keep clips under 10 seconds.</strong> GIF file size grows linearly with duration. A 3-second clip at 12fps is ~36 frames. A 30-second clip is 360 frames — 10× the data. Trim aggressively and loop the interesting part rather than making a long clip.</div>
+    <div class="nk-tip"><strong>480px wide is the sweet spot.</strong> Most platforms display GIFs at 400–600px wide. Using the original resolution for a 1080p video produces a massive GIF with no visible improvement at display size. 480px looks identical in a chat or on a website but is a fraction of the size.</div>
+    <div class="nk-tip"><strong>12fps is intentional, not a limitation.</strong> The GIF format looks and feels natural at 10–15fps — it has its own aesthetic that's distinct from smooth video. Going above 20fps adds significant file size with minimal visual improvement in most cases.</div>
+  </div>
+
+  <div class="nk-section">
+    <h2>How two-pass palette optimisation works</h2>
+    <p>Most basic video-to-GIF tools do a single pass: convert each frame directly to the 256-colour GIF palette using a generic approximation. This produces washed-out colours, especially in videos with gradients or subtle colour variation.</p>
+    <p>This tool uses FFmpeg's two-pass palette approach — the same method used by professional GIF creators:</p>
+    <div class="nk-grid">
+      <div class="nk-card">
+        <div class="nk-card-icon">🎨</div>
+        <div class="nk-card-title">Pass 1 — palettegen</div>
+        <div class="nk-card-desc">FFmpeg analyses every frame in the clip and calculates the optimal 256-colour palette specifically for this video's content. A video with a lot of blues and greens gets a palette biased toward those colours.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">✨</div>
+        <div class="nk-card-title">Pass 2 — paletteuse</div>
+        <div class="nk-card-desc">FFmpeg re-encodes the video using the optimised palette. Each pixel is mapped to the closest colour in the custom palette rather than a generic one, producing noticeably richer, more accurate colours.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">📉</div>
+        <div class="nk-card-title">Dithering</div>
+        <div class="nk-card-desc">Since GIF supports only 256 colours, gradients have to be approximated. Dithering adds controlled noise patterns that fool the eye into perceiving smooth colour transitions. Bayer dithering is a good default.</div>
+      </div>
+      <div class="nk-card">
+        <div class="nk-card-icon">🔢</div>
+        <div class="nk-card-title">Frame reduction</div>
+        <div class="nk-card-desc">The fps setting controls how many frames per second are sampled from the source video. Fewer frames = smaller file. 12fps is a good default — the motion looks smooth enough and file size stays manageable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>GIF size limits by platform</h2>
+    <p>If you're making a GIF to share somewhere specific, here are the limits you need to stay under:</p>
+    <div class="nk-grid">
+      <div class="nk-card"><div class="nk-card-icon">💬</div><div class="nk-card-title">Discord</div><div class="nk-card-desc">8MB for free users. Nitro users get 50MB. GIFs in messages must be under 8MB to send without a link.</div></div>
+      <div class="nk-card"><div class="nk-card-icon">💼</div><div class="nk-card-title">Slack</div><div class="nk-card-desc">No hard GIF limit for inline display, but files over 1GB can't be uploaded. Animated GIFs in messages display automatically up to ~50MB.</div></div>
+      <div class="nk-card"><div class="nk-card-icon">🐦</div><div class="nk-card-title">X / Twitter</div><div class="nk-card-desc">15MB on web, 5MB on mobile. Twitter converts GIFs to MP4 for playback anyway, so smaller is always better for upload speed.</div></div>
+      <div class="nk-card"><div class="nk-card-icon">📸</div><div class="nk-card-title">Giphy / Tenor</div><div class="nk-card-desc">100MB upload limit on Giphy. Tenor accepts up to 100MB. Both re-process GIFs after upload so the original quality is what matters.</div></div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>Frequently asked questions</h2>
+    <div class="nk-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my video uploaded anywhere? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Everything runs in your browser using FFmpeg WebAssembly. Your video is read from your device into browser memory and processed there. Nothing is sent to any server. You can verify this: open DevTools → Network, start a conversion, and confirm no upload request fires.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why does GIF creation take two passes? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The first pass analyses your video to build an optimal colour palette for your specific clip. The second pass uses that palette to encode each frame. You could skip the first pass and use a generic palette, but the colour quality is noticeably worse — especially for videos with subtle gradients or complex colour. Two passes take longer but produce a much better result.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why is my GIF so large? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">GIF size is mainly determined by: clip duration × frame rate × resolution. Reduce any of these to shrink the file. The biggest win is usually reducing width — try 320px or 480px instead of the original resolution. Next, reduce the clip duration. Then reduce fps to 8–10. The colour depth setting (64/128/256) has a smaller effect than those three.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What dithering mode should I use? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Bayer dithering (the default) works well for most content — it adds a regular grid pattern that's subtle and effective. Floyd-Steinberg produces smoother gradients but can look grainy on some content and produces larger files. None (no dithering) gives the smallest file but looks blocky on anything with gradients. Try Bayer first; switch to Floyd-Steinberg if gradients look bad.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I make a GIF from a YouTube video? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">This tool works with video files on your device. To make a GIF from a YouTube video, you'd need to download the video first using a YouTube downloader tool, then upload the downloaded file here. Note that downloading YouTube videos may violate YouTube's terms of service depending on your use case.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nk-section">
+    <h2>What to do next</h2>
+    <div class="nk-chain">
+      <a class="nk-chain-chip" href="video-trim.html">✂️ Trim the video first</a>
+      <a class="nk-chain-chip" href="video-compress.html">📦 Compress the video</a>
+      <a class="nk-chain-chip" href="image-compress.html">🗜️ Compress images</a>
+      <a class="nk-chain-chip" href="qr-generator.html">⬛ Generate QR code</a>
+      <a class="nk-chain-chip" href="../index.html">← All tools</a>
+    </div>
+  </div>
+</div>
+
+<footer class="nk-footer">
+  <div class="nk-footer-inner">
+    <div class="nk-footer-brand">
+      <a class="nk-logo" href="../index.html"><div class="nk-logo-mark"></div><span class="nk-logo-text">Neat<em>kit</em></span></a>
+      <p>Free browser-based tools. No signup, no uploads, no limits.</p>
+    </div>
+    <div class="nk-footer-links">
+      <div class="nk-footer-col">
+        <h4>Video tools</h4>
+        <a href="video-trim.html">Video Trimmer</a>
+        <a href="video-compress.html">Video Compressor</a>
+        <a href="video-to-gif.html">Video to GIF</a>
+        <a href="../index.html">All tools →</a>
+      </div>
+      <div class="nk-footer-col">
+        <h4>Company</h4>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="nk-footer-bottom">
+    <span>© 2026 Neatkit. All rights reserved.</span>
+    <span>Made in Nairobi 🇰🇪</span>
+  </div>
+</footer>
+
+<script>
+let videoFile=null,videoDuration=0,videoWidth=0,videoHeight=0;
+let gifWidth=480,gifFps=12,gifColors=128,gifDither='bayer';
+let ffmpegInstance=null,ffmpegLoaded=false,ffmpegLoading=false;
+let resultBlob=null;
+
+function fmt(b){if(b<1024*1024)return(b/1024).toFixed(0)+'KB';return(b/(1024*1024)).toFixed(2)+'MB';}
+function fmtTime(s){const m=Math.floor(s/60),sec=(s%60).toFixed(1);return m+':'+(sec<10?'0':'')+sec;}
+function parsetime(s){s=s.trim();const p=s.split(':');return p.length===2?parseFloat(p[0])*60+parseFloat(p[1]):parseFloat(s)||0;}
+function toggleFaq(btn){const item=btn.closest('.faq-item');const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));if(!isOpen)item.classList.add('open');}
+
+// DROP
+const dz=document.getElementById('drop-zone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',e=>{if(!dz.contains(e.relatedTarget))dz.classList.remove('drag-over');});
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('video/'))loadFile(f);});
+document.getElementById('file-input').addEventListener('change',e=>{if(e.target.files[0])loadFile(e.target.files[0]);});
+
+function loadFile(file){
+  if(file.size>500*1024*1024){alert('Max 500MB for GIF conversion');return;}
+  videoFile=file;
+  const vid=document.createElement('video');
+  vid.preload='metadata';vid.src=URL.createObjectURL(file);
+  vid.onloadedmetadata=()=>{
+    videoDuration=vid.duration;videoWidth=vid.videoWidth;videoHeight=vid.videoHeight;
+    document.getElementById('meta-name').textContent=file.name;
+    document.getElementById('meta-duration').textContent=fmtTime(videoDuration);
+    document.getElementById('meta-size').textContent=fmt(file.size);
+    document.getElementById('meta-res').textContent=videoWidth+'×'+videoHeight;
+    document.getElementById('clip-start').value='0:00.0';
+    document.getElementById('clip-end').value=fmtTime(Math.min(videoDuration,10));
+    dz.style.display='none';
+    document.getElementById('workspace').classList.add('active');
+    updateClipDuration();updateEstimate();
+    preloadFfmpeg();
+  };
+}
+
+function updateClipDuration(){
+  const s=parsetime(document.getElementById('clip-start').value||'0');
+  const e=parsetime(document.getElementById('clip-end').value||'0');
+  const dur=Math.max(0,e-s);
+  const el=document.getElementById('clip-duration');
+  el.innerHTML='Duration: <span>'+dur.toFixed(1)+'s</span>'+(dur>15?' · ⚠️ GIFs over 15s become very large':'');
+  updateEstimate();
+}
+
+// SETTINGS
+function setWidth(w){
+  gifWidth=w;
+  ['320','480','640','orig'].forEach(v=>document.getElementById('w-'+v)?.classList.remove('active'));
+  document.getElementById('w-'+(w||'orig'))?.classList.add('active');
+  updateEstimate();
+}
+function onFpsChange(v){gifFps=parseInt(v);document.getElementById('fps-val').textContent=v+' fps';updateEstimate();}
+function setColors(n){
+  gifColors=n;
+  [64,128,256].forEach(v=>document.getElementById('c-'+v)?.classList.remove('active'));
+  document.getElementById('c-'+n)?.classList.add('active');
+}
+function setDither(d){
+  gifDither=d;
+  ['none','bayer','floyd_steinberg'].forEach(v=>document.getElementById('d-'+v)?.classList.remove('active'));
+  document.getElementById('d-'+d)?.classList.add('active');
+}
+function toggleTarget(){
+  const on=document.getElementById('use-target').checked;
+  document.getElementById('target-inputs').style.display=on?'flex':'none';
+}
+
+function updateEstimate(){
+  const s=parsetime(document.getElementById('clip-start').value||'0');
+  const e=parsetime(document.getElementById('clip-end').value||'0');
+  const dur=Math.max(0,e-s);
+  if(!dur||!gifFps){document.getElementById('gif-estimate').textContent='Set clip range and settings to see estimate.';return;}
+  const frames=Math.ceil(dur*gifFps);
+  const w=gifWidth||videoWidth;
+  const h=gifWidth?Math.round(videoHeight*(gifWidth/videoWidth)):videoHeight;
+  // Very rough GIF size estimate: ~3-4 bytes per pixel per frame after LZW compression
+  const estBytes=frames*w*h*0.3; // rough average for typical content
+  const estMB=(estBytes/(1024*1024)).toFixed(1);
+  document.getElementById('gif-estimate').innerHTML=
+    `<strong>Estimate:</strong> ~${frames} frames · ${w}×${h}px · roughly <strong>${estMB}MB</strong> (actual size varies by content complexity)`;
+}
+
+// FFMPEG
+async function preloadFfmpeg(){
+  if(ffmpegLoaded||ffmpegLoading)return;ffmpegLoading=true;
+  try{
+    const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+    const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
+    window._ffmpegFetchFile=fetchFile;
+    const ff=new FFmpeg();
+    ff.on('progress',({progress})=>{
+      // Two-pass: first pass 0-50%, second pass 50-100%
+      if(document.getElementById('stage-encode').classList.contains('active')){
+        setProcBar(50+Math.round(progress*50));
+      } else {
+        setProcBar(Math.round(progress*45));
+      }
+    });
+    const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+    await ff.load({
+      coreURL:await toBlobURL(`${baseURL}/ffmpeg-core.js`,'text/javascript'),
+      wasmURL:await toBlobURL(`${baseURL}/ffmpeg-core.wasm`,'application/wasm'),
+    });
+    ffmpegInstance=ff;ffmpegLoaded=true;ffmpegLoading=false;
+  }catch(err){ffmpegLoading=false;console.error('ffmpeg load:',err);}
+}
+
+async function ensureFfmpeg(){
+  if(ffmpegLoaded&&ffmpegInstance)return true;
+  setProcTitle('Loading video processor…');
+  setProcSub('FFmpeg is loading (~30MB). Cached after first use.');
+  setProcBar(5);
+  await preloadFfmpeg();
+  if(!ffmpegLoaded){alert('Failed to load video processor. Check internet connection.');return false;}
+  return true;
+}
+
+// CONVERT
+async function startConvert(){
+  if(!videoFile)return;
+  if(!await ensureFfmpeg())return;
+
+  const clipStart=parsetime(document.getElementById('clip-start').value||'0');
+  const clipEnd=parsetime(document.getElementById('clip-end').value||'0');
+  const dur=clipEnd-clipStart;
+  if(dur<=0){alert('End time must be after start time.');return;}
+  if(dur>60){if(!confirm('This clip is '+dur.toFixed(0)+'s long. GIFs this long can be very large. Continue?'))return;}
+
+  document.querySelector('.ctrl-card').style.display='none';
+  document.getElementById('result-card').classList.remove('visible');
+  document.getElementById('processing-card').classList.add('visible');
+  setProcTitle('Creating GIF — pass 1 of 2…');
+  setProcSub('Generating optimised colour palette…');
+  setProcBar(5);
+
+  // Stage indicators
+  document.getElementById('stage-palette').className='proc-stage-item active';
+  document.getElementById('stage-encode').className='proc-stage-item';
+
+  try{
+    const ff=ffmpegInstance;
+    const fetchFile=window._ffmpegFetchFile;
+    const ext=videoFile.name.split('.').pop().toLowerCase()||'mp4';
+    const inName='input.'+ext;
+
+    await ff.writeFile(inName,await fetchFile(videoFile));
+
+    const startStr=clipStart.toFixed(3);
+    const durStr=dur.toFixed(3);
+    const scaleFilter=gifWidth?`scale=${gifWidth}:-1:flags=lanczos`:'scale=iw:-1:flags=lanczos';
+    const fpsFilter=`fps=${gifFps}`;
+    const filterBase=`${fpsFilter},${scaleFilter}`;
+
+    // ── PASS 1: Generate palette ──────────────────────────────
+    await ff.exec([
+      '-ss',startStr,'-t',durStr,'-i',inName,
+      '-vf',`${filterBase},palettegen=max_colors=${gifColors}:stats_mode=diff`,
+      '-y','palette.png'
+    ]);
+
+    setProcBar(50);
+    document.getElementById('stage-palette').className='proc-stage-item done';
+    document.getElementById('stage-encode').className='proc-stage-item active';
+    setProcTitle('Creating GIF — pass 2 of 2…');
+    setProcSub('Encoding with optimised palette…');
+
+    // ── PASS 2: Encode GIF with palette ───────────────────────
+    const ditherStr=gifDither==='none'?'bayer:bayer_scale=0':gifDither;
+    await ff.exec([
+      '-ss',startStr,'-t',durStr,'-i',inName,
+      '-i','palette.png',
+      '-lavfi',`${filterBase} [x]; [x][1:v] paletteuse=dither=${ditherStr}`,
+      '-y','output.gif'
+    ]);
+
+    setProcBar(95);
+    setProcSub('Finalising…');
+
+    const data=await ff.readFile('output.gif');
+    resultBlob=new Blob([data.buffer],{type:'image/gif'});
+
+    await ff.deleteFile(inName);
+    await ff.deleteFile('palette.png');
+    await ff.deleteFile('output.gif');
+
+    setProcBar(100);
+    showResult(dur);
+
+  }catch(err){
+    document.getElementById('processing-card').classList.remove('visible');
+    document.querySelector('.ctrl-card').style.display='';
+    console.error('GIF error:',err);
+    alert('GIF creation failed: '+err.message+'\n\nTry a shorter clip or smaller width.');
+  }
+}
+
+function showResult(dur){
+  document.getElementById('processing-card').classList.remove('visible');
+  const url=URL.createObjectURL(resultBlob);
+  document.getElementById('result-gif').src=url;
+  document.getElementById('rs-size').textContent=fmt(resultBlob.size);
+  document.getElementById('rs-fps').textContent=gifFps+'fps';
+  document.getElementById('rs-width').textContent=(gifWidth||videoWidth)+'px';
+  document.getElementById('rs-duration').textContent=dur.toFixed(1)+'s';
+  document.getElementById('result-title').textContent='✓ GIF created';
+  document.getElementById('result-sub').textContent=fmt(resultBlob.size)+' · '+gifFps+'fps · '+(gifWidth||videoWidth)+'px wide';
+  document.getElementById('result-card').classList.add('visible');
+}
+
+function downloadResult(){
+  if(!resultBlob)return;
+  const base=videoFile.name.replace(/\.[^.]+$/,'');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(resultBlob);
+  a.download=base+'.gif';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+}
+
+function makeAnother(){
+  resultBlob=null;
+  document.getElementById('result-card').classList.remove('visible');
+  document.querySelector('.ctrl-card').style.display='';
+}
+
+function resetTool(){
+  videoFile=null;resultBlob=null;
+  dz.style.display='';
+  document.getElementById('workspace').classList.remove('active');
+  document.getElementById('result-card').classList.remove('visible');
+  document.getElementById('processing-card').classList.remove('visible');
+  document.querySelector('.ctrl-card').style.display='';
+  document.getElementById('file-input').value='';
+}
+
+function setProcTitle(t){document.getElementById('proc-title').textContent=t;}
+function setProcSub(t){document.getElementById('proc-sub').textContent=t;}
+function setProcBar(p){document.getElementById('proc-bar').style.width=p+'%';}
+</script>
+
+</body>
+</html>
