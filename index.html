@@ -442,16 +442,7 @@ document.getElementById('cats').addEventListener('click',e=>{
 function toggleFaq(el){const item=el.closest('.faq-item');const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open');}
 
 </script>
-<footer>
-  <div class="footer-inner">
-    <a class="footer-logo" href="/">Neatkit</a>
-    <div class="footer-links">
-      <a class="footer-link" href="/privacy.html">Privacy</a>
-      <a class="footer-link" href="mailto:hello@neatkit.com">Contact</a>
-    </div>
-    <span class="footer-copy">© 2026 Neatkit</span>
-  </div>
-</footer>
+
 
 <script>
 const cards=[...document.querySelectorAll('.tool-card[data-cat]')];
