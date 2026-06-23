@@ -1,0 +1,57 @@
+{
+  "name": "Neatkit — Free Online Tools",
+  "short_name": "Neatkit",
+  "description": "Free browser-based tools. Compress images, merge PDFs, generate QR codes and more. No signup, no uploads.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f4f8",
+  "theme_color": "#f4f4f8",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Neatkit tool directory"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Image Compressor",
+      "url": "/tools/image-compress.html",
+      "description": "Compress JPG, PNG, WebP images"
+    },
+    {
+      "name": "PDF Merge & Split",
+      "url": "/tools/pdf-merge.html",
+      "description": "Merge or split PDF files"
+    },
+    {
+      "name": "QR Generator",
+      "url": "/tools/qr-generator.html",
+      "description": "Generate QR codes"
+    },
+    {
+      "name": "AI Text Detector",
+      "url": "/tools/ai-detector.html",
+      "description": "Detect AI-generated text"
+    }
+  ]
+}
