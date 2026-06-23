@@ -1,5 +1,4 @@
 # Cloudflare Pages — _headers
-# These run on the free plan with zero config needed
 
 /*
   X-Frame-Options: SAMEORIGIN
@@ -7,17 +6,17 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-XSS-Protection: 1; mode=block
 
-# Cache JS/CSS assets aggressively (1 year) since they're content-hashed
+# Cache JS/CSS assets aggressively (1 year)
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Vendor ffmpeg files — immutable, same-origin only
-# Cross-Origin-Resource-Policy lets COEP pages load these without CORS errors
+# vendor/ffmpeg — only worker.js lives here (4KB)
+# Cross-Origin-Resource-Policy: same-origin is required so COEP pages can load it
 /vendor/ffmpeg/*
   Cache-Control: public, max-age=31536000, immutable
   Cross-Origin-Resource-Policy: same-origin
 
-# Service worker — never cache so updates propagate immediately
+# Service worker — never cache
 /sw.js
   Cache-Control: no-cache
 
@@ -31,7 +30,7 @@
 /*.svg
   Cache-Control: public, max-age=604800
 
-# HTML — short cache so updates propagate fast
+# HTML — short cache
 /*.html
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
@@ -45,8 +44,6 @@
   Cache-Control: public, max-age=86400
 
 # ── CAMERA TOOLS ─────────────────────────────────────────────────────
-# Allow camera/microphone on tools that need it
-# (QR scanner, photo-to-pdf, video tools)
 /tools/qr-scanner.html
   Permissions-Policy: camera=(self)
 

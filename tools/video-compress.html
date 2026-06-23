@@ -565,8 +565,7 @@ function selectPreset(name,mb){
 function setRes(res){
   outputRes=res;
   document.querySelectorAll('.res-btn').forEach(b=>b.classList.remove('active'));
-  const id=res==='original'?'res-orig':'res-'+res;
-  document.getElementById(id).classList.add('active');
+  document.getElementById('res-'+res).classList.add('active');
   updateEstimate();
 }
 
@@ -603,10 +602,9 @@ function updateEstimate(){
 }
 
 // ── FFMPEG ────────────────────────────────────────────────
-// Fetch a local file and wrap it in a same-origin blob URL.
-// Required because COEP: require-corp blocks cross-origin workers —
-// even toBlobURL from unpkg fails since the fetch itself is blocked.
-// Loading from /vendor/ffmpeg/ (same origin) has no such restriction.
+// worker.js is self-hosted at /vendor/ffmpeg/worker.js because COEP: require-corp
+// blocks new Worker() from cross-origin URLs (unpkg). Core/wasm are fetched via
+// toBlobURL which is fine — fetch() isn't blocked, only Worker construction is.
 async function localBlobURL(path, mime){
   const buf = await fetch(path).then(r => r.arrayBuffer());
   return URL.createObjectURL(new Blob([buf], {type: mime}));
@@ -616,16 +614,17 @@ async function preloadFfmpeg(){
   if(ffmpegLoaded||ffmpegLoading)return;
   ffmpegLoading=true;
   try{
-    const {FFmpeg}=await import('/vendor/ffmpeg/ffmpeg.js');
-    const {fetchFile}=await import('/vendor/ffmpeg/ffmpeg-util.js');
+    const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+    const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
     window._ffmpegFetchFile=fetchFile;
     const ff=new FFmpeg();
     ff.on('log',({message})=>{if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
     ff.on('progress',({progress})=>{setProcBar(Math.round(progress*100));});
+    const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     await ff.load({
-      coreURL:  await localBlobURL('/vendor/ffmpeg/ffmpeg-core.js',   'text/javascript'),
-      wasmURL:  await localBlobURL('/vendor/ffmpeg/ffmpeg-core.wasm', 'application/wasm'),
-      workerURL:await localBlobURL('/vendor/ffmpeg/worker.js',        'text/javascript'),
+      coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
+      wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      workerURL:await localBlobURL('/vendor/ffmpeg/worker.js', 'text/javascript'),
     });
     ffmpegInstance=ff;ffmpegLoaded=true;ffmpegLoading=false;
   }catch(err){ffmpegLoading=false;console.error('ffmpeg load error:',err);}
