@@ -716,12 +716,17 @@ function setMode(mode){
 // ── FFMPEG ────────────────────────────────────────────────────────────
 let ffmpegInstance = null;
 
+async function localBlobURL(path, mime){
+  const buf = await fetch(path).then(r => r.arrayBuffer());
+  return URL.createObjectURL(new Blob([buf], {type: mime}));
+}
+
 async function preloadFfmpeg(){
   if(ffmpegLoaded||ffmpegLoading)return;
   ffmpegLoading=true;
   try{
-    const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
-    const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
+    const {FFmpeg}=await import('/vendor/ffmpeg/ffmpeg.js');
+    const {fetchFile}=await import('/vendor/ffmpeg/ffmpeg-util.js');
     window._ffmpegFetchFile=fetchFile;
     const ff=new FFmpeg();
     ff.on('log',({message})=>{
@@ -730,10 +735,10 @@ async function preloadFfmpeg(){
     ff.on('progress',({progress})=>{
       setProcBar(Math.round(progress*100));
     });
-    const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     await ff.load({
-      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`,'text/javascript'),
-      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`,'application/wasm'),
+      coreURL:  await localBlobURL('/vendor/ffmpeg/ffmpeg-core.js',   'text/javascript'),
+      wasmURL:  await localBlobURL('/vendor/ffmpeg/ffmpeg-core.wasm', 'application/wasm'),
+      workerURL:await localBlobURL('/vendor/ffmpeg/worker.js',        'text/javascript'),
     });
     ffmpegInstance=ff;
     ffmpegLoaded=true;

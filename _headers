@@ -11,6 +11,16 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Vendor ffmpeg files — immutable, same-origin only
+# Cross-Origin-Resource-Policy lets COEP pages load these without CORS errors
+/vendor/ffmpeg/*
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: same-origin
+
+# Service worker — never cache so updates propagate immediately
+/sw.js
+  Cache-Control: no-cache
+
 # Cache images
 /*.png
   Cache-Control: public, max-age=604800
