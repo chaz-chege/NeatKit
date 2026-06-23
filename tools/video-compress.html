@@ -12,7 +12,7 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#f4f4f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a20" media="(prefers-color-scheme: dark)">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Neatkit">
 <link rel="apple-touch-icon" href="/icon-192.png">
@@ -602,14 +602,10 @@ function updateEstimate(){
 }
 
 // ── FFMPEG ────────────────────────────────────────────────
-// worker.js is self-hosted at /vendor/ffmpeg/worker.js because COEP: require-corp
-// blocks new Worker() from cross-origin URLs (unpkg). Core/wasm are fetched via
-// toBlobURL which is fine — fetch() isn't blocked, only Worker construction is.
-async function localBlobURL(path, mime){
-  const buf = await fetch(path).then(r => r.arrayBuffer());
-  return URL.createObjectURL(new Blob([buf], {type: mime}));
-}
-
+// worker.js is self-hosted at /vendor/ffmpeg/worker.js.
+// We pass it as a direct URL (not a blob) — same-origin URLs are fine for
+// new Worker(). Only cross-origin Worker construction is blocked by COEP.
+// Core and wasm still use toBlobURL since they're fetched from unpkg.
 async function preloadFfmpeg(){
   if(ffmpegLoaded||ffmpegLoading)return;
   ffmpegLoading=true;
@@ -624,7 +620,7 @@ async function preloadFfmpeg(){
     await ff.load({
       coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
       wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-      workerURL:await localBlobURL('/vendor/ffmpeg/worker.js', 'text/javascript'),
+      workerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
     });
     ffmpegInstance=ff;ffmpegLoaded=true;ffmpegLoading=false;
   }catch(err){ffmpegLoading=false;console.error('ffmpeg load error:',err);}
