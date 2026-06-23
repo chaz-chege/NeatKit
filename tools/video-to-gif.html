@@ -554,13 +554,6 @@ function updateEstimate(){
 }
 
 // FFMPEG
-// worker.js is self-hosted because COEP: require-corp blocks new Worker() from
-// cross-origin URLs. Core/wasm use toBlobURL (fetch is fine, Worker() is not).
-async function localBlobURL(path, mime){
-  const buf = await fetch(path).then(r => r.arrayBuffer());
-  return URL.createObjectURL(new Blob([buf], {type: mime}));
-}
-
 async function preloadFfmpeg(){
   if(ffmpegLoaded||ffmpegLoading)return;ffmpegLoading=true;
   try{
@@ -580,7 +573,7 @@ async function preloadFfmpeg(){
     await ff.load({
       coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
       wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-      workerURL:await localBlobURL('/vendor/ffmpeg/worker.js', 'text/javascript'),
+      workerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
     });
     ffmpegInstance=ff;ffmpegLoaded=true;ffmpegLoading=false;
   }catch(err){ffmpegLoading=false;console.error('ffmpeg load:',err);}
