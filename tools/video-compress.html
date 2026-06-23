@@ -12,7 +12,7 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#f4f4f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a20" media="(prefers-color-scheme: dark)">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Neatkit">
 <link rel="apple-touch-icon" href="/icon-192.png">
@@ -565,7 +565,8 @@ function selectPreset(name,mb){
 function setRes(res){
   outputRes=res;
   document.querySelectorAll('.res-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('res-'+res).classList.add('active');
+  const id=res==='original'?'res-orig':'res-'+res;
+  document.getElementById(id).classList.add('active');
   updateEstimate();
 }
 
@@ -613,9 +614,11 @@ async function preloadFfmpeg(){
     ff.on('log',({message})=>{if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
     ff.on('progress',({progress})=>{setProcBar(Math.round(progress*100));});
     const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+    const workerURL='https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/worker.js';
     await ff.load({
       coreURL:await toBlobURL(`${baseURL}/ffmpeg-core.js`,'text/javascript'),
       wasmURL:await toBlobURL(`${baseURL}/ffmpeg-core.wasm`,'application/wasm'),
+      workerURL:await toBlobURL(workerURL,'text/javascript'),
     });
     ffmpegInstance=ff;ffmpegLoaded=true;ffmpegLoading=false;
   }catch(err){ffmpegLoading=false;console.error('ffmpeg load error:',err);}
