@@ -5,3 +5,10 @@ cloudflared.pid
 python-server.log
 python-server.err.log
 python-server.pid
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
