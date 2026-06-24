@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R51Q6DPPBG');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="video to gif converter free, mp4 to gif online, convert video to gif, make gif from video, gif maker online free, gif creator">
@@ -571,6 +569,7 @@ async function preloadFfmpeg(){
     });
     const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     await ff.load({
+      classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
       coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
       wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
     });
