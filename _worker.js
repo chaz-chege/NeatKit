@@ -49,9 +49,10 @@ export default {
     if (path.startsWith('/vendor/ffmpeg/')) {
       newHeaders.delete('Cross-Origin-Resource-Policy');
       newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
+      newHeaders.set('Cross-Origin-Embedder-Policy', 'require-corp');
       newHeaders.set('Cache-Control', 'public, max-age=31536000, immutable');
       newHeaders.set('X-Debug-Worker', 'vendor-matched');
-    }
+}
 
     // ── Video tools — need COOP + COEP for SharedArrayBuffer ──
     if (VIDEO_TOOLS.includes(path)) {
