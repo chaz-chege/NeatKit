@@ -40,8 +40,8 @@ export default {
     newHeaders.set('X-XSS-Protection', '1; mode=block');
 
     // ── vendor/ffmpeg — must be cross-origin so COEP pages can load them ──
+    newHeaders.set('X-Debug-Path', path);
     if (path.startsWith('/vendor/ffmpeg/')) {
-      newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
       newHeaders.delete('Cross-Origin-Resource-Policy');
       newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
       newHeaders.set('Cache-Control', 'public, max-age=31536000, immutable');
