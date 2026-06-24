@@ -730,7 +730,7 @@ async function preloadFfmpeg(){
     });
     const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     await ff.load({
-      classWorkerURL:`${location.origin}/vendor/ffmpeg/worker-proxy.js`,
+      classWorkerURL: `${location.origin}/vendor/ffmpeg/worker.js`,
       coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
       wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
     });
