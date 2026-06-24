@@ -457,6 +457,7 @@ let trimEnd = 0;
 let isDragging = null; // 'start' | 'end'
 let ffmpegLoaded = false;
 let ffmpegLoading = false;
+let ffmpegLoadPromise = null;
 let resultBlob = null;
 let trimMode = 'fast';
 let isPlaying = false;
@@ -510,7 +511,11 @@ function loadFile(file){
     updateTimeline();
     drawTimelineFrames(vid);
     // Pre-load ffmpeg quietly in background
-    preloadFfmpeg();
+    const trimBtn=document.getElementById('trim-btn');
+    if(trimBtn) trimBtn.disabled=true;
+    preloadFfmpeg().finally(()=>{
+      if(trimBtn) trimBtn.disabled=false;
+    });
   };
 }
 
@@ -714,32 +719,38 @@ function setMode(mode){
 let ffmpegInstance = null;
 
 async function preloadFfmpeg(){
-  if(ffmpegLoaded||ffmpegLoading)return;
+  if(ffmpegLoaded) return;
+  if(ffmpegLoadPromise) return ffmpegLoadPromise;
   ffmpegLoading=true;
-  try{
-    const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
-    const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
-    window._ffmpegFetchFile=fetchFile;
-    const ff=new FFmpeg();
-    ff.on('log',({message})=>{
-      if(message) updateProcSub(message);
-    });
-    ff.on('progress',({progress})=>{
-      setProcBar(Math.round(progress*100));
-    });
-    const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-    await ff.load({
-      classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
-      coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
-      wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    });
-    ffmpegInstance=ff;
-    ffmpegLoaded=true;
-    ffmpegLoading=false;
-  } catch(err){
-    ffmpegLoading=false;
-    console.error('ffmpeg.wasm load error:',err);
-  }
+  ffmpegLoadPromise=(async()=>{
+    try{
+      const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+      const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
+      window._ffmpegFetchFile=fetchFile;
+      const ff=new FFmpeg();
+      ff.on('log',({message})=>{
+        if(message) updateProcSub(message);
+      });
+      ff.on('progress',({progress})=>{
+        setProcBar(Math.round(progress*100));
+      });
+      const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+      await ff.load({
+        classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
+        coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
+        wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
+      ffmpegInstance=ff;
+      ffmpegLoaded=true;
+    } catch(err){
+      ffmpegLoadPromise=null; // allow retry on next call
+      console.error('ffmpeg.wasm load error:',err);
+      throw err;
+    } finally {
+      ffmpegLoading=false;
+    }
+  })();
+  return ffmpegLoadPromise;
 }
 
 async function ensureFfmpeg(){
@@ -747,12 +758,13 @@ async function ensureFfmpeg(){
   setProcTitle('Loading video processor…');
   setProcSub('FFmpeg is loading (~30MB). This takes a few seconds the first time, then stays cached.');
   setProcBar(5);
-  await preloadFfmpeg();
-  if(!ffmpegLoaded){
+  try{
+    await preloadFfmpeg();
+    return true;
+  } catch(err){
     alert('Failed to load the video processor. Please check your internet connection and try again.');
     return false;
   }
-  return true;
 }
 
 // ── TRIM ──────────────────────────────────────────────────────────────

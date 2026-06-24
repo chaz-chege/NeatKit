@@ -216,12 +216,13 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
 <div class="page">
   <h1>Video Compressor</h1>
   <p class="subtitle">Set a target file size for WhatsApp, email, or Telegram — the tool calculates the right bitrate and compresses once. No re-trying at different settings. Runs entirely in your browser.</p>
+  <p class="subtitle" style="margin-top:0.4rem;font-size:0.85rem;opacity:0.85">Best for clips under ~5 minutes. Larger or longer videos work too, but since everything runs in your browser (no server), compression time can run well beyond the video's own length — expect this to take longer the bigger the file.</p>
 
   <div class="drop-zone" id="drop-zone">
     <input type="file" id="file-input" accept="video/*">
     <div class="drop-icon">📦</div>
     <div class="drop-title">Drop a video here, or click to browse</div>
-    <div class="drop-sub">MP4 · WebM · MOV · MKV · Max 2GB</div>
+    <div class="drop-sub">MP4 · WebM · MOV · MKV · Max 2GB (small/short files compress much faster)</div>
   </div>
 
   <div class="workspace" id="workspace">
@@ -295,6 +296,11 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
           <div class="est-num" id="est-quality">—</div>
           <div class="est-label">Quality estimate</div>
         </div>
+      </div>
+
+      <div class="warn-card" id="warn-slowfile">
+        <strong>⏳ This will take a while</strong>
+        <span id="warn-slowfile-text">This video is long/large for browser-based compression. Since there's no server doing the work, expect this to take noticeably longer than the video's own length — possibly much longer on a longer clip. Consider trimming it down first if you're in a hurry.</span>
       </div>
 
       <div class="warn-card" id="warn-lowbitrate">
@@ -497,7 +503,7 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
 // ── STATE ─────────────────────────────────────────────────
 let videoFile=null, videoDuration=0, videoWidth=0, videoHeight=0;
 let selectedPreset='whatsapp', targetMB=16, outputRes='original';
-let ffmpegInstance=null, ffmpegLoaded=false, ffmpegLoading=false;
+let ffmpegInstance=null, ffmpegLoaded=false, ffmpegLoading=false, ffmpegLoadPromise=null;
 let resultBlob=null;
 
 // ── UTILS ─────────────────────────────────────────────────
@@ -530,7 +536,26 @@ function loadFile(file){
     dz.style.display='none';
     document.getElementById('workspace').classList.add('active');
     updateEstimate();
-    preloadFfmpeg();
+
+    // Warn upfront if this file is likely to be slow to compress in-browser
+    const isLong=videoDuration>300; // 5 min
+    const isBig=file.size>300*1024*1024; // 300MB
+    const slowWarn=document.getElementById('warn-slowfile');
+    if(isLong||isBig){
+      document.getElementById('warn-slowfile-text').textContent=
+        `This video is ${fmtTime(videoDuration)} long and ${fmt(file.size)} — that's large for browser-based compression. `+
+        `Since there's no server doing the work, this could take well beyond ${fmtTime(videoDuration)} to finish, depending on your device. `+
+        `Consider trimming it down first if you're in a hurry.`;
+      slowWarn.classList.add('visible');
+    } else {
+      slowWarn.classList.remove('visible');
+    }
+
+    const compressBtn=document.getElementById('compress-btn');
+    if(compressBtn) compressBtn.disabled=true;
+    preloadFfmpeg().finally(()=>{
+      if(compressBtn) compressBtn.disabled=false;
+    });
   };
 }
 
@@ -605,23 +630,33 @@ function updateEstimate(){
 // in the same directory. Both files are in /vendor/ffmpeg/.
 // workerURL (inside ff.load) is the core worker — can be a blob from unpkg.
 async function preloadFfmpeg(){
-  if(ffmpegLoaded||ffmpegLoading)return;
+  if(ffmpegLoaded)return;
+  if(ffmpegLoadPromise)return ffmpegLoadPromise;
   ffmpegLoading=true;
-  try{
-    const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
-    const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
-    window._ffmpegFetchFile=fetchFile;
-    const ff=new FFmpeg();
-    ff.on('log',({message})=>{if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
-    ff.on('progress',({progress})=>{setProcBar(Math.round(progress*100));});
-    const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-    await ff.load({
-      classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
-      coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
-      wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    });
-    ffmpegInstance=ff;ffmpegLoaded=true;ffmpegLoading=false;
-  }catch(err){ffmpegLoading=false;console.error('ffmpeg load error:',err);}
+  ffmpegLoadPromise=(async()=>{
+    try{
+      const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+      const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
+      window._ffmpegFetchFile=fetchFile;
+      const ff=new FFmpeg();
+      ff.on('log',({message})=>{if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
+      ff.on('progress',({progress})=>{setProcBar(Math.round(progress*100));});
+      const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+      await ff.load({
+        classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
+        coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
+        wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
+      ffmpegInstance=ff;ffmpegLoaded=true;
+    }catch(err){
+      ffmpegLoadPromise=null;
+      console.error('ffmpeg load error:',err);
+      throw err;
+    }finally{
+      ffmpegLoading=false;
+    }
+  })();
+  return ffmpegLoadPromise;
 }
 
 async function ensureFfmpeg(){
@@ -629,9 +664,13 @@ async function ensureFfmpeg(){
   setProcTitle('Loading video processor…');
   setProcSub('FFmpeg is loading (~30MB). Takes a few seconds the first time, cached after.');
   setProcBar(5);
-  await preloadFfmpeg();
-  if(!ffmpegLoaded){alert('Failed to load the video processor. Check your internet connection.');return false;}
-  return true;
+  try{
+    await preloadFfmpeg();
+    return true;
+  }catch(err){
+    alert('Failed to load the video processor. Check your internet connection.');
+    return false;
+  }
 }
 
 // ── COMPRESS ──────────────────────────────────────────────
@@ -649,7 +688,6 @@ async function startCompress(){
   const videoBitrateKbps=Math.max(Math.round((targetBits-audioBits)/videoDuration/1000),100);
 
   // Show processing
-  document.getElementById('ctrl-card')||document.querySelector('.ctrl-card');
   document.querySelector('.ctrl-card').style.display='none';
   document.getElementById('result-card').classList.remove('visible');
   document.getElementById('processing-card').classList.add('visible');
