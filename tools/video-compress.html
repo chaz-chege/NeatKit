@@ -617,7 +617,7 @@ async function preloadFfmpeg(){
     ff.on('progress',({progress})=>{setProcBar(Math.round(progress*100));});
     const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     await ff.load({
-      classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
+      classWorkerURL:`${location.origin}/vendor/ffmpeg/worker-proxy.js`,
       coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
       wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
     });

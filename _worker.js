@@ -27,6 +27,27 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // ── ffmpeg worker proxy ──────────────────────────────────
+    // Fetches the ffmpeg core worker from unpkg and re-serves it from this
+    // origin so COEP's require-corp check passes (cross-origin fetch blocked).
+    if (path === '/vendor/ffmpeg/worker-proxy.js') {
+      try {
+        const upstream = await fetch(
+          'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm/ffmpeg-core.worker.js'
+        );
+        const headers = new Headers(upstream.headers);
+        headers.set('Content-Type', 'text/javascript');
+        headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
+        headers.set('Cache-Control', 'public, max-age=86400');
+        // Carry COEP/COOP through so the worker itself is also isolated
+        headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
+        headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+        return new Response(upstream.body, { status: upstream.status, headers });
+      } catch (err) {
+        return new Response(`Failed to proxy ffmpeg worker: ${err.message}`, { status: 502 });
+      }
+    }
+
     // Serve the static asset
     const response = await env.ASSETS.fetch(request);
 
