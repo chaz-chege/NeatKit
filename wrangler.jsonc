@@ -9,6 +9,7 @@
   },
   "assets": {
     "directory": ".",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "serve_directly": false
   }
 }
