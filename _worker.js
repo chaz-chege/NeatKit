@@ -42,7 +42,10 @@ export default {
     // ── vendor/ffmpeg — must be cross-origin so COEP pages can load them ──
     if (path.startsWith('/vendor/ffmpeg/')) {
       newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
+      newHeaders.delete('Cross-Origin-Resource-Policy');
+      newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
       newHeaders.set('Cache-Control', 'public, max-age=31536000, immutable');
+      newHeaders.set('X-Debug-Worker', 'vendor-matched');
     }
 
     // ── Video tools — need COOP + COEP for SharedArrayBuffer ──
