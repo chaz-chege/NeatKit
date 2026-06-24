@@ -50,7 +50,7 @@ export default {
       newHeaders.delete('Cross-Origin-Resource-Policy');
       newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
       newHeaders.set('Cross-Origin-Embedder-Policy', 'require-corp');
-      newHeaders.set('Cache-Control', 'public, max-age=31536000, immutable');
+      newHeaders.set('Cache-Control', 'public, max-age=3600');
       newHeaders.set('X-Debug-Worker', 'vendor-matched');
 }
 
