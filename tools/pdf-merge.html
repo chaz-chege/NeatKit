@@ -51,6 +51,7 @@
   --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
   --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16,1,0.3,1);
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -61,6 +62,9 @@
     --accent-text: #ffffff;
     --nav-bg: rgba(255,255,255,0.9); --nav-border: rgba(180,180,210,0.25);
     --success: #16a34a; --error: #dc2626;
+    --tx1: #0f0f12; --tx2: #54546a; --tx3: #9898b2;
+    --rule: rgba(180,180,210,0.25); --rule2: rgba(180,180,210,0.45);
+    --mist: #f4f4f8; --white: #ffffff; --ink: #0f0f12;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -72,7 +76,12 @@
     --accent-text: #0c0c0c;
     --nav-bg: rgba(12,12,12,0.92); --nav-border: #2a2a2a;
     --success: #4ade80; --error: #f87171;
+    /* nk footer system */
+    --tx1: #f0f0f5; --tx2: #a8a8c2; --tx3: #6e6e85;
+    --rule: rgba(180,180,210,0.12); --rule2: rgba(180,180,210,0.22);
+    --white: #0f0f13; --mist: #1a1a20;
   }
+  .nk-nav { background: rgba(12,12,12,0.92); }
 }
 html { scroll-behavior: smooth; }
 body { background: var(--bg2); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
@@ -100,7 +109,7 @@ h1 { font-size: 1.875rem; font-weight: 800; letter-spacing: -0.03em; margin-bott
   font-family: var(--sans); font-size: 0.875rem; font-weight: 600;
   cursor: pointer; transition: all 0.15s; color: var(--text2); background: transparent;
 }
-.mode-tab.active { background: white; color: var(--text); box-shadow: var(--shadow-sm); }
+.mode-tab.active { background: var(--bg2); color: var(--text); box-shadow: var(--shadow-sm); }
 
 /* DROP ZONE */
 .drop-zone {
@@ -212,9 +221,8 @@ h1 { font-size: 1.875rem; font-weight: 800; letter-spacing: -0.03em; margin-bott
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);--display:'DM Serif Display',Georgia,serif;--body:'Outfit',system-ui,sans-serif;--code:'DM Mono',monospace;--tx1:#0f0f12;--tx2:#54546a;--tx3:#9898b2;--rule:rgba(180,180,210,0.25);--rule2:rgba(180,180,210,0.45);--mist:#f4f4f8;--white:#ffffff;--ink:#0f0f12;--ease:cubic-bezier(0.16,1,0.3,1)}
 body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antialiased}
-.nk-nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.9);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--rule);height:56px;display:flex;align-items:center;padding:0 2rem}
+.nk-nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--rule);height:56px;display:flex;align-items:center;padding:0 2rem}
 .nk-nav-inner{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem}
 .nk-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
 .nk-logo-mark{width:24px;height:24px;background:var(--grad);border-radius:6px;position:relative;overflow:hidden;flex-shrink:0}
