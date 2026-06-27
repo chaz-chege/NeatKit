@@ -753,11 +753,11 @@ function analyzeFile() {
 
 // ── SAMPLE TEXTS ────────────────────────────────────────────
 const SAMPLES = {
-  ai: `The relationship between sleep and cognitive performance has attracted significant research attention in recent years. When we examine the mechanisms underlying this connection, several key factors emerge. Sleep deprivation disrupts the consolidation of memories formed during waking hours, reducing the brain's ability to encode new information effectively.
+  ai: `Artificial intelligence has fundamentally transformed the landscape of modern technology. The implications of this transformation are far-reaching and multifaceted. Organizations across various industries are increasingly leveraging AI-powered solutions to enhance operational efficiency and drive innovation. Furthermore, the integration of machine learning algorithms has enabled unprecedented levels of data analysis and pattern recognition.
 
-Beyond memory, sleep plays a central role in emotional regulation. People who consistently sleep fewer than seven hours tend to show heightened reactivity to stressful situations, a pattern that compounds over time. The accumulation of sleep debt creates a cognitive deficit that most individuals are unable to accurately self-assess. The implementation of consistent sleep schedules represents a fundamental intervention strategy.
+The benefits of artificial intelligence extend beyond mere automation. AI systems demonstrate remarkable capabilities in natural language processing, computer vision, and predictive analytics. These advancements have significant implications for workforce development and economic productivity. Moreover, the ethical considerations surrounding AI deployment require careful examination and robust governance frameworks.
 
-Addressing sleep quality therefore requires more than simply extending time in bed. The architecture of sleep matters: deep slow-wave sleep handles physical restoration, while REM sleep is associated with the processing of emotional experiences and creative problem-solving. Interventions that fragment sleep — even without reducing total duration — can meaningfully impair both dimensions of cognitive performance.`,
+It is important to note that the trajectory of AI development presents both opportunities and challenges. Stakeholders must collaborate to ensure responsible innovation that aligns with societal values and promotes equitable outcomes. The future of artificial intelligence will be shaped by the decisions made today regarding research priorities, regulatory frameworks, and ethical standards.`,
 
   human: `I started learning to cook properly during my third year of university, mostly out of necessity — the dining hall closed early on weekends and I was broke. My first real attempt at a proper meal was a disaster. I tried to make my mum's jollof rice and somehow managed to burn the bottom while the top remained completely uncooked. The smoke alarm went off twice.
 
@@ -800,195 +800,88 @@ function analyze() {
   }, 400);
 }
 
-function splitSentences(text) {
-  const raw = text.match(/[^.!?]*[.!?]+["'”]?|[^.!?]+$/g) || [];
-  return raw.map(s => s.trim()).filter(s => s.split(/\s+/).length >= 3);
-}
-
 function runAnalysis(text) {
   const sentences = splitSentences(text);
   const words = text.split(/\s+/).filter(Boolean);
-  const n = sentences.length;
-  const wc = words.length;
-  if (n < 3) return null;
 
-  // ── 1. SENTENCE LENGTH UNIFORMITY (CV + Gini) ───────────────
   const lengths = sentences.map(s => s.split(/\s+/).length);
-  const meanLen = lengths.reduce((a,b)=>a+b,0) / n;
-  const variance = lengths.reduce((a,b)=>a+Math.pow(b-meanLen,2),0) / n;
-  const cv = Math.sqrt(variance) / meanLen;
-  const sorted = [...lengths].sort((a,b)=>a-b);
-  const giniNum = sorted.reduce((acc,v,i) => acc + (2*(i+1) - n - 1)*v, 0);
-  const gini = Math.abs(giniNum) / (n * sorted.reduce((a,b)=>a+b,0));
-  const uniformityScore = Math.max(0, Math.min(100,
-    (Math.max(0, 0.55 - cv) / 0.55) * 60 +
-    (Math.max(0, 0.35 - gini) / 0.35) * 40
-  ));
+  const meanLen = lengths.reduce((a,b)=>a+b,0) / lengths.length;
+  const variance = lengths.reduce((a,b)=>a+Math.pow(b-meanLen,2),0) / lengths.length;
+  const stdDev = Math.sqrt(variance);
+  const cv = stdDev / meanLen;
+  const burstinessScore = Math.max(0, Math.min(100, 100 - cv * 120));
 
-  // ── 2. HUMAN VOICE MARKERS ───────────────────────────────────
-  const contractionPattern = /\b(i'm|i've|i'd|i'll|we're|we've|we'd|we'll|they're|they've|they'd|they'll|you're|you've|you'd|you'll|it's|that's|there's|here's|who's|what's|isn't|aren't|wasn't|weren't|haven't|hasn't|hadn't|don't|doesn't|didn't|won't|wouldn't|can't|couldn't|shouldn't|let's|he's|she's)\b/gi;
-  const contractions = (text.match(contractionPattern) || []).length;
-  const emDashes = (text.match(/\u2014|--|\u2013|—/g) || []).length;
-  const parentheticals = (text.match(/\([^)]{3,60}\)/g) || []).length;
-  const ellipses = (text.match(/\.\.\.|…/g) || []).length;
-  const rhetoricalQ = sentences.filter(s => s.trim().endsWith('?')).length;
-  const exclamations = sentences.filter(s => s.trim().endsWith('!')).length;
-  const firstPerson = (text.match(/\b(i|i'm|i've|i'd|i'll|my|me|myself|we|our|we're|we've|we'd)\b/gi) || []).length;
-  const colloquial = (text.match(/\b(anyway|honestly|actually|basically|literally|weirdly|somehow|sort of|kind of|you know|i mean|to be fair|to be honest|fair enough|funnily enough|turns out|it turns out|go figure|for what it's worth)\b/gi) || []).length;
+  const cleanWords = words.map(w => w.toLowerCase().replace(/[^a-z]/g,''));
+  const uniqueWords = new Set(cleanWords.filter(w=>w.length>3));
+  const ttr = uniqueWords.size / cleanWords.filter(w=>w.length>3).length;
+  const lexicalScore = Math.max(0, Math.min(100, (0.72 - ttr) * 300));
 
-  const humanScore = Math.min(100,
-    Math.min((contractions / wc) * 400, 35) +
-    Math.min(emDashes * 8, 20) +
-    Math.min((firstPerson / wc) * 250, 20) +
-    Math.min(parentheticals * 5, 10) +
-    Math.min(rhetoricalQ * 6, 10) +
-    Math.min(colloquial * 5, 10) +
-    Math.min((ellipses + exclamations) * 4, 5)
-  );
-  const humanSignalScore = Math.max(0, 100 - humanScore * 1.4);
+  const aiTransitions = ['furthermore','moreover','additionally','however','therefore','consequently','nevertheless','subsequently','in conclusion','it is important','it is worth noting','it should be noted','this demonstrates','this highlights','in summary','to summarize','in essence','as a result','due to the fact','in order to','it is clear that','needless to say','at the end of the day','it is noteworthy'];
+  const textLower = text.toLowerCase();
+  const transitionHits = aiTransitions.filter(t => textLower.includes(t));
+  const transitionScore = Math.min(100, transitionHits.length * 18);
 
-  // ── 3. ABSTRACT NOUN DENSITY (NOMINALIZATION) ────────────────
-  const nominalizations = words.filter(w => {
-    const lw = w.toLowerCase().replace(/[^a-z]/g, '');
-    return lw.length > 6 && /(?:tion|ity|ness|ment|ance|ence|ization|isation|alism|ivity)$/.test(lw);
-  }).length;
-  const nominalizationScore = Math.min(100, (nominalizations / wc) * 550);
+  const passivePatterns = /\b(is|are|was|were|be|been|being)\s+\w+ed\b/gi;
+  const passiveMatches = (text.match(passivePatterns) || []).length;
+  const passiveRate = passiveMatches / sentences.length;
+  const passiveScore = Math.min(100, passiveRate * 120);
 
-  // ── 4. STRUCTURAL AI PHRASE PATTERNS ─────────────────────────
-  // Structural patterns frontier models still produce — not just keyword lists
-  const aiPhrasePatterns = [
-    /\bit is (?:worth|important|crucial|essential|critical|necessary|vital|clear|evident|notable|noteworthy)\b/gi,
-    /\bthe (?:implications?|impact|importance|significance|role|nature|extent|process|concept|framework|landscape|trajectory|intersection|nexus|paradigm|spectrum|dimension) of\b/gi,
-    /\b(?:this|these) (?:findings?|results?|data|evidence|analysis|research|study|approach|framework|model|solution|innovation|advancement|development)s?\b/gi,
-    /\bplay(?:s|ed)? a (?:crucial|key|vital|significant|important|pivotal|central|fundamental) role\b/gi,
-    /\b(?:opportunities and challenges|strengths and weaknesses|advantages and disadvantages|risks and benefits)\b/gi,
-    /\bin (?:today's|the modern|the current|the contemporary|an increasingly|a rapidly|a fundamentally)\b/gi,
-    /\bacross (?:various|different|multiple|diverse|all|many)\b/gi,
-    /\bin order to\b/gi,
-    /\b(?:in conclusion|in summary|to summarize|to conclude|in closing|as we have seen|as discussed|as outlined)\b/gi,
-    /\b(?:moving forward|going forward|looking ahead|looking forward)\b/gi,
-    /\b(?:delve|underscore|encompass|facilitate|leverage|utilize|optimize|operationalize)\b/gi,
-    /\bwhen (?:we|one) (?:examine|consider|look at|think about|reflect on)\b/gi,
-  ];
-  let aiPhraseHits = [];
-  aiPhrasePatterns.forEach(p => { aiPhraseHits = aiPhraseHits.concat(text.match(p) || []); });
-  const aiPhraseScore = Math.min(100, aiPhraseHits.length * 14);
+  const hedges = ['various','significant','important','essential','crucial','fundamental','comprehensive','robust','innovative','leverag','implement','utiliz','facilitat','endeavor','demonstrate','exhibit','provide','ensure','maintain','consider'];
+  let hedgeCount = 0;
+  hedges.forEach(h => { const re = new RegExp(h, 'gi'); const m = text.match(re); if(m) hedgeCount += m.length; });
+  const hedgeScore = Math.min(100, (hedgeCount / words.length) * 800);
 
-  // ── 5. PUNCTUATION SIGNATURE ──────────────────────────────────
-  const punctuationMarks = emDashes + parentheticals + ellipses + exclamations;
-  const punctuationScore = Math.max(0, Math.min(100, (0.8 - punctuationMarks / n) / 0.8 * 70));
-
-  // ── 6. SENTENCE OPENING ENTROPY ──────────────────────────────
-  const starters = sentences.map(s => s.split(/\s+/)[0]?.toLowerCase().replace(/[^a-z]/g,'') || '');
-  const starterFreq = {};
-  starters.forEach(w => starterFreq[w] = (starterFreq[w] || 0) + 1);
-  const entropy = -Object.values(starterFreq).reduce((sum, f) => {
-    const p = f / n; return sum + p * Math.log2(p);
-  }, 0);
-  const maxEntropy = Math.log2(n);
-  const normalizedEntropy = maxEntropy > 0 ? entropy / maxEntropy : 0;
-  const openingScore = Math.max(0, Math.min(100, (0.85 - normalizedEntropy) * 120));
-
-  // ── SENTENCE-LEVEL SCORING ────────────────────────────────────
-  const impersonalPassive = /\b(it|this|these|the (?:results?|findings?|data|analysis|study|research|process|system|approach|model))\s+(?:is|are|was|were|can be|may be|should be|must be|will be|has been|have been|had been)\s+\w+(?:ed|en)\b/gi;
+  const starters = sentences.map(s => s.split(/\s+/)[0]?.toLowerCase() || '');
+  const uniqueStarters = new Set(starters);
+  const starterVariety = uniqueStarters.size / starters.length;
+  const starterScore = Math.max(0, Math.min(100, (0.6 - starterVariety) * 200));
 
   const scoredSentences = sentences.map(sent => {
-    const sl = sent.toLowerCase();
-    const sw = sent.split(/\s+/);
+    const sentLower = sent.toLowerCase();
+    const sentWords = sent.split(/\s+/);
     let risk = 0;
     const flags = [];
-
-    // AI structural phrases in this sentence
-    const sentPhrases = aiPhrasePatterns.flatMap(p => { p.lastIndex=0; return sent.match(p)||[]; });
-    if (sentPhrases.length > 0) { risk += Math.min(40, sentPhrases.length * 20); flags.push(\`AI pattern: "\${sentPhrases[0]}"\`); }
-
-    // Nominalization density
-    const sentNoms = sw.filter(w => /(?:tion|ity|ment|ance|ence|ization)$/.test(w.toLowerCase())).length;
-    if (sentNoms >= 2) { risk += 20; flags.push(\`\${sentNoms} abstract nouns\`); }
-
-    // Impersonal passive
-    if (impersonalPassive.test(sent)) { risk += 25; flags.push('impersonal passive'); impersonalPassive.lastIndex=0; }
-
-    // Uniform length (only if overall CV is low)
-    if (Math.abs(sw.length - meanLen) < 2 && cv < 0.3 && n > 4) { risk += 8; }
-
-    // Long + abstract
-    if (sw.length > 32 && sentNoms >= 2) { risk += 15; flags.push('long + abstract'); }
-
-    // Human signals — reduce risk
-    const sentContractions = (sent.match(contractionPattern) || []).length;
-    const sentEM = (sent.match(/—|--|–/g) || []).length;
-    const sentFP = (sent.match(/\b(i|my|me|we|our)\b/gi) || []).length;
-    risk -= sentContractions * 15;
-    risk -= sentEM * 12;
-    risk -= sentFP * 8;
-
-    risk = Math.max(0, Math.min(100, risk));
-    return { text: sent, risk, flags, words: sw.length };
+    const sentTrans = aiTransitions.filter(t => sentLower.includes(t));
+    if(sentTrans.length > 0) { risk += 35; flags.push(`transition: "${sentTrans[0]}"`); }
+    const lenDiff = Math.abs(sentWords.length - meanLen);
+    if(lenDiff < 2 && sentences.length > 4) { risk += 10; }
+    if(passivePatterns.test(sent)) { risk += 20; flags.push('passive voice'); passivePatterns.lastIndex=0; }
+    const sentHedges = hedges.filter(h => sentLower.includes(h));
+    if(sentHedges.length >= 2) { risk += 25; flags.push(`vague: "${sentHedges[0]}"`); }
+    const aiStarters = ['the','this','these','it is','there are','in','as'];
+    if(aiStarters.some(s => sentLower.startsWith(s))) { risk += 8; }
+    if(sentWords.length > 30) { risk += 15; flags.push('very long sentence'); }
+    risk = Math.min(100, risk);
+    return { text: sent, risk, flags, words: sentWords.length };
   });
 
-  // ── WEIGHTED FINAL SCORE ──────────────────────────────────────
-  const weights = { uniformity:0.22, humanSignal:0.25, nominalization:0.18, aiPhrase:0.20, punctuation:0.08, opening:0.07 };
+  const weights = { burstiness: 0.25, lexical: 0.15, transition: 0.25, passive: 0.10, hedge: 0.15, starter: 0.10 };
   const overall = Math.round(
-    uniformityScore   * weights.uniformity +
-    humanSignalScore  * weights.humanSignal +
-    nominalizationScore * weights.nominalization +
-    aiPhraseScore     * weights.aiPhrase +
-    punctuationScore  * weights.punctuation +
-    openingScore      * weights.opening
+    burstinessScore * weights.burstiness +
+    lexicalScore * weights.lexical +
+    transitionScore * weights.transition +
+    passiveScore * weights.passive +
+    hedgeScore * weights.hedge +
+    starterScore * weights.starter
   );
 
   return {
     overall,
     metrics: {
-      uniformity: {
-        val: Math.round(uniformityScore),
-        raw: \`CV \${cv.toFixed(2)} · Gini \${gini.toFixed(2)}\`,
-        label: 'Sentence uniformity',
-        desc: 'Uses two statistics — CV and Gini coefficient — to measure how uniform sentence lengths are. AI writing is strikingly consistent; human writing jumps between short bursts and long, complex sentences.'
-      },
-      humanSignal: {
-        val: Math.round(humanSignalScore),
-        raw: \`\${contractions} contractions · \${emDashes} dashes · \${firstPerson} 1st-person\`,
-        label: 'Human voice markers',
-        desc: "Contractions, em dashes, first-person pronouns, rhetorical questions, parenthetical asides, colloquialisms — reliably human. Their absence is one of the strongest AI signals in modern writing."
-      },
-      nominalization: {
-        val: Math.round(nominalizationScore),
-        raw: \`\${nominalizations} of \${wc} words\`,
-        label: 'Abstract noun density',
-        desc: 'AI overuses nominalizations — abstract nouns formed from verbs or adjectives (implementation, optimization, transformation, utilization). High density is a structural signal even when surface vocabulary varies.'
-      },
-      aiPhrase: {
-        val: Math.round(aiPhraseScore),
-        raw: \`\${aiPhraseHits.length} pattern\${aiPhraseHits.length !== 1 ? 's' : ''} found\`,
-        label: 'Structural AI patterns',
-        desc: "Phrase-level constructions that frontier models still produce: impersonal framing ('it is important to'), abstract noun chains ('the implications of'), summary openers ('in conclusion'), and parallel abstract pairs."
-      },
-      punctuation: {
-        val: Math.round(punctuationScore),
-        raw: \`\${punctuationMarks} informal marks\`,
-        label: 'Punctuation signature',
-        desc: 'Human writers naturally use em dashes, parentheses, ellipses, and exclamation marks. AI writing tends toward clean, formally punctuated sentences with none of these informal markers.'
-      },
-      opening: {
-        val: Math.round(openingScore),
-        raw: \`\${Math.round(normalizedEntropy * 100)}% entropy\`,
-        label: 'Sentence opening variety',
-        desc: "Measures the Shannon entropy of sentence-opening words. Low entropy means sentences start with the same words repeatedly — a pattern AI produces far more than human writers."
-      },
+      burstiness: { val: Math.round(burstinessScore), raw: cv.toFixed(2), label: 'Sentence uniformity', desc: 'How uniform sentence lengths are. AI writing tends to be very consistent; human writing varies wildly.', inverse: true },
+      lexical: { val: Math.round(lexicalScore), raw: (ttr*100).toFixed(0)+'%', label: 'Lexical diversity', desc: 'Ratio of unique words. AI often repeats similar vocabulary patterns across a text.', inverse: false },
+      transition: { val: Math.round(transitionScore), raw: transitionHits.length + ' found', label: 'AI transition words', desc: `Words like "furthermore", "moreover", "consequently" — common in AI, rare in natural writing.`, hits: transitionHits },
+      passive: { val: Math.round(passiveScore), raw: passiveMatches + ' instances', label: 'Passive voice', desc: 'AI tends toward passive constructions. Human writers use active voice more naturally.', inverse: false },
+      hedge: { val: Math.round(hedgeScore), raw: hedgeCount + ' found', label: 'Vague language', desc: 'Words like "significant", "various", "robust", "leverage" — common AI filler with little meaning.', inverse: false },
+      starter: { val: Math.round(starterScore), raw: Math.round(starterVariety*100)+'%', label: 'Sentence variety', desc: 'How varied sentence openings are. AI often starts many sentences with "The", "This", "These".', inverse: false }
     },
     sentences: scoredSentences,
-    aiPhraseHits,
-    contractions,
-    emDashes,
-    firstPerson,
-    nominalizations,
-    wordCount: wc,
-    sentenceCount: n,
+    transitionHits,
+    hedgeCount,
+    wordCount: words.length,
+    sentenceCount: sentences.length,
     avgSentLen: Math.round(meanLen),
-    cv: cv.toFixed(2),
-    gini: gini.toFixed(2)
+    cv: cv.toFixed(2)
   };
 }
 
@@ -1007,20 +900,20 @@ function renderResults(r) {
   let verdict, explain, caveats;
   if(score >= 75) {
     verdict = 'Likely AI-generated';
-    explain = `Multiple strong signals are present: uniform sentence structure, absent human voice markers, high abstract noun density${r.aiPhraseHits.length > 0 ? `, and structural AI phrases ("${r.aiPhraseHits.slice(0,2).join('", "')}") ` : '. '}This combination is characteristic of AI-generated text.`;
-    caveats = 'Note: formal academic writing and non-native speakers can produce similar patterns. Use this as a signal to investigate, not a verdict.';
+    explain = `This text shows strong statistical patterns associated with AI writing — highly uniform sentence structure, heavy use of transitional phrases, and vocabulary patterns typical of language models. ${r.transitionHits.length > 0 ? `Flagged transitions: "${r.transitionHits.slice(0,3).join('", "')}"` : ''}`;
+    caveats = 'Note: some human writers — especially non-native speakers or those trained in formal academic style — may write this way naturally.';
   } else if(score >= 50) {
-    verdict = 'Mixed signals — possibly AI-assisted';
-    explain = `The writing shows a mix of AI-like structural patterns and some human markers. This is typical of heavily edited AI output, AI-assisted writing, or a very formal human writing style.`;
-    caveats = 'This range is the most uncertain. The signals are present but not conclusive — context matters.';
+    verdict = 'Mixed signals — may be AI-assisted';
+    explain = `The writing shows some AI-like patterns but also human elements. This could indicate AI assistance with human editing, or a formal writing style that happens to share characteristics with AI output.`;
+    caveats = 'This range is the most uncertain. The patterns are present but not conclusive.';
   } else if(score >= 30) {
     verdict = 'Probably human-written';
-    explain = `The text shows mostly human writing patterns — ${r.contractions > 0 ? `contractions (${r.contractions}), ` : ''}${r.emDashes > 0 ? `em dashes (${r.emDashes}), ` : ''}varied sentence lengths, and few structural AI patterns. Some signals may be elevated due to formal writing style.`;
-    caveats = 'Formal, technical, or academic writing can score higher than expected. A score in this range is not evidence of AI use.';
+    explain = `The text shows mostly human writing patterns — varied sentence structure, natural vocabulary, and few of the formulaic transitions common in AI output. A few flagged sentences don't necessarily indicate AI.`;
+    caveats = 'Short texts, bullet points, and highly technical writing often score higher than they should.';
   } else {
     verdict = 'Strongly human-written';
-    explain = `Clear human writing signatures throughout: ${r.contractions > 0 ? `${r.contractions} contractions, ` : ''}${r.emDashes > 0 ? `${r.emDashes} em dashes, ` : ''}${r.firstPerson > 0 ? `${r.firstPerson} first-person references, ` : ''}natural sentence length variation, and no structural AI patterns detected.`;
-    caveats = 'No detector is 100% accurate — this is a statistical signal, not a certainty.';
+    explain = `This text shows the natural irregularity, variation, and idiosyncrasy characteristic of human writing. The sentence lengths vary, vocabulary feels natural, and AI-associated patterns are largely absent.`;
+    caveats = 'No AI detector is 100% accurate. This is a statistical assessment, not a certainty.';
   }
 
   document.getElementById('verdict').textContent = verdict;
@@ -1044,12 +937,12 @@ function renderResults(r) {
   }).join('');
 
   const fixes = [];
-  if(r.metrics.uniformity.val >= 45) fixes.push({ level:'err', icon:'📏', title:'Vary your sentence lengths', desc:`Sentences are too uniform (CV: ${r.cv}, Gini: ${r.gini}). Average length is ${r.avgSentLen} words. Mix very short sentences (4–8 words) with longer ones (20–30). Break long sentences in two. Combine short ones. This single change has the most impact.` });
-  if(r.metrics.humanSignal.val >= 60) fixes.push({ level:'err', icon:'🗣️', title:'Add human voice markers', desc:`The text has ${r.contractions} contractions, ${r.emDashes} em dashes, and ${r.firstPerson} first-person references — all very low. Use contractions (it's, don't, we're), add em dashes for asides — like this — and write in first person where natural.` });
-  if(r.metrics.nominalization.val >= 40) fixes.push({ level:'warn', icon:'🔤', title:'Replace abstract nouns with concrete language', desc:`${r.nominalizations} abstract nouns detected (words ending in -tion, -ity, -ment, -ance). Instead of "the implementation of the solution", write "we implemented it". Convert nominalizations back to verbs.` });
-  if(r.metrics.aiPhrase.val >= 35) fixes.push({ level:'warn', icon:'⚠️', title:'Rewrite structural AI phrases', desc:`${r.aiPhraseHits.length} AI phrase pattern${r.aiPhraseHits.length !== 1 ? 's' : ''} found${r.aiPhraseHits.length > 0 ? ': "' + r.aiPhraseHits.slice(0,3).join('", "') + '"' : ''}. Replace impersonal framing ("it is important to") with direct statements. Cut "in conclusion" and "moving forward" entirely.` });
-  if(r.metrics.punctuation.val >= 50) fixes.push({ level:'warn', icon:'✏️', title:'Use informal punctuation more freely', desc:`The text uses very few em dashes, parentheses, or other informal marks. Human writers use these naturally — parenthetical asides (like this), em dashes for emphasis — and they strongly signal authentic voice.` });
-  if(fixes.length === 0) fixes.push({ level:'low', icon:'✅', title:'No major AI patterns found', desc:'The writing shows strong human voice markers and natural structural variation. Any flagged sentences below are edge cases, not evidence of AI writing.' });
+  if(r.metrics.transition.val >= 35) fixes.push({ level:'err', icon:'⚠️', title:`Replace AI transition words (${r.transitionHits.length} found)`, desc:`Found: "${r.transitionHits.join('", "')}" — These phrases are heavily overrepresented in AI text. Replace with more direct connections between ideas, or remove them entirely.` });
+  if(r.metrics.burstiness.val >= 50) fixes.push({ level:'err', icon:'📏', title:'Vary your sentence lengths', desc:`Average sentence: ${r.avgSentLen} words. Your sentences are too uniform (variation score: ${r.cv}). Mix short punchy sentences with longer ones. Break a long sentence into two. Combine two short ones.` });
+  if(r.metrics.hedge.val >= 35) fixes.push({ level:'warn', icon:'🔍', title:'Replace vague language with specifics', desc:`Words like "significant", "various", "robust", and "leverage" add no meaning. Replace with specific numbers, names, or concrete descriptions.` });
+  if(r.metrics.passive.val >= 35) fixes.push({ level:'warn', icon:'✍️', title:'Rewrite passive sentences as active', desc:`${r.metrics.passive.raw} passive voice constructions found. Instead of "This was demonstrated by the study", write "The study demonstrated this."` });
+  if(r.metrics.lexical.val >= 35) fixes.push({ level:'warn', icon:'📚', title:'Diversify your vocabulary', desc:`Lexical diversity is lower than expected for human writing. Try not to repeat the same words — use synonyms, rephrase ideas differently, or vary your sentence structures.` });
+  if(fixes.length === 0) fixes.push({ level:'low', icon:'✅', title:'No major patterns found', desc:'The writing shows natural human variation. If you got a high score despite this, the issue may be in specific flagged sentences below.' });
 
   document.getElementById('fix-list').innerHTML = fixes.map(f => `
     <div class="fix-item">
