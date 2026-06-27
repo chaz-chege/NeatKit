@@ -18,6 +18,7 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#f4f4f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a20" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Neatkit">
@@ -776,6 +777,23 @@ function updateCount() {
   const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
   const sents = text ? splitSentences(text).length : 0;
   document.getElementById('wc').textContent = `${words} words · ${sents} sentences`;
+}
+
+function analyze() {
+  const text = document.getElementById('input').value.trim();
+  if (!text || text.split(/\s+/).length < 50) {
+    alert('Please enter at least 50 words for meaningful analysis.');
+    return;
+  }
+  const btn = document.getElementById('analyze-btn');
+  btn.disabled = true; btn.textContent = 'Analyzing...';
+  setTimeout(() => {
+    const result = runAnalysis(text);
+    renderResults(result);
+    btn.disabled = false; btn.textContent = 'Analyze text \u2192';
+    document.getElementById('results').classList.add('visible');
+    document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+  }, 400);
 }
 
 function splitSentences(text) {
