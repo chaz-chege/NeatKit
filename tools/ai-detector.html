@@ -848,11 +848,11 @@ function runAnalysis(text) {
     const lw = w.toLowerCase().replace(/[^a-z]/g, '');
     return lw.length > 6 && /(?:tion|ity|ness|ment|ance|ence|ization|isation|alism|ivity)$/.test(lw);
   }).length;
-  const nominalizationScore = Math.min(100, (nominalizations / wc) * 550);
+  const nominalizationScore = Math.min(100, (nominalizations / wc) * 950);
 
   // 4. STRUCTURAL AI PHRASE PATTERNS
   const aiPhrasePatterns = [
-    /\bit is (?:worth|important|crucial|essential|critical|necessary|vital|clear|evident|notable|noteworthy)\b/gi,
+    /\bit is (?:worth|important|crucial|essential|critical|necessary|vital|clear|evident|notable|noteworthy|imperative)\b/gi,
     /\bthe (?:implications?|impact|importance|significance|role|nature|extent|process|concept|framework|landscape|trajectory|intersection|nexus|paradigm|spectrum|dimension) of\b/gi,
     /\b(?:this|these) (?:findings?|results?|data|evidence|analysis|research|study|approach|framework|model|solution|innovation|advancement|development)s?\b/gi,
     /\bplay(?:s|ed)? a (?:crucial|key|vital|significant|important|pivotal|central|fundamental) role\b/gi,
@@ -862,8 +862,11 @@ function runAnalysis(text) {
     /\bin order to\b/gi,
     /\b(?:in conclusion|in summary|to summarize|to conclude|in closing|as we have seen|as discussed|as outlined)\b/gi,
     /\b(?:moving forward|going forward|looking ahead|looking forward)\b/gi,
-    /\b(?:delve|underscore|encompass|facilitate|leverage|utilize|optimize|operationalize)\b/gi,
+    /\b(?:delve|underscore|encompass|facilitate|leverage|utilize|optimize|operationalize|harmonious|bespoke|steadfast|multifaceted|unprecedented)\b/gi,
     /\bwhen (?:we|one) (?:examine|consider|look at|think about|reflect on)\b/gi,
+    /\b(?:furthermore|moreover|additionally|consequently|therefore|nevertheless|subsequently|notwithstanding)\b/gi,
+    /\bcannot be (?:overstated|understated|ignored|overlooked)\b/gi,
+    /\b(?:it is (?:worth noting|noteworthy|imperative|essential|crucial) that|it should be noted that|it is important to (?:note|recognize|consider|acknowledge))\b/gi,
   ];
   let aiPhraseHits = [];
   aiPhrasePatterns.forEach(p => { aiPhraseHits = aiPhraseHits.concat(text.match(p) || []); });
