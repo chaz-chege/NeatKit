@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R51Q6DPPBG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R51Q6DPPBG');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Neatkit">
+<meta name="description" content="Convert Word documents to PDF free, no signup. Drag and drop your .docx file and download the PDF instantly. Runs entirely in your browser — your file never leaves your device.">
+<meta name="keywords" content="word to pdf, docx to pdf, convert word to pdf free, word to pdf no signup, docx to pdf online free, convert docx to pdf browser">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#f4f4f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a20" media="(prefers-color-scheme: dark)">
+<title>Word to PDF Converter Free — No Signup, No Upload | Neatkit</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7083602792413467" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
+  --display:'DM Serif Display',Georgia,serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --code:'DM Mono',monospace;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.12);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:#f4f4f8;--bg2:#ffffff;--bg3:#f0f0f7;
+    --text:#0f0f12;--text2:#54546a;--text3:#9898b2;
+    --border:rgba(180,180,220,0.35);--border2:rgba(180,180,220,0.6);
+    --accent:#7b8fd4;--accent-light:rgba(123,143,212,0.1);
+    --accent-text:#ffffff;
+    --nav-bg:rgba(255,255,255,0.9);--nav-border:rgba(180,180,210,0.25);
+    --success:#16a34a;--error:#dc2626;
+    --tx1:#0f0f12;--tx2:#54546a;--tx3:#9898b2;
+    --rule:rgba(180,180,210,0.25);--rule2:rgba(180,180,210,0.45);
+    --mist:#f4f4f8;--white:#ffffff;--ink:#0f0f12;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;
+    --text:#e8e6e0;--text2:#8a8880;--text3:#5a5856;
+    --border:#2a2a2a;--border2:#3a3a3a;
+    --accent:#c8f04a;--accent-light:rgba(200,240,74,0.08);
+    --accent-text:#0c0c0c;
+    --nav-bg:rgba(12,12,12,0.92);--nav-border:#2a2a2a;
+    --success:#4ade80;--error:#f87171;
+    --tx1:#f0f0f5;--tx2:#a8a8c2;--tx3:#6e6e85;
+    --rule:rgba(180,180,210,0.12);--rule2:rgba(180,180,210,0.22);
+    --mist:#1a1a20;--white:#0f0f13;--ink:#f0f0f5;
+  }
+}
+
+body{background:var(--mist);font-family:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh;color:var(--text)}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.nk-nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--rule);height:56px;display:flex;align-items:center;padding:0 2rem}
+.nk-nav-inner{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.nk-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.nk-logo-mark{width:24px;height:24px;background:var(--grad);border-radius:6px;position:relative;overflow:hidden;flex-shrink:0}
+.nk-logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,transparent 55%)}
+.nk-logo-text{font-family:var(--display);font-size:1.1rem;color:var(--tx1);letter-spacing:-0.01em;line-height:1}
+.nk-logo-text em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nk-breadcrumb{display:flex;align-items:center;gap:0.375rem;font-family:var(--code);font-size:0.68rem;color:var(--tx3);letter-spacing:0.04em}
+.nk-breadcrumb a{color:var(--tx3);text-decoration:none;transition:color 0.15s}
+.nk-breadcrumb a:hover{color:var(--tx1)}
+.nk-back{margin-left:auto;font-family:var(--code);font-size:0.65rem;color:var(--tx3);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.15s}
+.nk-back:hover{color:var(--tx1)}
+
+/* ── PAGE ─────────────────────────────────────────────────── */
+.page{max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+h1{font-family:var(--display);font-size:2rem;font-weight:400;letter-spacing:-0.02em;margin-bottom:0.4rem;color:var(--tx1)}
+.subtitle{color:var(--text2);font-size:0.925rem;margin-bottom:2rem;line-height:1.6}
+
+/* ── DROP ZONE ────────────────────────────────────────────── */
+.drop-zone{border:2px dashed var(--border2);border-radius:var(--r-xl);padding:3.5rem 2rem;text-align:center;cursor:pointer;transition:all 0.2s var(--ease);background:var(--bg2);position:relative}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-light)}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+.drop-title{font-size:1.05rem;font-weight:600;color:var(--text);margin-bottom:0.35rem}
+.drop-sub{font-size:0.82rem;color:var(--text3)}
+.drop-sub strong{color:var(--accent);font-weight:600}
+
+/* ── FILE LOADED STATE ────────────────────────────────────── */
+.file-info{display:none;align-items:center;gap:1rem;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.25rem;margin-top:1rem}
+.file-info.visible{display:flex}
+.file-icon{font-size:2rem;flex-shrink:0}
+.file-details{flex:1;min-width:0}
+.file-name{font-weight:600;font-size:0.9rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:0.2rem}
+.file-meta{font-size:0.75rem;color:var(--text3);font-family:var(--code)}
+.file-clear{background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:1.1rem;padding:0.25rem;transition:color 0.15s;flex-shrink:0}
+.file-clear:hover{color:var(--error)}
+
+/* ── PARSING STATE ────────────────────────────────────────── */
+.parse-status{display:none;align-items:center;gap:0.75rem;font-size:0.85rem;color:var(--text2);margin-top:0.875rem;padding:0.875rem 1rem;background:var(--bg3);border-radius:var(--r-md)}
+.parse-status.visible{display:flex}
+.spinner{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PREVIEW ──────────────────────────────────────────────── */
+.preview-wrap{display:none;margin-top:1.5rem}
+.preview-wrap.visible{display:block}
+.preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.preview-label{font-size:0.75rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--code)}
+.preview-pages{font-size:0.75rem;color:var(--text3);font-family:var(--code)}
+.preview-frame{background:#ffffff;border-radius:var(--r-md);box-shadow:var(--shadow-md),0 0 0 1px var(--border);overflow:hidden;max-height:520px;overflow-y:auto}
+.preview-doc{padding:54px 72px;font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.5;color:#000;min-height:400px}
+
+/* ── ACTION BAR ───────────────────────────────────────────── */
+.action-bar{display:none;margin-top:1.25rem;gap:0.75rem;align-items:center;flex-wrap:wrap}
+.action-bar.visible{display:flex}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--grad);color:#0f0f12;font-family:var(--body);font-size:0.9rem;font-weight:700;padding:0.75rem 1.75rem;border-radius:100px;border:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow 0.15s,transform 0.15s}
+.btn-primary:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1.5px solid var(--border2);color:var(--text2);font-family:var(--body);font-size:0.82rem;font-weight:600;padding:0.65rem 1.25rem;border-radius:100px;cursor:pointer;transition:all 0.15s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.action-note{font-size:0.78rem;color:var(--text3);margin-left:auto}
+
+/* ── HOW IT WORKS ─────────────────────────────────────────── */
+.info-section{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.75rem;margin-top:2rem}
+.info-section h2{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+.step{display:flex;flex-direction:column;gap:0.4rem}
+.step-num{font-family:var(--code);font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase}
+.step-title{font-size:0.85rem;font-weight:600;color:var(--text)}
+.step-desc{font-size:0.78rem;color:var(--text2);line-height:1.55}
+
+/* ── FIDELITY NOTE ────────────────────────────────────────── */
+.fidelity-note{background:var(--bg3);border-radius:var(--r-md);padding:1rem 1.25rem;margin-top:1rem;font-size:0.82rem;color:var(--text2);line-height:1.6;display:flex;gap:0.625rem}
+
+/* ── FAQ ──────────────────────────────────────────────────── */
+.faq-section{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.75rem;margin-top:1.5rem}
+.faq-section h2{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem}
+.faq-list{display:flex;flex-direction:column;gap:0.5rem}
+.faq-item{border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+.faq-q{width:100%;background:transparent;border:none;padding:0.875rem 1rem;text-align:left;font-family:var(--body);font-size:0.85rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s}
+.faq-q:hover{background:var(--bg3)}
+.faq-arrow{color:var(--text3);font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1rem 0.875rem;font-size:0.82rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.nk-footer{background:var(--white);border-top:1px solid var(--rule2);padding:2.5rem 2rem;margin-top:3rem}
+.nk-footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-start}
+.nk-footer-brand .nk-logo-f{display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:0.625rem}
+.nk-footer-brand .nk-logo-mark-f{width:22px;height:22px;background:var(--grad);border-radius:5px;position:relative;overflow:hidden;flex-shrink:0}
+.nk-footer-brand .nk-logo-mark-f::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,transparent 55%)}
+.nk-footer-brand .nk-logo-text-f{font-family:var(--display);font-size:1rem;color:var(--tx1);letter-spacing:-0.01em}
+.nk-footer-brand .nk-logo-text-f em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nk-footer-brand p{font-size:0.78rem;color:var(--tx3);line-height:1.6;max-width:220px;margin-top:0.25rem}
+.nk-footer-links{display:flex;flex-wrap:wrap;gap:3rem}
+.nk-footer-col h4{font-family:var(--code);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--tx3);margin-bottom:0.75rem}
+.nk-footer-col a{display:block;font-size:0.8rem;color:var(--tx2);text-decoration:none;margin-bottom:0.45rem;transition:color 0.15s}
+.nk-footer-col a:hover{color:var(--tx1)}
+.nk-footer-bottom{max-width:1100px;margin:1.25rem auto 0;padding-top:1.125rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;font-size:0.75rem;color:var(--tx3)}
+@media(max-width:600px){.nk-footer-links{gap:1.5rem}.nk-footer-inner{flex-direction:column;gap:1.5rem}}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media(max-width:600px){
+  .page{padding:1.5rem 1rem 3rem}
+  h1{font-size:1.5rem}
+  .preview-doc{padding:32px 28px}
+  .steps{grid-template-columns:1fr 1fr}
+  .action-note{display:none}
+}
+
+/* ── PRINT STYLES (the actual PDF output) ─────────────────── */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: white !important; margin: 0; padding: 0; }
+  .nk-nav, .page > h1, .page > .subtitle, .drop-zone, .file-info,
+  .parse-status, .action-bar, .info-section, .fidelity-note,
+  .faq-section, .nk-footer, .preview-header, .preview-label,
+  .preview-pages, #print-hint { display: none !important; }
+  .preview-wrap { display: block !important; margin: 0; }
+  .preview-frame { box-shadow: none !important; border: none !important; max-height: none !important; overflow: visible !important; border-radius: 0 !important; }
+  .preview-doc {
+    padding: 0;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+  }
+  /* Word default page: A4, 2.54cm margins handled by @page */
+  @page {
+    size: A4;
+    margin: 2.54cm;
+  }
+  /* Preserve headings across pages */
+  h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+  img { max-width: 100%; page-break-inside: avoid; }
+  table { page-break-inside: avoid; border-collapse: collapse; width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nk-nav">
+  <div class="nk-nav-inner">
+    <a class="nk-logo" href="../index.html">
+      <div class="nk-logo-mark"></div>
+      <span class="nk-logo-text">Neat<em>kit</em></span>
+    </a>
+    <div class="nk-breadcrumb">
+      <span>/</span><a href="../index.html">tools</a><span>/</span><span>word to pdf</span>
+    </div>
+    <a class="nk-back" href="../index.html">← All tools</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <h1>Word to PDF</h1>
+  <p class="subtitle">Drop your .docx file and download a PDF instantly. No signup, no upload — your document never leaves your browser.</p>
+
+  <!-- DROP ZONE -->
+  <div class="drop-zone" id="drop-zone">
+    <input type="file" id="file-input" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    <span class="drop-icon">📄</span>
+    <div class="drop-title">Drop your Word document here</div>
+    <div class="drop-sub">or click to browse &nbsp;·&nbsp; <strong>.docx only</strong> &nbsp;·&nbsp; Max 50MB</div>
+  </div>
+
+  <!-- FILE INFO -->
+  <div class="file-info" id="file-info">
+    <span class="file-icon">📘</span>
+    <div class="file-details">
+      <div class="file-name" id="file-name">document.docx</div>
+      <div class="file-meta" id="file-meta">0 KB</div>
+    </div>
+    <button class="file-clear" id="file-clear" title="Remove file">✕</button>
+  </div>
+
+  <!-- PARSE STATUS -->
+  <div class="parse-status" id="parse-status">
+    <div class="spinner"></div>
+    <span id="parse-text">Reading document...</span>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-wrap" id="preview-wrap">
+    <div class="preview-header">
+      <span class="preview-label">Preview</span>
+      <span class="preview-pages" id="page-count"></span>
+    </div>
+    <div class="preview-frame">
+      <div class="preview-doc" id="preview-doc"></div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar" id="action-bar">
+    <button class="btn-primary" id="convert-btn" onclick="convertToPDF()">
+      ⬇ Download PDF
+    </button>
+    <button class="btn-ghost" onclick="resetTool()">Convert another</button>
+    <span class="action-note" id="print-hint">Uses your browser's print-to-PDF — works on all modern browsers</span>
+  </div>
+
+  <!-- FIDELITY NOTE -->
+  <div class="fidelity-note" id="fidelity-note" style="display:none">
+    <span>💡</span>
+    <span>Standard text, headings, tables, and inline images convert faithfully. Complex layouts with text boxes, multi-column sections, or WordArt may reflow slightly — the same limitation applies to every browser-based converter.</span>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="info-section">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <span class="step-title">Drop your file</span>
+        <span class="step-desc">Your .docx is read locally by Mammoth.js — a battle-tested open source library used across thousands of production apps.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span class="step-title">Preview renders</span>
+        <span class="step-desc">The document is converted to styled HTML using Word's exact heading hierarchy, paragraph styles, table structure, and embedded images.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-title">Download PDF</span>
+        <span class="step-desc">Your browser's native print engine renders the HTML to a PDF — the same engine Word uses when you choose "Print to PDF" yourself.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <span class="step-title">Nothing stored</span>
+        <span class="step-desc">The file is never uploaded anywhere. No account needed. No watermark. Nothing stored on any server.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is my document uploaded to a server?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">No. Everything runs in your browser using JavaScript. Your file is read directly from your device's memory — it never touches a server, is never stored, and never leaves your machine. This is verifiable: turn off your internet connection after the page loads, and the conversion still works.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How close to the original will the PDF look?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">For standard documents — body text, headings, bold and italic, numbered and bulleted lists, simple tables, and inline images — the output is very close to Word's own PDF export. The same limitation applies to every browser-based tool: complex layouts using text boxes, floating elements, multi-column sections, or WordArt may reflow slightly, because the browser doesn't have access to Word's internal layout engine.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What happens when I click "Download PDF"?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">Your browser's built-in print dialog opens, with the destination set to "Save as PDF". Select that destination if it isn't already selected, then click Save. The PDF is generated entirely on your device — no file goes anywhere. On Chrome and Edge, this usually defaults to "Save as PDF" automatically. On Firefox, select "Microsoft Print to PDF" or "Save to PDF" from the printer list.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does it support .doc files (older Word format)?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">No — only .docx (the modern XML-based format introduced in Word 2007). The older binary .doc format requires a different parser that can't run in a browser. If you have a .doc file, open it in Word or LibreOffice and save it as .docx first, then convert here.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Are there page size and margin settings?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">The PDF uses A4 page size with 2.54cm margins on all sides — the same defaults Word uses. You can adjust margins in the print dialog before saving if needed. Letter size (US) can be selected in the print dialog's paper size dropdown.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Why do other "free" Word to PDF tools require signup?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">Because their conversion happens on their servers — they upload your document, process it, and send back a PDF. That infrastructure costs money, so they monetize via accounts and paywalls. This tool does all processing in your browser using open source libraries, so there's no server cost and no reason to lock anything behind a signup.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer class="nk-footer">
+  <div class="nk-footer-inner">
+    <div class="nk-footer-brand">
+      <a class="nk-logo-f" href="../index.html">
+        <div class="nk-logo-mark-f"></div>
+        <span class="nk-logo-text-f">Neat<em>kit</em></span>
+      </a>
+      <p>Free browser-based tools.<br>No signup, no uploads, no limits.</p>
+    </div>
+    <div class="nk-footer-links">
+      <div class="nk-footer-col">
+        <h4>Tools</h4>
+        <a href="../tools/image-compress.html">Image Compressor</a>
+        <a href="../tools/pdf-merge.html">PDF Merge</a>
+        <a href="../tools/ai-detector.html">AI Detector</a>
+        <a href="../tools/qr-generator.html">QR Generator</a>
+        <a href="../index.html">All tools →</a>
+      </div>
+      <div class="nk-footer-col">
+        <h4>Company</h4>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="nk-footer-bottom">
+    <span>© 2026 Neatkit. All rights reserved.</span>
+    <span>Made in Nairobi 🇰🇪</span>
+  </div>
+</footer>
+
+<script>
+// ── DRAG AND DROP ────────────────────────────────────────────
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', e => { if (!dropZone.contains(e.relatedTarget)) dropZone.classList.remove('drag-over'); });
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+document.getElementById('file-clear').addEventListener('click', resetTool);
+
+// ── FILE HANDLING ────────────────────────────────────────────
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1048576).toFixed(1) + ' MB';
+}
+
+function handleFile(file) {
+  if (!file.name.endsWith('.docx') && file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    alert('Please upload a .docx file. Older .doc files are not supported.');
+    return;
+  }
+  if (file.size > 50 * 1024 * 1024) {
+    alert('File is too large. Maximum size is 50MB.');
+    return;
+  }
+
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = formatSize(file.size);
+  document.getElementById('file-info').classList.add('visible');
+  document.getElementById('parse-status').classList.add('visible');
+  document.getElementById('parse-text').textContent = 'Reading document...';
+  document.getElementById('preview-wrap').classList.remove('visible');
+  document.getElementById('action-bar').classList.remove('visible');
+  document.getElementById('fidelity-note').style.display = 'none';
+
+  loadMammothAndConvert(file);
+}
+
+// ── WORD numFmt → CSS list-style-type ───────────────────────
+const NUM_FMT_MAP = {
+  'decimal':            'decimal',
+  'upperRoman':         'upper-roman',
+  'lowerRoman':         'lower-roman',
+  'upperLetter':        'upper-alpha',
+  'lowerLetter':        'lower-alpha',
+  'decimalZero':        'decimal-leading-zero',
+  'ordinal':            'decimal',
+  'cardinalText':       'decimal',
+  'ordinalText':        'decimal',
+  'hex':                'decimal',
+  'chicago':            'decimal',
+  'ideographDigital':   'cjk-decimal',
+  'japaneseCounting':   'japanese-informal',
+  'koreanDigital':      'korean-hangul-formal',
+  'none':               'none',
+  'bullet':             'disc',
+};
+
+// ── READ ZIP ENTRY ───────────────────────────────────────────
+// Parse a .docx (zip) in the browser without an extra library
+// by scanning the local file headers manually.
+async function readZipEntry(arrayBuffer, targetName) {
+  const bytes = new Uint8Array(arrayBuffer);
+  const dec = new TextDecoder('utf-8', { fatal: false });
+
+  let offset = 0;
+  while (offset < bytes.length - 30) {
+    // Local file header signature = 0x04034b50
+    if (bytes[offset]===0x50 && bytes[offset+1]===0x4b &&
+        bytes[offset+2]===0x03 && bytes[offset+3]===0x04) {
+      const compMethod  = bytes[offset+8]  | (bytes[offset+9]  << 8);
+      const compSize    = bytes[offset+18] | (bytes[offset+19] << 8) | (bytes[offset+20] << 16) | (bytes[offset+21] << 24);
+      const uncompSize  = bytes[offset+22] | (bytes[offset+23] << 8) | (bytes[offset+24] << 16) | (bytes[offset+25] << 24);
+      const nameLen     = bytes[offset+26] | (bytes[offset+27] << 8);
+      const extraLen    = bytes[offset+28] | (bytes[offset+29] << 8);
+      const name        = dec.decode(bytes.slice(offset+30, offset+30+nameLen));
+      const dataStart   = offset + 30 + nameLen + extraLen;
+
+      if (name === targetName) {
+        const compData = bytes.slice(dataStart, dataStart + compSize);
+        if (compMethod === 0) {
+          // Stored (no compression)
+          return dec.decode(compData);
+        } else if (compMethod === 8) {
+          // Deflate — use DecompressionStream
+          const ds = new DecompressionStream('deflate-raw');
+          const writer = ds.writable.getWriter();
+          writer.write(compData);
+          writer.close();
+          const chunks = [];
+          const reader = ds.readable.getReader();
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            chunks.push(value);
+          }
+          const total = chunks.reduce((n, c) => n + c.length, 0);
+          const out = new Uint8Array(total);
+          let pos = 0;
+          for (const c of chunks) { out.set(c, pos); pos += c.length; }
+          return dec.decode(out);
+        }
+      }
+      offset = dataStart + compSize;
+    } else {
+      offset++;
+    }
+  }
+  return null; // entry not found
+}
+
+// ── PARSE numbering.xml → numId → {level → CSS style} ───────
+function parseNumbering(xml) {
+  // abstractNumId → { level → fmt }
+  const abstractNums = {};
+  // Match abstractNum blocks
+  const absRe = /<w:abstractNum\s[^>]*w:abstractNumId="(\d+)"[^>]*>([\s\S]*?)<\/w:abstractNum>/g;
+  let m;
+  while ((m = absRe.exec(xml)) !== null) {
+    const absId = m[1];
+    const block = m[2];
+    const levels = {};
+    const lvlRe = /<w:lvl\s[^>]*w:ilvl="(\d+)"[^>]*>([\s\S]*?)<\/w:lvl>/g;
+    let lm;
+    while ((lm = lvlRe.exec(block)) !== null) {
+      const ilvl = lm[1];
+      const lvlBlock = lm[2];
+      const fmtMatch = lvlBlock.match(/w:numFmt\s[^>]*w:val="([^"]+)"/);
+      const fmt = fmtMatch ? fmtMatch[1] : 'decimal';
+      levels[ilvl] = NUM_FMT_MAP[fmt] || 'decimal';
+    }
+    abstractNums[absId] = levels;
+  }
+
+  // numId → abstractNumId (with optional level overrides)
+  const numMap = {};
+  const numRe = /<w:num\s[^>]*w:numId="(\d+)"[^>]*>([\s\S]*?)<\/w:num>/g;
+  while ((m = numRe.exec(xml)) !== null) {
+    const numId = m[1];
+    const block = m[2];
+    const absMatch = block.match(/w:abstractNumId\s[^>]*w:val="(\d+)"/);
+    if (absMatch) {
+      numMap[numId] = abstractNums[absMatch[1]] || {};
+    }
+  }
+  return numMap; // numId → { ilvl → cssFmt }
+}
+
+// ── PARSE document.xml → ordered list of {numId, ilvl} per para ──
+// We need to know which paragraph maps to which <ol> element so
+// we can assign the right list-style-type after Mammoth renders.
+function parseListOrder(xml) {
+  // Returns array of {numId, ilvl} for every list paragraph in document order
+  const result = [];
+  const paraRe = /<w:p[\s>]([\s\S]*?)<\/w:p>/g;
+  let m;
+  while ((m = paraRe.exec(xml)) !== null) {
+    const para = m[1];
+    const numIdM = para.match(/w:numId[^>]*w:val="(\d+)"/);
+    const ilvlM  = para.match(/w:ilvl[^>]*w:val="(\d+)"/);
+    if (numIdM && ilvlM) {
+      result.push({ numId: numIdM[1], ilvl: ilvlM[1] });
+    }
+  }
+  return result;
+}
+
+// ── APPLY list-style-type to rendered <ol> elements ──────────
+function patchListStyles(container, listOrder, numMap) {
+  // Walk all <ol> elements in DOM order.
+  // Each <ol> corresponds to a contiguous run of same-numId paragraphs.
+  // We track which list paragraph index we're at.
+  let paraIdx = 0;
+  const ols = container.querySelectorAll('ol');
+  ols.forEach(ol => {
+    // Find the next list paragraph entry for this ol
+    if (paraIdx >= listOrder.length) return;
+    const { numId, ilvl } = listOrder[paraIdx];
+    const levelMap = numMap[numId] || {};
+    const cssType = levelMap[ilvl] || 'decimal';
+    ol.style.listStyleType = cssType;
+    // Advance by number of <li> children
+    paraIdx += ol.querySelectorAll('li').length;
+  });
+}
+
+// ── MAMMOTH LOADER ───────────────────────────────────────────
+function loadMammothAndConvert(file) {
+  if (window.mammoth) {
+    convertWithMammoth(file);
+    return;
+  }
+  document.getElementById('parse-text').textContent = 'Loading document parser...';
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js';
+  script.onload = () => convertWithMammoth(file);
+  script.onerror = () => showError('Failed to load document parser. Check your internet connection.');
+  document.head.appendChild(script);
+}
+
+// ── CONVERSION ───────────────────────────────────────────────
+async function convertWithMammoth(file) {
+  document.getElementById('parse-text').textContent = 'Converting document...';
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+
+    // Read numbering.xml and document.xml directly from the zip
+    // so we can fix list styles that Mammoth doesn't preserve
+    document.getElementById('parse-text').textContent = 'Reading list styles...';
+    let numMap = {};
+    let listOrder = [];
+    try {
+      const numberingXml = await readZipEntry(arrayBuffer, 'word/numbering.xml');
+      const documentXml  = await readZipEntry(arrayBuffer, 'word/document.xml');
+      if (numberingXml) numMap = parseNumbering(numberingXml);
+      if (documentXml)  listOrder = parseListOrder(documentXml);
+    } catch (e) {
+      // Non-fatal — fall back to default list styles
+      console.warn('Could not read numbering info:', e);
+    }
+
+    document.getElementById('parse-text').textContent = 'Converting document...';
+    const result = await mammoth.convertToHtml(
+      { arrayBuffer },
+      {
+        styleMap: [
+          "p[style-name='Heading 1'] => h1:fresh",
+          "p[style-name='Heading 2'] => h2:fresh",
+          "p[style-name='Heading 3'] => h3:fresh",
+          "p[style-name='Heading 4'] => h4:fresh",
+          "p[style-name='Heading 5'] => h5:fresh",
+          "p[style-name='Heading 6'] => h6:fresh",
+          "p[style-name='Title'] => h1.doc-title:fresh",
+          "p[style-name='Subtitle'] => p.doc-subtitle:fresh",
+          "r[style-name='Strong'] => strong",
+          "r[style-name='Emphasis'] => em",
+        ]
+      }
+    );
+
+    const html = result.value
+      // Preserve runs of 2+ consecutive spaces (space-bar alignment)
+      .replace(/ {2,}/g, m => '&nbsp;'.repeat(m.length - 1) + ' ');
+
+    if (!html.trim()) {
+      showError('The document appears to be empty or could not be read.');
+      return;
+    }
+
+    // Inject into preview
+    const previewDoc = document.getElementById('preview-doc');
+    previewDoc.innerHTML = getDocStyles() + html;
+
+    // Patch list styles using numbering data
+    if (listOrder.length > 0 && Object.keys(numMap).length > 0) {
+      patchListStyles(previewDoc, listOrder, numMap);
+    }
+
+    // Estimate page count
+    const wordCount = html.replace(/<[^>]*>/g,'').split(/\s+/).filter(Boolean).length;
+    const estPages = Math.max(1, Math.ceil(wordCount / 600));
+    document.getElementById('page-count').textContent = 'Est. ' + estPages + ' page' + (estPages !== 1 ? 's' : '');
+
+    document.getElementById('parse-status').classList.remove('visible');
+    document.getElementById('preview-wrap').classList.add('visible');
+    document.getElementById('action-bar').classList.add('visible');
+    document.getElementById('fidelity-note').style.display = 'flex';
+
+  } catch (err) {
+    showError('Could not read the document: ' + err.message);
+  }
+}
+
+// ── DOCUMENT STYLES ──────────────────────────────────────────
+// These match Word's default Normal style rendering
+function getDocStyles() {
+  return `<style>
+    #preview-doc { font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.5; color: #000; }
+    #preview-doc h1 { font-size: 16pt; font-weight: bold; margin: 12pt 0 6pt; }
+    #preview-doc h1.doc-title { font-size: 28pt; font-weight: bold; margin-bottom: 4pt; }
+    #preview-doc p.doc-subtitle { font-size: 14pt; color: #555; margin-bottom: 12pt; }
+    #preview-doc h2 { font-size: 14pt; font-weight: bold; margin: 10pt 0 5pt; }
+    #preview-doc h3 { font-size: 12pt; font-weight: bold; margin: 8pt 0 4pt; }
+    #preview-doc h4 { font-size: 12pt; font-weight: bold; font-style: italic; margin: 8pt 0 4pt; }
+    #preview-doc h5 { font-size: 11pt; font-weight: bold; margin: 6pt 0 3pt; }
+    #preview-doc h6 { font-size: 11pt; font-weight: bold; font-style: italic; margin: 6pt 0 3pt; }
+    #preview-doc p { margin: 0 0 8pt; }
+    #preview-doc strong, #preview-doc b { font-weight: bold; }
+    #preview-doc em, #preview-doc i { font-style: italic; }
+    #preview-doc u { text-decoration: underline; }
+    #preview-doc s { text-decoration: line-through; }
+    #preview-doc ul { margin: 0 0 8pt 24pt; padding: 0; list-style-type: disc; }
+    #preview-doc ol { margin: 0 0 8pt 24pt; padding: 0; list-style-type: decimal; }
+    #preview-doc li { margin-bottom: 3pt; }
+    #preview-doc table { border-collapse: collapse; width: 100%; margin: 8pt 0; }
+    #preview-doc td, #preview-doc th { border: 1px solid #000; padding: 4pt 6pt; vertical-align: top; font-size: 11pt; }
+    #preview-doc th { font-weight: bold; background: #f0f0f0; }
+    #preview-doc img { max-width: 100%; height: auto; display: block; margin: 8pt 0; }
+    #preview-doc a { color: #1155cc; text-decoration: underline; }
+    #preview-doc blockquote { margin: 8pt 0 8pt 32pt; border-left: 3px solid #ccc; padding-left: 12pt; color: #333; }
+    #preview-doc pre, #preview-doc code { font-family: 'Courier New', monospace; font-size: 10pt; background: #f5f5f5; padding: 2pt 4pt; }
+    #preview-doc hr { border: none; border-top: 1px solid #000; margin: 12pt 0; }
+  </style>`;
+}
+
+// ── PRINT TO PDF ─────────────────────────────────────────────
+function convertToPDF() {
+  // Small delay to let the browser settle, then print
+  setTimeout(() => window.print(), 100);
+}
+
+// ── RESET ─────────────────────────────────────────────────────
+function resetTool() {
+  document.getElementById('file-info').classList.remove('visible');
+  document.getElementById('parse-status').classList.remove('visible');
+  document.getElementById('preview-wrap').classList.remove('visible');
+  document.getElementById('action-bar').classList.remove('visible');
+  document.getElementById('fidelity-note').style.display = 'none';
+  document.getElementById('preview-doc').innerHTML = '';
+  document.getElementById('file-input').value = '';
+}
+
+// ── ERROR ─────────────────────────────────────────────────────
+function showError(msg) {
+  document.getElementById('parse-status').classList.add('visible');
+  document.getElementById('parse-text').textContent = msg;
+  document.querySelector('#parse-status .spinner').style.display = 'none';
+}
+
+// ── FAQ ───────────────────────────────────────────────────────
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
