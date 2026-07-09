@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R51Q6DPPBG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R51Q6DPPBG');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The difference between lossless and lossy compression determines whether your image degrades every time you save it. Here's what actually happens to your pixels.">
+<meta property="og:title" content="Lossless vs lossy image compression: a plain-English guide | Neatkit">
+<meta property="og:description" content="The difference between lossless and lossy compression determines whether your image degrades every time you save it. Here's what actually happens to your pixels.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://neatkitapp.com/blog/lossless-vs-lossy-compression.html">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://neatkitapp.com/blog/lossless-vs-lossy-compression.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Lossless vs lossy image compression: a plain-English guide","description":"The difference between lossless and lossy compression determines whether your image degrades every time you save it. Here's what actually happens to your pixels.","author":{"@type":"Organization","name":"Neatkit"},"publisher":{"@type":"Organization","name":"Neatkit","url":"https://neatkitapp.com"},"datePublished":"2026-07-08","url":"https://neatkitapp.com/blog/lossless-vs-lossy-compression.html"}</script>
+<title>Lossless vs lossy image compression: a plain-English guide | Neatkit</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#f4f4f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a20" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Neatkit">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7083602792413467" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd,#e8cdb0);
+  --display:'DM Serif Display',Georgia,serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --code:'DM Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --nav-bg:rgba(255,255,255,0.9);
+}
+@media(prefers-color-scheme:light){:root{
+  --bg:#f4f4f8;--bg2:#ffffff;--bg3:#f0f0f7;
+  --text:#0f0f12;--text2:#54546a;--text3:#9898b2;
+  --border:rgba(180,180,220,0.35);--border2:rgba(180,180,220,0.6);
+  --accent:#7b8fd4;--rule:rgba(180,180,210,0.25);--rule2:rgba(180,180,210,0.45);
+  --tx1:#0f0f12;--tx2:#54546a;--tx3:#9898b2;
+  --mist:#f4f4f8;--white:#ffffff;--ink:#0f0f12;
+}}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;
+  --text:#e8e6e0;--text2:#8a8880;--text3:#5a5856;
+  --border:#2a2a2a;--border2:#3a3a3a;
+  --accent:#c8f04a;--rule:rgba(180,180,210,0.12);--rule2:rgba(180,180,210,0.22);
+  --tx1:#f0f0f5;--tx2:#a8a8c2;--tx3:#6e6e85;
+  --mist:#1a1a20;--white:#0f0f13;--ink:#f0f0f5;
+  --nav-bg:rgba(15,15,19,0.85);
+}}
+body{background:var(--mist);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
+.nk-nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--rule);height:56px;display:flex;align-items:center;padding:0 2rem}
+.nk-nav-inner{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.nk-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.nk-logo-mark{width:24px;height:24px;background:var(--grad);border-radius:6px;position:relative;overflow:hidden}
+.nk-logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,transparent 55%)}
+.nk-logo-text{font-family:var(--display);font-size:1.1rem;color:var(--tx1);letter-spacing:-0.01em;line-height:1}
+.nk-logo-text em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nk-nav-links{display:flex;align-items:center;gap:1.5rem;margin-left:auto}
+.nk-nav-link{font-family:var(--code);font-size:0.68rem;color:var(--tx3);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.15s}
+.nk-nav-link:hover{color:var(--tx1)}
+.nk-nav-pill{background:var(--ink);color:var(--white);font-family:var(--body);font-size:0.78rem;font-weight:600;padding:0.4rem 0.875rem;border-radius:100px;text-decoration:none;transition:opacity 0.15s}
+.nk-nav-pill:hover{opacity:0.8}
+.article-wrap{max-width:720px;margin:0 auto;padding:3rem 2rem 5rem}
+.article-back{font-family:var(--code);font-size:0.65rem;color:var(--tx3);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:0.4rem;margin-bottom:2rem;transition:color 0.15s}
+.article-back:hover{color:var(--tx1)}
+.article-tag{font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.875rem;display:block}
+.article-title{font-family:var(--display);font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-0.025em;color:var(--tx1);line-height:1.1;margin-bottom:1rem}
+.article-meta{display:flex;gap:1.5rem;font-family:var(--code);font-size:0.65rem;color:var(--tx3);margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule)}
+.article-body{font-size:1rem;line-height:1.85;color:var(--text2)}
+.article-body h2{font-family:var(--display);font-size:1.5rem;color:var(--tx1);margin:2.5rem 0 1rem;letter-spacing:-0.02em}
+.article-body h3{font-size:1.05rem;font-weight:600;color:var(--tx1);margin:2rem 0 0.75rem}
+.article-body p{margin-bottom:1.25rem}
+.article-body strong{color:var(--tx1);font-weight:600}
+.article-body ul,.article-body ol{margin:0 0 1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.5rem}
+.article-body li{line-height:1.7}
+.article-body blockquote{border-left:3px solid var(--accent);padding:0.875rem 1.25rem;margin:1.5rem 0;background:var(--bg3);border-radius:0 8px 8px 0}
+.article-body blockquote p{margin:0;font-style:italic;color:var(--tx2)}
+.article-body code{font-family:var(--code);font-size:0.85em;background:var(--bg3);padding:0.15em 0.4em;border-radius:4px;color:var(--tx1)}
+.article-body hr{border:none;border-top:1px solid var(--rule);margin:2.5rem 0}
+.cta-box{background:var(--bg2);border:1.5px solid var(--border2);border-radius:16px;padding:2rem;margin:3rem 0;text-align:center}
+.cta-box-label{font-family:var(--code);font-size:0.62rem;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;display:block}
+.cta-box-title{font-family:var(--display);font-size:1.25rem;color:var(--tx1);margin-bottom:0.5rem}
+.cta-box-sub{font-size:0.85rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.6}
+.cta-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--grad);color:#0f0f12;font-family:var(--body);font-size:0.9rem;font-weight:700;padding:0.75rem 1.75rem;border-radius:100px;text-decoration:none;transition:opacity 0.15s,transform 0.15s}
+.cta-btn:hover{opacity:0.9;transform:translateY(-1px)}
+.nk-footer{background:var(--white);border-top:1px solid var(--rule2);padding:2.5rem 2rem;margin-top:3rem}
+.nk-footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-start}
+.nk-footer-brand .nk-logo-f{display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:0.625rem}
+.nk-footer-brand .nk-logo-mark-f{width:22px;height:22px;background:var(--grad);border-radius:5px;position:relative;overflow:hidden;flex-shrink:0}
+.nk-footer-brand .nk-logo-mark-f::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,transparent 55%)}
+.nk-footer-brand .nk-logo-text-f{font-family:var(--display);font-size:1rem;color:var(--tx1);letter-spacing:-0.01em}
+.nk-footer-brand .nk-logo-text-f em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nk-footer-brand p{font-size:0.78rem;color:var(--tx3);line-height:1.6;max-width:220px;margin-top:0.25rem}
+.nk-footer-links{display:flex;flex-wrap:wrap;gap:3rem}
+.nk-footer-col h4{font-family:var(--code);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--tx3);margin-bottom:0.75rem}
+.nk-footer-col a{display:block;font-size:0.8rem;color:var(--tx2);text-decoration:none;margin-bottom:0.45rem;transition:color 0.15s}
+.nk-footer-col a:hover{color:var(--tx1)}
+.nk-footer-bottom{max-width:1100px;margin:1.25rem auto 0;padding-top:1.125rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;font-size:0.75rem;color:var(--tx3)}
+@media(max-width:600px){.article-wrap{padding:2rem 1rem 3rem}.nk-footer-links{gap:1.5rem}.nk-footer-inner{flex-direction:column;gap:1.5rem}}
+</style>
+</head>
+<body>
+<nav class="nk-nav">
+  <div class="nk-nav-inner">
+    <a class="nk-logo" href="/index.html"><div class="nk-logo-mark"></div><span class="nk-logo-text">Neat<em>kit</em></span></a>
+    <div class="nk-nav-links">
+      <a class="nk-nav-link" href="/index.html">Tools</a>
+      <a class="nk-nav-link" href="/blog/">Blog</a>
+      <a class="nk-nav-pill" href="/index.html#tools">All tools</a>
+    </div>
+  </div>
+</nav>
+<div class="article-wrap">
+  <a class="article-back" href="/blog/">← Back to blog</a>
+  <span class="article-tag">Images</span>
+  <h1 class="article-title">Lossless vs lossy image compression: a plain-English guide</h1>
+  <div class="article-meta">
+    <span>Neatkit Team</span>
+    <span>July 2026</span>
+    <span>8 min read</span>
+  </div>
+  <div class="article-body">
+
+    <p>Image compression is one of those topics where the terminology gets in the way of the actual understanding. "Lossless" and "lossy" sound like technical jargon, but they describe something genuinely important about what happens to your image when you save it — and getting this wrong is how you end up with a photo that looks fine at first and terrible after a few edits.</p>
+    <p>This guide explains what actually happens to your pixels when an image is compressed, why the distinction matters in practice, and how to choose the right approach for what you're trying to do.</p>
+
+    <h2>What compression is actually doing</h2>
+    <p>An uncompressed image is just a grid of pixels. Each pixel has a colour value, represented as three numbers: the amount of red, green, and blue (in most formats, each on a scale from 0 to 255). A 1080p image has 1,920 × 1,080 = 2,073,600 pixels. At three bytes per pixel, that's about 6MB of raw data for a single frame.</p>
+    <p>That's too large. A phone camera taking 50 photos would produce 300MB of raw data. A website with 20 product images would weigh 120MB and take minutes to load. Compression exists to make image files manageable.</p>
+    <p>Compression works by finding redundancy in the pixel data and representing it more efficiently. The sky in a landscape photo is mostly the same shade of blue across thousands of pixels. Storing "blue, blue, blue, blue..." 4,000 times is wasteful. A smarter approach would be to store "4,000 pixels of this specific blue" — the same visual information in far less data.</p>
+    <p>The difference between lossless and lossy compression is in how aggressively this process is applied, and what happens to the information that can't be compressed cleanly.</p>
+
+    <h2>Lossless compression: exact copies, smaller files</h2>
+    <p>Lossless compression reduces file size without discarding any pixel information. Every pixel in the original image can be perfectly reconstructed from the compressed file. Open it, edit it, save it again — the image data is identical to what you started with.</p>
+    <p>PNG is the most common lossless image format. It uses a compression algorithm called DEFLATE (the same algorithm used in ZIP files) to find and eliminate redundancy in the pixel data. A PNG of a simple graphic with large blocks of solid colour can be dramatically smaller than the raw pixel data. A PNG of a complex photograph — where each pixel is slightly different from its neighbours — compresses much less effectively, because there's less redundancy to exploit.</p>
+    <p>This is the key limitation of lossless compression: it can only remove genuine redundancy. It cannot make a complex image as small as a lossy compressor can, because it won't discard information to achieve a smaller file. Lossless PNG files of real photographs are typically still several megabytes. They're exact, but they're not small.</p>
+    <p>When to use lossless: screenshots, diagrams, logos, illustrations, anything with text in it, and anything you plan to edit further. The defining characteristic is that the image will be processed again — used as a layer in a design, cropped, annotated, exported in another format. Each additional save operation in a lossless format adds zero quality loss.</p>
+
+    <h2>Lossy compression: smaller files, missing data</h2>
+    <p>Lossy compression achieves much smaller file sizes by discarding some pixel information. The information it discards is chosen carefully — the goal is to remove detail that the human visual system is least likely to notice. But discarded information is gone permanently. You cannot reconstruct the original image from a lossy-compressed file.</p>
+    <p>JPEG is the dominant lossy format. It works using a process called the Discrete Cosine Transform (DCT), which converts blocks of pixels into frequency components. High-frequency components — fine detail, sharp edges — are compressed more aggressively than low-frequency components — broad gradients, large areas of similar colour. The compression level you choose determines how aggressively the high-frequency information is discarded.</p>
+    <p>At high quality settings (JPEG quality 90+), the visual difference from the original is imperceptible to most people. At low quality settings (JPEG quality 40 or below), you start to see "JPEG artefacts": blocky distortions around edges, smearing in areas of fine detail, banding in gradients. These artefacts are the visible signature of discarded information.</p>
+    <p>WebP, the format developed by Google, supports both lossy and lossless modes. Its lossy mode typically produces files 25–35% smaller than JPEG at equivalent visual quality. Its lossless mode produces files 20–30% smaller than PNG. It's the best format available for web use in both categories.</p>
+
+    <h2>The generation loss problem</h2>
+    <p>Here's where the distinction becomes practically important: if you save a JPEG, then open it and save it again as a JPEG, you lose quality twice. Do this ten times and the image looks noticeably worse. This is called generation loss, and it's the reason experienced photographers and designers never use JPEG as a working format.</p>
+    <p>Each save operation re-applies the compression algorithm to already-compressed pixel data. The information that was discarded in the first save is gone — the second save starts from a degraded version and discards more. The artefacts compound. The image softens and develops the characteristic blocky quality of heavily compressed JPEGs.</p>
+    <p>This matters in practice because people edit images more than they think they do. You photograph a receipt, want to crop out some personal information, adjust the brightness, and then send it. If you're working with JPEG throughout, each of those operations potentially involves a re-save. After three or four operations the image quality is noticeably worse than what you started with.</p>
+    <p>The solution is to work in a lossless format until you're done editing, then export as lossy for the final use. Shoot in RAW if your camera supports it, edit in TIFF or PNG, export as WebP or JPEG when you're finished. For casual use, just avoid re-saving JPEGs repeatedly.</p>
+
+    <h2>Choosing the right format for your situation</h2>
+    <p>The choice comes down to what the image will be used for and whether it will be edited again:</p>
+    <ul>
+      <li><strong>Photo for a website:</strong> WebP lossy or JPEG. The goal is small file size for fast loading. Quality 80–85 in JPEG is the standard web target — visually good, file size reasonable.</li>
+      <li><strong>Photo you're going to edit:</strong> Keep the original. If you need to share a working copy, use PNG. Never re-save to JPEG mid-workflow.</li>
+      <li><strong>Logo or graphic with text:</strong> PNG lossless. Lossy compression creates visible artefacts around sharp edges and text outlines. The extra file size is worth it.</li>
+      <li><strong>Screenshot:</strong> PNG. Screenshots have lots of text and sharp UI elements — exactly what lossy compression degrades.</li>
+      <li><strong>Product photo for an e-commerce site:</strong> WebP lossy at quality 80, with a JPEG fallback for old browsers. This is the current web standard.</li>
+      <li><strong>Photo to send via WhatsApp:</strong> JPEG is fine — WhatsApp will re-compress it anyway, so your source quality matters less than the file size.</li>
+    </ul>
+
+    <h2>How compression quality settings actually work</h2>
+    <p>Most tools that offer lossy compression let you set a "quality" slider — usually 0 to 100. This number doesn't correspond to a fixed technical specification. A JPEG quality of 80 in Photoshop produces a different result than a quality of 80 in a browser-based compressor, because "quality 80" is just a label that maps to internal parameters that differ between implementations.</p>
+    <p>What matters is the resulting file size and how the image looks at that size. Target file size is a more reliable goal than a quality percentage. For web images: aim for under 200KB for large hero images, under 100KB for product photos, under 50KB for thumbnails. These targets are rough guides, not rules — a complex photograph needs more data than a simple graphic to look the same.</p>
+    <p>The best workflow is to compress, look at the result at full size, and adjust. Most browser-based compressors let you preview the compressed result before downloading. Use that preview — pixel-peep the areas with fine detail and edges, which is where lossy artefacts appear first.</p>
+
+    <h2>The format landscape in 2025</h2>
+    <p>JPEG has been around since 1992 and remains the most widely supported lossy format. PNG has been the standard lossless format since the late 1990s. WebP, introduced by Google in 2010, is now supported by all major browsers and is the better choice in both lossy and lossless modes when compatibility isn't a concern. AVIF is newer still, offering even better compression than WebP, but with slower encoding and less universal support.</p>
+    <p>For most practical purposes: use WebP when you can, JPEG for lossy when you need maximum compatibility, PNG for lossless. The differences between formats matter less than understanding the lossless/lossy distinction itself — because that determines whether your image degrades, not which specific format you're using.</p>
+
+  </div>
+  <div class="cta-box">
+    <span class="cta-box-label">Try it free</span>
+    <div class="cta-box-title">Image Compressor</div>
+    <p class="cta-box-sub">No signup, no upload, no limits. Runs entirely in your browser.</p>
+    <a class="cta-btn" href="/tools/image-compress.html">Open Image Compressor →</a>
+  </div>
+</div>
+<footer class="nk-footer">
+  <div class="nk-footer-inner">
+    <div class="nk-footer-brand">
+      <a class="nk-logo-f" href="/index.html"><div class="nk-logo-mark-f"></div><span class="nk-logo-text-f">Neat<em>kit</em></span></a>
+      <p>Free browser-based tools.<br>No signup, no uploads, no limits.</p>
+    </div>
+    <div class="nk-footer-links">
+      <div class="nk-footer-col">
+        <h4>Tools</h4>
+        <a href="/tools/image-compress.html">Image Compressor</a>
+        <a href="/tools/pdf-merge.html">PDF Merge</a>
+        <a href="/tools/ai-detector.html">AI Detector</a>
+        <a href="/tools/qr-generator.html">QR Generator</a>
+        <a href="/index.html">All tools →</a>
+      </div>
+      <div class="nk-footer-col">
+        <h4>Blog</h4>
+        <a href="/blog/why-free-tools-upload-your-files.html">Why tools upload your files</a>
+        <a href="/blog/compress-video-for-whatsapp.html">Compress for WhatsApp</a>
+        <a href="/blog/merge-pdfs-without-uploading.html">Merge PDFs privately</a>
+        <a href="/blog/">All articles →</a>
+      </div>
+      <div class="nk-footer-col">
+        <h4>Company</h4>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="nk-footer-bottom">
+    <span>© 2026 Neatkit. All rights reserved.</span>
+    <span>Made in Nairobi 🇰🇪</span>
+  </div>
+</footer>
+</body>
+</html>
