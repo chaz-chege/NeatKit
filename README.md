@@ -18,6 +18,8 @@
 [![Made in Nairobi](https://img.shields.io/badge/Made%20in-Nairobi%20%F0%9F%87%B0%F0%9F%87%AA-c8f04a?style=flat-square&labelColor=0c0c0c&color=0c0c0c)](https://neatkitapp.com/about)
 &nbsp;
 [![License](https://img.shields.io/badge/License-Open-c8f04a?style=flat-square&labelColor=0c0c0c&color=0c0c0c)](https://neatkitapp.com)
+&nbsp;
+[![Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1208514&theme=dark)](https://www.producthunt.com/products/neatkit?embed=true&utm_source=embed&utm_medium=badge&utm_campaign=badge-neatkit)
 
 <br>
 
