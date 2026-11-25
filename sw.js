@@ -1,55 +1,51 @@
 /* ============================================================
    NEATKIT — Service Worker
    Strategy:
-   - Cache-first for all local HTML pages and assets
-   - Network-only for video tools (they use COEP/COOP headers
-     that conflict with SW interception of cross-origin requests)
-   - Network-first for CDN libraries (pdf-lib, ffmpeg, etc.)
-   - Offline fallback for everything else
+   - Pages (navigations): network-first, fall back to cache offline,
+     so returning visitors always get the newest version of a page.
+   - Static same-origin assets (css, js, icons): stale-while-revalidate.
+   - Never intercept: the ffmpeg video tools (they rely on COOP/COEP
+     headers that a service worker can break), /vendor/ffmpeg/, and /api/.
+   - Cross-origin requests are not touched.
+   Bump CACHE whenever you want to force every client to drop old caches.
    ============================================================ */
 
-const CACHE = 'neatkit-v1';
+const CACHE = 'neatkit-v2';
 
-// Everything we want cached on install
+// Small app shell only. Pages are cached as they are visited.
 const PRECACHE = [
   '/',
-  '/index.html',
-  '/about.html',
-  '/contact.html',
-  '/privacy.html',
-  '/terms.html',
   '/favicon.svg',
   '/icon-192.png',
   '/icon-512.png',
   '/manifest.json',
   '/assets/neatkit.css',
   '/assets/neatkit.js',
-  '/tools/image-compress.html',
-  '/tools/image-resize.html',
-  '/tools/pdf-merge.html',
-  '/tools/pdf-compress.html',
-  '/tools/images-to-pdf.html',
-  '/tools/id-card-to-pdf.html',
-  '/tools/photo-to-pdf.html',
-  '/tools/word-counter.html',
-  '/tools/case-converter.html',
-  '/tools/ai-detector.html',
-  '/tools/unit-converter.html',
-  '/tools/json-formatter.html',
-  '/tools/base64.html',
-  '/tools/color-converter.html',
-  '/tools/qr-generator.html',
-  '/tools/qr-scanner.html',
 ];
 
-// Video tools use Cross-Origin-Embedder-Policy: require-corp (for ffmpeg.wasm).
-// A SW that intercepts their requests breaks SharedArrayBuffer.
-// These pages are intentionally excluded — they go straight to network.
-const NETWORK_ONLY = [
-  '/tools/video-compress.html',
-  '/tools/video-trim.html',
-  '/tools/video-to-gif.html',
-];
+// Pages that need cross-origin isolation (COOP/COEP) for ffmpeg.wasm.
+// Compared AFTER normalising, so /tools/video-trim, /tools/video-trim/
+// and /tools/video-trim.html are all treated as the same page.
+const ISOLATED_PAGES = new Set([
+  '/tools/video-compress',
+  '/tools/video-trim',
+  '/tools/video-to-gif',
+]);
+
+function normalisePath(path) {
+  return path
+    .replace(/\/index\.html$/, '/')
+    .replace(/\.html$/, '')
+    .replace(/(.)\/+$/, '$1');
+}
+
+function shouldBypass(path) {
+  return (
+    ISOLATED_PAGES.has(normalisePath(path)) ||
+    path.startsWith('/vendor/') ||
+    path.startsWith('/api/')
+  );
+}
 
 // ── INSTALL ────────────────────────────────────────────────────
 self.addEventListener('install', event => {
@@ -66,9 +62,7 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(
-        keys
-          .filter(key => key !== CACHE)
-          .map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE).map(key => caches.delete(key))
       ))
       .then(() => self.clients.claim())
   );
@@ -77,47 +71,48 @@ self.addEventListener('activate', event => {
 // ── FETCH ──────────────────────────────────────────────────────
 self.addEventListener('fetch', event => {
   const { request } = event;
-  const url = new URL(request.url);
-
-  // Only handle GET requests
   if (request.method !== 'GET') return;
 
-  // Only handle same-origin requests (not CDN, not ads)
-  if (url.origin !== self.location.origin) {
-    // Network-first for cross-origin (CDN libraries, fonts, etc.)
-    // Just let it fall through — no interception
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;   // CDN, fonts, analytics
+  if (shouldBypass(url.pathname)) return;            // let the network and its headers win
+
+  const isPage =
+    request.mode === 'navigate' ||
+    (request.headers.get('accept') || '').includes('text/html');
+
+  if (isPage) {
+    // Network-first. A redirect or error is passed straight through
+    // and never cached, so a cached redirect can never break navigation.
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response && response.status === 200 && response.type === 'basic') {
+            const copy = response.clone();
+            caches.open(CACHE).then(cache => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches.match(request).then(cached => cached || caches.match('/'))
+        )
+    );
     return;
   }
 
-  const path = url.pathname;
-
-  // Video tools — never intercept, let Cloudflare serve with COEP headers intact
-  if (NETWORK_ONLY.some(p => path.startsWith(p))) {
-    return;
-  }
-
-  // Everything else — cache-first, fall back to network, fall back to offline page
+  // Static assets: serve cached copy immediately, refresh it in the background.
   event.respondWith(
-    caches.match(request)
-      .then(cached => {
-        if (cached) return cached;
-
-        return fetch(request)
-          .then(response => {
-            // Only cache valid same-origin responses
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            const toCache = response.clone();
-            caches.open(CACHE).then(cache => cache.put(request, toCache));
-            return response;
-          })
-          .catch(() => {
-            // Offline fallback — return index for HTML navigation requests
-            if (request.headers.get('accept')?.includes('text/html')) {
-              return caches.match('/index.html');
-            }
-          });
-      })
+    caches.match(request).then(cached => {
+      const refresh = fetch(request)
+        .then(response => {
+          if (response && response.status === 200 && response.type === 'basic') {
+            const copy = response.clone();
+            caches.open(CACHE).then(cache => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() => cached);
+      return cached || refresh;
+    })
   );
 });

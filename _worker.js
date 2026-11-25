@@ -27,11 +27,6 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // ── ffmpeg worker proxy ──────────────────────────────────
-    // Fetches the ffmpeg core worker from unpkg and re-serves it from this
-    // origin so COEP's require-corp check passes (cross-origin fetch blocked).
-    
-
     // Serve the static asset
     const response = await env.ASSETS.fetch(request);
 
@@ -45,13 +40,11 @@ export default {
     newHeaders.set('X-XSS-Protection', '1; mode=block');
 
     // ── vendor/ffmpeg — must be cross-origin so COEP pages can load them ──
-    newHeaders.set('X-Debug-Path', path);
     if (path.startsWith('/vendor/ffmpeg/')) {
       newHeaders.delete('Cross-Origin-Resource-Policy');
       newHeaders.set('Cross-Origin-Resource-Policy', 'cross-origin');
       newHeaders.set('Cross-Origin-Embedder-Policy', 'require-corp');
       newHeaders.set('Cache-Control', 'public, max-age=3600');
-      newHeaders.set('X-Debug-Worker', 'vendor-matched');
 }
 
     // ── Video tools — need COOP + COEP for SharedArrayBuffer ──
