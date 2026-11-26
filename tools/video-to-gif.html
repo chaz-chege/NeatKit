@@ -684,30 +684,32 @@ async function startConvert(isRetry){
     },3000);
     lastActivity=Date.now(); encStart=Date.now();
     document.getElementById('proc-eta').textContent='';
-    const run=p=>{p.catch(()=>{});return Promise.race([p,stallP]);};
+    const run=fn=>{let p;try{p=fn();}catch(e){return Promise.reject(e);}p.catch(()=>{});return Promise.race([p,stallP]);};
     try{
       // ── PASS 1: Generate palette ──────────────────────────────
-      await run(ff.exec([
+      await run(()=>ff.exec([
         '-ss',startStr,'-t',durStr,'-i',inName,
         '-vf',`${filterBase},palettegen=max_colors=${gifColors}:stats_mode=diff`,
         '-y','palette.png'
       ]));
 
-      setProcBar(50);
-      document.getElementById('stage-palette').className='proc-stage-item done';
-      document.getElementById('stage-encode').className='proc-stage-item active';
-      setProcTitle('Creating GIF — pass 2 of 2…');
-      setProcSub('Encoding with optimised palette…');
-      encStart=Date.now();
+      if(!stalled){
+        setProcBar(50);
+        document.getElementById('stage-palette').className='proc-stage-item done';
+        document.getElementById('stage-encode').className='proc-stage-item active';
+        setProcTitle('Creating GIF — pass 2 of 2…');
+        setProcSub('Encoding with optimised palette…');
+        encStart=Date.now();
 
-      // ── PASS 2: Encode GIF with palette ───────────────────────
-      const ditherStr=gifDither==='none'?'bayer:bayer_scale=0':gifDither;
-      await run(ff.exec([
-        '-ss',startStr,'-t',durStr,'-i',inName,
-        '-i','palette.png',
-        '-lavfi',`${filterBase} [x]; [x][1:v] paletteuse=dither=${ditherStr}`,
-        '-y','output.gif'
-      ]));
+        // ── PASS 2: Encode GIF with palette ───────────────────────
+        const ditherStr=gifDither==='none'?'bayer:bayer_scale=0':gifDither;
+        await run(()=>ff.exec([
+          '-ss',startStr,'-t',durStr,'-i',inName,
+          '-i','palette.png',
+          '-lavfi',`${filterBase} [x]; [x][1:v] paletteuse=dither=${ditherStr}`,
+          '-y','output.gif'
+        ]));
+      }
     }finally{
       clearInterval(wd);
       encStart=0;
