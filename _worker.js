@@ -27,30 +27,11 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // ffmpeg wasm cores are stored brotli-compressed (.wasm.br) to fit the
-    // 25 MiB static-asset limit. Requests for X.wasm are served X.wasm.br
-    // with Content-Encoding: br so the browser decodes transparently.
-    let response;
-    if (path.startsWith('/vendor/ffmpeg/') && path.endsWith('.wasm')) {
-      const brUrl = new URL(request.url);
-      brUrl.pathname = path + '.br';
-      const brRes = await env.ASSETS.fetch(new Request(brUrl, request));
-      if (brRes.ok) {
-        const brHeaders = new Headers(brRes.headers);
-        brHeaders.set('Content-Type', 'application/wasm');
-        brHeaders.set('Content-Encoding', 'br');
-        response = new Response(brRes.body, {
-          status: brRes.status,
-          statusText: brRes.statusText,
-          headers: brHeaders,
-        });
-      } else {
-        response = await env.ASSETS.fetch(request);
-      }
-    } else {
-      // Serve the static asset
-      response = await env.ASSETS.fetch(request);
-    }
+    // Serve the static asset. Note: ffmpeg wasm cores are stored as
+    // .wasm.br and decompressed in the page with DecompressionStream —
+    // Content-Encoding set here gets re-compressed by the edge, so it
+    // cannot be used to serve pre-compressed files.
+    const response = await env.ASSETS.fetch(request);
 
     // Clone so we can modify headers
     const newHeaders = new Headers(response.headers);

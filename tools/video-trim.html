@@ -722,6 +722,20 @@ function setMode(mode){
 // ── FFMPEG ────────────────────────────────────────────────────────────
 let ffmpegInstance = null;
 
+// ffmpeg wasm cores ship brotli-compressed (.wasm.br) to fit the asset size
+// limit. Content-Encoding can't be trusted through the Worker (the edge
+// re-compresses it), so decompress here and hand ffmpeg a same-origin blob: URL.
+const wasmBlobCache={};
+const brWasmURL=async dir=>{
+  if(!wasmBlobCache[dir])wasmBlobCache[dir]=(async()=>{
+    const r=await fetch(`${location.origin}${dir}ffmpeg-core.wasm.br`);
+    if(!r.ok||!r.body)throw new Error('ffmpeg core download failed ('+r.status+')');
+    if(typeof DecompressionStream==='undefined')throw new Error('This browser cannot decode the video engine');
+    const plain=await new Response(r.body.pipeThrough(new DecompressionStream('br'))).arrayBuffer();
+    return URL.createObjectURL(new Blob([plain],{type:'application/wasm'}));
+  })();
+  return wasmBlobCache[dir];
+};
 async function preloadFfmpeg(){
   if(ffmpegLoaded) return;
   if(ffmpegLoadPromise) return ffmpegLoadPromise;
@@ -751,7 +765,7 @@ async function preloadFfmpeg(){
         return {
           classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
           coreURL:  `${location.origin}${dir}ffmpeg-core.js`,
-          wasmURL:  `${location.origin}${dir}ffmpeg-core.wasm`,
+          wasmURL:  await brWasmURL(dir),
           ...(m?{workerURL:`${location.origin}${dir}ffmpeg-core.worker.js`}:{})
         };
       };
