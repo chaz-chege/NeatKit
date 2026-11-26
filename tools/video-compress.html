@@ -811,8 +811,8 @@ async function startCompress(isRetry){
       // multi-threaded core deadlocked: no log/progress output for 40s
       if(window._ffmpegMT&&Date.now()-lastActivity>40000){
         stalled=true;
+        stallResolve();           // resolve first: ff.terminate() rejects exec synchronously and would win the race
         try{ff.terminate();}catch(e){}
-        stallResolve();
       }
     },3000);
     try{

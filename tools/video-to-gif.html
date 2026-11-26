@@ -678,8 +678,8 @@ async function startConvert(isRetry){
     const wd=setInterval(()=>{
       if(window._ffmpegMT&&Date.now()-lastActivity>40000){
         stalled=true;
+        stallResolve();           // resolve first: ff.terminate() rejects exec synchronously and would win the race
         try{ff.terminate();}catch(e){}
-        stallResolve();
       }
     },3000);
     lastActivity=Date.now(); encStart=Date.now();
