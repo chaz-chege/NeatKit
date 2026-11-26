@@ -314,6 +314,7 @@ video{width:100%;display:block;max-height:400px;background:#000}
       <div class="spinner"></div>
       <div class="proc-title" id="proc-title">Loading video processor…</div>
       <div class="proc-sub" id="proc-sub">FFmpeg is loading. This takes a few seconds the first time.</div>
+      <div id="proc-eta" style="font-family:var(--code);font-size:0.75rem;color:var(--accent);min-height:1.1em;margin-bottom:0.5rem"></div>
       <div class="proc-bar-wrap"><div class="proc-bar-fill" id="proc-bar"></div></div>
       <div class="proc-honest" id="proc-honest">Video processing in the browser is slower than native apps — especially on phones. Fast trim typically takes 5–15 seconds. Precise trim may take 1–3 minutes for longer clips.</div>
     </div>
@@ -462,7 +463,7 @@ let resultBlob = null;
 let trimMode = 'fast';
 let isPlaying = false;
 let animFrame = null;
-let lastActivity = 0;
+let lastActivity = 0, encStart = 0;
 let forceSingleThread = false;
 try{forceSingleThread=localStorage.getItem('nk_ffmpeg_st')==='1';}catch(e){}
 
@@ -736,7 +737,13 @@ async function preloadFfmpeg(){
         });
         f.on('progress',({progress})=>{
           lastActivity=Date.now();
-          setProcBar(Math.round(progress*100));
+          if(isFinite(progress)){
+            setProcBar(Math.round(progress*100));
+            if(encStart&&progress>0.03){
+              const el=(Date.now()-encStart)/1000;
+              document.getElementById('proc-eta').textContent='About '+fmtTime(Math.max(0,el/progress-el))+' remaining';
+            }
+          }
         });
       };
       const coreOpts=async m=>{
@@ -846,7 +853,8 @@ async function startTrim(){
         stallResolve();
       }
     },3000);
-    lastActivity=Date.now();
+    lastActivity=Date.now(); encStart=Date.now();
+    document.getElementById('proc-eta').textContent='';
     const run=p=>{p.catch(()=>{});return Promise.race([p,stallP]);};
     try{
       if(trimMode==='fast'){
@@ -877,6 +885,7 @@ async function startTrim(){
       }
     }finally{
       clearInterval(wd);
+      encStart=0;
     }
     if(stalled){
       try{localStorage.setItem('nk_ffmpeg_st','1');}catch(e){}

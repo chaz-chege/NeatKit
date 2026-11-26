@@ -321,6 +321,7 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
         <div class="proc-stage-item" id="stage-encode">2. Encode GIF</div>
       </div>
       <div class="proc-bar-wrap"><div class="proc-bar-fill" id="proc-bar"></div></div>
+      <div id="proc-eta" style="font-family:var(--code);font-size:0.75rem;color:var(--accent);min-height:1.1em;margin:-0.5rem 0 0.75rem"></div>
       <div class="proc-honest">GIF creation requires two passes through the video. Longer clips at higher resolution take more time. Keep this tab active while processing.</div>
     </div>
 
@@ -469,7 +470,7 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
 let videoFile=null,videoDuration=0,videoWidth=0,videoHeight=0;
 let gifWidth=480,gifFps=12,gifColors=128,gifDither='bayer';
 let ffmpegInstance=null,ffmpegLoaded=false,ffmpegLoading=false,ffmpegLoadPromise=null;
-let lastActivity=0,forceSingleThread=false;
+let lastActivity=0,encStart=0,forceSingleThread=false;
 try{forceSingleThread=localStorage.getItem('nk_ffmpeg_st')==='1';}catch(e){}
 let resultBlob=null;
 
@@ -570,11 +571,17 @@ async function preloadFfmpeg(){
         f.on('log',()=>{lastActivity=Date.now();});
         f.on('progress',({progress})=>{
           lastActivity=Date.now();
-          // Two-pass: first pass 0-50%, second pass 50-100%
-          if(document.getElementById('stage-encode').classList.contains('active')){
-            setProcBar(50+Math.round(progress*50));
-          } else {
-            setProcBar(Math.round(progress*45));
+          if(isFinite(progress)){
+            // Two-pass: first pass 0-50%, second pass 50-100%
+            if(document.getElementById('stage-encode').classList.contains('active')){
+              setProcBar(50+Math.round(progress*50));
+            } else {
+              setProcBar(Math.round(progress*45));
+            }
+            if(encStart&&progress>0.03){
+              const el=(Date.now()-encStart)/1000;
+              document.getElementById('proc-eta').textContent='About '+fmtTime(Math.max(0,el/progress-el))+' remaining';
+            }
           }
         });
       };
@@ -675,7 +682,8 @@ async function startConvert(isRetry){
         stallResolve();
       }
     },3000);
-    lastActivity=Date.now();
+    lastActivity=Date.now(); encStart=Date.now();
+    document.getElementById('proc-eta').textContent='';
     const run=p=>{p.catch(()=>{});return Promise.race([p,stallP]);};
     try{
       // ── PASS 1: Generate palette ──────────────────────────────
@@ -690,6 +698,7 @@ async function startConvert(isRetry){
       document.getElementById('stage-encode').className='proc-stage-item active';
       setProcTitle('Creating GIF — pass 2 of 2…');
       setProcSub('Encoding with optimised palette…');
+      encStart=Date.now();
 
       // ── PASS 2: Encode GIF with palette ───────────────────────
       const ditherStr=gifDither==='none'?'bayer:bayer_scale=0':gifDither;
@@ -701,6 +710,7 @@ async function startConvert(isRetry){
       ]));
     }finally{
       clearInterval(wd);
+      encStart=0;
     }
     if(stalled){
       try{localStorage.setItem('nk_ffmpeg_st','1');}catch(e){}
