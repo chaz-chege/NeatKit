@@ -372,7 +372,7 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
       <div class="nk-card">
         <div class="nk-card-icon">⚙️</div>
         <div class="nk-card-title">H.264 encoding</div>
-        <div class="nk-card-desc">The tool encodes to H.264 (libx264) with the calculated bitrate using the "medium" preset. H.264 is universally compatible — plays on every phone, tablet, smart TV, and browser without needing special codecs.</div>
+        <div class="nk-card-desc">The tool encodes to H.264 (libx264) with the calculated bitrate using a fast x264 preset. H.264 is universally compatible — plays on every phone, tablet, smart TV, and browser without needing special codecs.</div>
       </div>
       <div class="nk-card">
         <div class="nk-card-icon">🔒</div>
@@ -641,11 +641,15 @@ async function preloadFfmpeg(){
       const ff=new FFmpeg();
       ff.on('log',({message})=>{if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
       ff.on('progress',({progress})=>{setProcBar(Math.round(progress*100));});
-      const baseURL='https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+      // Use the multithreaded core when cross-origin isolation (COOP/COEP) is
+      // active — it needs SharedArrayBuffer. Fall back to single-threaded core.
+      const mt=self.crossOriginIsolated;
+      const baseURL=`https://unpkg.com/@ffmpeg/core${mt?'-mt':''}@0.12.6/dist/esm`;
       await ff.load({
         classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
         coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
         wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+        ...(mt?{workerURL:await toBlobURL(`${baseURL}/ffmpeg-core.worker.js`,'text/javascript')}:{})
       });
       ffmpegInstance=ff;ffmpegLoaded=true;
     }catch(err){
@@ -718,7 +722,7 @@ async function startCompress(){
       '-b:v',videoBitrateKbps+'k',
       '-maxrate',(videoBitrateKbps*1.5)+'k',
       '-bufsize',(videoBitrateKbps*2)+'k',
-      '-preset','medium',
+      '-preset','veryfast',
       '-c:a','aac',
       '-b:a',AUDIO_KBPS+'k',
       '-movflags','+faststart', // web optimisation — moov atom at front
