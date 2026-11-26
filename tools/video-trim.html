@@ -462,6 +462,9 @@ let resultBlob = null;
 let trimMode = 'fast';
 let isPlaying = false;
 let animFrame = null;
+let lastActivity = 0;
+let forceSingleThread = false;
+try{forceSingleThread=localStorage.getItem('nk_ffmpeg_st')==='1';}catch(e){}
 
 // ── UTILS ─────────────────────────────────────────────────────────────
 function fmt(b){if(b<1024*1024)return(b/1024).toFixed(0)+'KB';return(b/(1024*1024)).toFixed(2)+'MB';}
@@ -727,21 +730,40 @@ async function preloadFfmpeg(){
       const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
       const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
       window._ffmpegFetchFile=fetchFile;
-      const ff=new FFmpeg();
-      ff.on('log',({message})=>{
-        if(message) updateProcSub(message);
-      });
-      ff.on('progress',({progress})=>{
-        setProcBar(Math.round(progress*100));
-      });
-      const mt=self.crossOriginIsolated;
-      const baseURL=`https://unpkg.com/@ffmpeg/core${mt?'-mt':''}@0.12.6/dist/esm`;
-      await ff.load({
-        classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
-        coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
-        wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-        ...(mt?{workerURL:await toBlobURL(`${baseURL}/ffmpeg-core.worker.js`,'text/javascript')}:{})
-      });
+      const wireFF=f=>{
+        f.on('log',({message})=>{lastActivity=Date.now();
+          if(message) updateProcSub(message);
+        });
+        f.on('progress',({progress})=>{
+          lastActivity=Date.now();
+          setProcBar(Math.round(progress*100));
+        });
+      };
+      const coreOpts=async m=>{
+        const baseURL=`https://unpkg.com/@ffmpeg/core${m?'-mt':''}@0.12.6/dist/esm`;
+        return {
+          classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
+          coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
+          wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+          ...(m?{workerURL:await toBlobURL(`${baseURL}/ffmpeg-core.worker.js`,'text/javascript')}:{})
+        };
+      };
+      const loadFF=async m=>{
+        const f=new FFmpeg(); wireFF(f);
+        try{ await f.load(await coreOpts(m),{signal:AbortSignal.timeout(90000)}); return f; }
+        catch(e){ try{f.terminate();}catch{} throw e; }
+      };
+      // Multithreaded core needs cross-origin isolation (SharedArrayBuffer).
+      // If it fails or stalls, retry once with the single-threaded core.
+      let mt=self.crossOriginIsolated&&!forceSingleThread, ff=null;
+      try{ ff=await loadFF(mt); }
+      catch(e){
+        if(!mt) throw e;
+        console.warn('Multithreaded ffmpeg core failed; retrying single-threaded.',e);
+        mt=false;
+        ff=await loadFF(false);
+      }
+      window._ffmpegMT=mt;
       ffmpegInstance=ff;
       ffmpegLoaded=true;
     } catch(err){
@@ -767,6 +789,15 @@ async function ensureFfmpeg(){
     alert('Failed to load the video processor. Please check your internet connection and try again.');
     return false;
   }
+}
+
+// The mt core's worker pool is sized to navigator.hardwareConcurrency. x264 wants ~1.5x its
+// -threads value in frame threads plus lookahead/filter threads; asking for more than the pool
+// holds deadlocks silently. Stay well under the pool size.
+function encThreads(){
+  if(!window._ffmpegMT)return 1;
+  const cores=navigator.hardwareConcurrency||4;
+  return Math.max(1,Math.floor((cores-3)/1.5));
 }
 
 // ── TRIM ──────────────────────────────────────────────────────────────
@@ -805,29 +836,56 @@ async function startTrim(){
     const startStr=trimStart.toFixed(3);
     const durationStr=(trimEnd-trimStart).toFixed(3);
 
-    if(trimMode==='fast'){
-      // Lossless stream copy
-      await ff.exec([
-        '-ss', startStr,
-        '-i', inName,
-        '-t', durationStr,
-        '-c', 'copy',
-        '-avoid_negative_ts', 'make_zero',
-        '-y', outName
-      ]);
-    } else {
-      // Precise re-encode with high quality H.264
-      await ff.exec([
-        '-ss', startStr,
-        '-i', inName,
-        '-t', durationStr,
-        '-c:v', 'libx264',
-        '-crf', '18',
-        '-preset', 'fast',
-        '-c:a', 'aac',
-        '-b:a', '192k',
-        '-y', outName
-      ]);
+    // Watchdog: if the multithreaded core goes silent for 40s mid-exec, kill it and retry single-threaded.
+    let stalled=false,stallResolve;
+    const stallP=new Promise(r=>{stallResolve=r;});
+    const wd=setInterval(()=>{
+      if(window._ffmpegMT&&Date.now()-lastActivity>40000){
+        stalled=true;
+        try{ff.terminate();}catch(e){}
+        stallResolve();
+      }
+    },3000);
+    lastActivity=Date.now();
+    const run=p=>{p.catch(()=>{});return Promise.race([p,stallP]);};
+    try{
+      if(trimMode==='fast'){
+        // Lossless stream copy
+        await run(ff.exec([
+          '-ss', startStr,
+          '-i', inName,
+          '-t', durationStr,
+          '-c', 'copy',
+          '-avoid_negative_ts', 'make_zero',
+          '-y', outName
+        ]));
+      } else {
+        // Precise re-encode with high quality H.264
+        await run(ff.exec([
+          '-ss', startStr,
+          '-i', inName,
+          '-t', durationStr,
+          '-c:v', 'libx264',
+          '-crf', '18',
+          '-preset', 'fast',
+          '-threads', String(encThreads()),
+          '-filter_threads', '1',
+          '-c:a', 'aac',
+          '-b:a', '192k',
+          '-y', outName
+        ]));
+      }
+    }finally{
+      clearInterval(wd);
+    }
+    if(stalled){
+      try{localStorage.setItem('nk_ffmpeg_st','1');}catch(e){}
+      forceSingleThread=true;
+      ffmpegLoaded=false;ffmpegInstance=null;ffmpegLoadPromise=null;
+      setProcTitle('Multi-threaded encoder stalled — retrying…');
+      setProcSub('Switching to the single-threaded encoder (slower, but reliable).');
+      setProcBar(5);
+      return startTrim();
     }
 
     setProcSub('Finalising…');

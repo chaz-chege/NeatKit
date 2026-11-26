@@ -517,7 +517,8 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
 // ── STATE ─────────────────────────────────────────────────
 let videoFile=null, videoDuration=0, videoWidth=0, videoHeight=0;
 let selectedPreset='whatsapp', targetMB=16, outputRes='auto';
-let speedPreset='superfast', encStart=0;
+let speedPreset='superfast', encStart=0, lastActivity=0, forceSingleThread=false;
+try{forceSingleThread=localStorage.getItem('nk_ffmpeg_st')==='1';}catch(e){}
 let ffmpegInstance=null, ffmpegLoaded=false, ffmpegLoading=false, ffmpegLoadPromise=null;
 let resultBlob=null;
 
@@ -606,6 +607,15 @@ function setRes(res){
   updateEstimate();
 }
 
+// The mt core's worker pool is sized to navigator.hardwareConcurrency. x264 wants ~1.5x its
+// -threads value in frame threads plus lookahead/filter threads; asking for more than the pool
+// holds deadlocks silently. Stay well under the pool size.
+function encThreads(){
+  if(!window._ffmpegMT)return 1;
+  const cores=navigator.hardwareConcurrency||4;
+  return Math.max(1,Math.floor((cores-3)/1.5));
+}
+
 function setSpeed(s){
   speedPreset=s;
   document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
@@ -682,8 +692,9 @@ async function preloadFfmpeg(){
       const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
       window._ffmpegFetchFile=fetchFile;
       const ff=new FFmpeg();
-      ff.on('log',({message})=>{if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
+      ff.on('log',({message})=>{lastActivity=Date.now();if(message&&(message.includes('frame=')||message.includes('size=')))document.getElementById('proc-sub').textContent=message.trim();});
       ff.on('progress',({progress})=>{
+        lastActivity=Date.now();
         if(!isFinite(progress))return;
         const p=clamp(progress,0,1);
         setProcBar(Math.round(p*100));
@@ -694,7 +705,7 @@ async function preloadFfmpeg(){
       });
       // Use the multithreaded core when cross-origin isolation (COOP/COEP) is
       // active — it needs SharedArrayBuffer. Fall back to single-threaded core.
-      const mt=self.crossOriginIsolated;
+      const mt=self.crossOriginIsolated&&!forceSingleThread;
       window._ffmpegMT=mt;
       const baseURL=`https://unpkg.com/@ffmpeg/core${mt?'-mt':''}@0.12.6/dist/esm`;
       await ff.load({
@@ -730,7 +741,7 @@ async function ensureFfmpeg(){
 }
 
 // ── COMPRESS ──────────────────────────────────────────────
-async function startCompress(){
+async function startCompress(isRetry){
   if(!videoFile)return;
   if(!await ensureFfmpeg())return;
 
@@ -738,7 +749,7 @@ async function startCompress(){
   if(selectedPreset==='custom') targetMB=parseFloat(document.getElementById('custom-mb').value)||0;
   if(!targetMB||targetMB<=0){alert('Please enter a target size.');return;}
 
-  if(videoFile.size<=targetMB*1024*1024*0.98){
+  if(!isRetry&&videoFile.size<=targetMB*1024*1024*0.98){
     if(!confirm('This video is already under '+targetMB+'MB ('+fmt(videoFile.size)+'). It can be sent as-is — compress anyway?'))return;
   }
 
@@ -784,6 +795,8 @@ async function startCompress(){
       '-bufsize',(videoBitrateKbps*2)+'k',
       '-preset',speedPreset,
       '-pix_fmt','yuv420p',
+      '-threads',String(encThreads()),
+      '-filter_threads','1',
       '-c:a','aac',
       '-b:a',AUDIO_KBPS+'k',
       '-movflags','+faststart', // web optimisation — moov atom at front
@@ -791,9 +804,34 @@ async function startCompress(){
     );
 
     setProcSub('Encoding at '+videoBitrateKbps+'kbps'+(eh?' · '+eh+'p':'')+'…');setProcBar(15);
-    encStart=Date.now();
-    await ff.exec(args);
-    encStart=0;
+    encStart=Date.now();lastActivity=Date.now();
+    let stalled=false,stallResolve;
+    const stallP=new Promise(r=>{stallResolve=r;});
+    const wd=setInterval(()=>{
+      // multi-threaded core deadlocked: no log/progress output for 40s
+      if(window._ffmpegMT&&Date.now()-lastActivity>40000){
+        stalled=true;
+        try{ff.terminate();}catch(e){}
+        stallResolve();
+      }
+    },3000);
+    try{
+      const execP=ff.exec(args);
+      execP.catch(()=>{});
+      await Promise.race([execP,stallP]);
+    }finally{
+      clearInterval(wd);
+      encStart=0;
+    }
+    if(stalled){
+      try{localStorage.setItem('nk_ffmpeg_st','1');}catch(e){}
+      forceSingleThread=true;
+      ffmpegLoaded=false;ffmpegInstance=null;ffmpegLoadPromise=null;
+      setProcTitle('Multi-threaded encoder stalled — retrying…');
+      setProcSub('Switching to the single-threaded encoder (slower, but reliable).');
+      setProcBar(5);
+      return startCompress(true);
+    }
 
     setProcSub('Finalising…');setProcBar(95);
     const data=await ff.readFile(outName);

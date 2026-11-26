@@ -469,6 +469,8 @@ h1{font-family:var(--display);font-size:1.875rem;letter-spacing:-0.03em;margin-b
 let videoFile=null,videoDuration=0,videoWidth=0,videoHeight=0;
 let gifWidth=480,gifFps=12,gifColors=128,gifDither='bayer';
 let ffmpegInstance=null,ffmpegLoaded=false,ffmpegLoading=false,ffmpegLoadPromise=null;
+let lastActivity=0,forceSingleThread=false;
+try{forceSingleThread=localStorage.getItem('nk_ffmpeg_st')==='1';}catch(e){}
 let resultBlob=null;
 
 function fmt(b){if(b<1024*1024)return(b/1024).toFixed(0)+'KB';return(b/(1024*1024)).toFixed(2)+'MB';}
@@ -564,23 +566,43 @@ async function preloadFfmpeg(){
       const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
       const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
       window._ffmpegFetchFile=fetchFile;
-      const ff=new FFmpeg();
-      ff.on('progress',({progress})=>{
-        // Two-pass: first pass 0-50%, second pass 50-100%
-        if(document.getElementById('stage-encode').classList.contains('active')){
-          setProcBar(50+Math.round(progress*50));
-        } else {
-          setProcBar(Math.round(progress*45));
-        }
-      });
-      const mt=self.crossOriginIsolated;
-      const baseURL=`https://unpkg.com/@ffmpeg/core${mt?'-mt':''}@0.12.6/dist/esm`;
-      await ff.load({
-        classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
-        coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
-        wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-        ...(mt?{workerURL:await toBlobURL(`${baseURL}/ffmpeg-core.worker.js`,'text/javascript')}:{})
-      });
+      const wireFF=f=>{
+        f.on('log',()=>{lastActivity=Date.now();});
+        f.on('progress',({progress})=>{
+          lastActivity=Date.now();
+          // Two-pass: first pass 0-50%, second pass 50-100%
+          if(document.getElementById('stage-encode').classList.contains('active')){
+            setProcBar(50+Math.round(progress*50));
+          } else {
+            setProcBar(Math.round(progress*45));
+          }
+        });
+      };
+      const coreOpts=async m=>{
+        const baseURL=`https://unpkg.com/@ffmpeg/core${m?'-mt':''}@0.12.6/dist/esm`;
+        return {
+          classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
+          coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
+          wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+          ...(m?{workerURL:await toBlobURL(`${baseURL}/ffmpeg-core.worker.js`,'text/javascript')}:{})
+        };
+      };
+      const loadFF=async m=>{
+        const f=new FFmpeg(); wireFF(f);
+        try{ await f.load(await coreOpts(m),{signal:AbortSignal.timeout(90000)}); return f; }
+        catch(e){ try{f.terminate();}catch{} throw e; }
+      };
+      // Multithreaded core needs cross-origin isolation (SharedArrayBuffer).
+      // If it fails or stalls, retry once with the single-threaded core.
+      let mt=self.crossOriginIsolated&&!forceSingleThread, ff=null;
+      try{ ff=await loadFF(mt); }
+      catch(e){
+        if(!mt) throw e;
+        console.warn('Multithreaded ffmpeg core failed; retrying single-threaded.',e);
+        mt=false;
+        ff=await loadFF(false);
+      }
+      window._ffmpegMT=mt;
       ffmpegInstance=ff;ffmpegLoaded=true;
     }catch(err){
       ffmpegLoadPromise=null;
@@ -608,7 +630,7 @@ async function ensureFfmpeg(){
 }
 
 // CONVERT
-async function startConvert(){
+async function startConvert(isRetry){
   if(!videoFile)return;
   if(!await ensureFfmpeg())return;
 
@@ -616,7 +638,7 @@ async function startConvert(){
   const clipEnd=parsetime(document.getElementById('clip-end').value||'0');
   const dur=clipEnd-clipStart;
   if(dur<=0){alert('End time must be after start time.');return;}
-  if(dur>60){if(!confirm('This clip is '+dur.toFixed(0)+'s long. GIFs this long can be very large. Continue?'))return;}
+  if(!isRetry&&dur>60){if(!confirm('This clip is '+dur.toFixed(0)+'s long. GIFs this long can be very large. Continue?'))return;}
 
   document.querySelector('.ctrl-card').style.display='none';
   document.getElementById('result-card').classList.remove('visible');
@@ -643,27 +665,52 @@ async function startConvert(){
     const fpsFilter=`fps=${gifFps}`;
     const filterBase=`${fpsFilter},${scaleFilter}`;
 
-    // ── PASS 1: Generate palette ──────────────────────────────
-    await ff.exec([
-      '-ss',startStr,'-t',durStr,'-i',inName,
-      '-vf',`${filterBase},palettegen=max_colors=${gifColors}:stats_mode=diff`,
-      '-y','palette.png'
-    ]);
+    // Watchdog: if the multithreaded core goes silent for 40s mid-exec, kill it and retry single-threaded.
+    let stalled=false,stallResolve;
+    const stallP=new Promise(r=>{stallResolve=r;});
+    const wd=setInterval(()=>{
+      if(window._ffmpegMT&&Date.now()-lastActivity>40000){
+        stalled=true;
+        try{ff.terminate();}catch(e){}
+        stallResolve();
+      }
+    },3000);
+    lastActivity=Date.now();
+    const run=p=>{p.catch(()=>{});return Promise.race([p,stallP]);};
+    try{
+      // ── PASS 1: Generate palette ──────────────────────────────
+      await run(ff.exec([
+        '-ss',startStr,'-t',durStr,'-i',inName,
+        '-vf',`${filterBase},palettegen=max_colors=${gifColors}:stats_mode=diff`,
+        '-y','palette.png'
+      ]));
 
-    setProcBar(50);
-    document.getElementById('stage-palette').className='proc-stage-item done';
-    document.getElementById('stage-encode').className='proc-stage-item active';
-    setProcTitle('Creating GIF — pass 2 of 2…');
-    setProcSub('Encoding with optimised palette…');
+      setProcBar(50);
+      document.getElementById('stage-palette').className='proc-stage-item done';
+      document.getElementById('stage-encode').className='proc-stage-item active';
+      setProcTitle('Creating GIF — pass 2 of 2…');
+      setProcSub('Encoding with optimised palette…');
 
-    // ── PASS 2: Encode GIF with palette ───────────────────────
-    const ditherStr=gifDither==='none'?'bayer:bayer_scale=0':gifDither;
-    await ff.exec([
-      '-ss',startStr,'-t',durStr,'-i',inName,
-      '-i','palette.png',
-      '-lavfi',`${filterBase} [x]; [x][1:v] paletteuse=dither=${ditherStr}`,
-      '-y','output.gif'
-    ]);
+      // ── PASS 2: Encode GIF with palette ───────────────────────
+      const ditherStr=gifDither==='none'?'bayer:bayer_scale=0':gifDither;
+      await run(ff.exec([
+        '-ss',startStr,'-t',durStr,'-i',inName,
+        '-i','palette.png',
+        '-lavfi',`${filterBase} [x]; [x][1:v] paletteuse=dither=${ditherStr}`,
+        '-y','output.gif'
+      ]));
+    }finally{
+      clearInterval(wd);
+    }
+    if(stalled){
+      try{localStorage.setItem('nk_ffmpeg_st','1');}catch(e){}
+      forceSingleThread=true;
+      ffmpegLoaded=false;ffmpegInstance=null;ffmpegLoadPromise=null;
+      setProcTitle('Multi-threaded encoder stalled — retrying…');
+      setProcSub('Switching to the single-threaded encoder (slower, but reliable).');
+      setProcBar(5);
+      return startConvert(true);
+    }
 
     setProcBar(95);
     setProcSub('Finalising…');
