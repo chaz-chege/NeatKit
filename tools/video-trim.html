@@ -722,16 +722,16 @@ function setMode(mode){
 // ── FFMPEG ────────────────────────────────────────────────────────────
 let ffmpegInstance = null;
 
-// ffmpeg wasm cores ship brotli-compressed (.wasm.br) to fit the asset size
+// ffmpeg wasm cores ship gzip-compressed (.wasm.gz) to fit the asset size
 // limit. Content-Encoding can't be trusted through the Worker (the edge
 // re-compresses it), so decompress here and hand ffmpeg a same-origin blob: URL.
 const wasmBlobCache={};
 const brWasmURL=async dir=>{
   if(!wasmBlobCache[dir])wasmBlobCache[dir]=(async()=>{
-    const r=await fetch(`${location.origin}${dir}ffmpeg-core.wasm.br`);
+    const r=await fetch(`${location.origin}${dir}ffmpeg-core.wasm.gz`);
     if(!r.ok||!r.body)throw new Error('ffmpeg core download failed ('+r.status+')');
     if(typeof DecompressionStream==='undefined')throw new Error('This browser cannot decode the video engine');
-    const plain=await new Response(r.body.pipeThrough(new DecompressionStream('br'))).arrayBuffer();
+    const plain=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
     return URL.createObjectURL(new Blob([plain],{type:'application/wasm'}));
   })();
   return wasmBlobCache[dir];
