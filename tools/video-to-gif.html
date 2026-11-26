@@ -11,6 +11,7 @@
 <meta name="theme-color" content="#f4f4f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a20" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Neatkit">
 <link rel="apple-touch-icon" href="/icon-192.png">
@@ -565,7 +566,7 @@ async function preloadFfmpeg(){
   ffmpegLoadPromise=(async()=>{
     try{
       const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
-      const {fetchFile,toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
+      const {fetchFile}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
       window._ffmpegFetchFile=fetchFile;
       const wireFF=f=>{
         f.on('log',()=>{lastActivity=Date.now();});
@@ -586,12 +587,12 @@ async function preloadFfmpeg(){
         });
       };
       const coreOpts=async m=>{
-        const baseURL=`https://unpkg.com/@ffmpeg/core${m?'-mt':''}@0.12.6/dist/esm`;
+        const dir=m?'/vendor/ffmpeg/core-mt/':'/vendor/ffmpeg/core/';
         return {
           classWorkerURL:`${location.origin}/vendor/ffmpeg/worker.js`,
-          coreURL:  await toBlobURL(`${baseURL}/ffmpeg-core.js`,   'text/javascript'),
-          wasmURL:  await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-          ...(m?{workerURL:await toBlobURL(`${baseURL}/ffmpeg-core.worker.js`,'text/javascript')}:{})
+          coreURL:  `${location.origin}${dir}ffmpeg-core.js`,
+          wasmURL:  `${location.origin}${dir}ffmpeg-core.wasm`,
+          ...(m?{workerURL:`${location.origin}${dir}ffmpeg-core.worker.js`}:{})
         };
       };
       const loadFF=async m=>{
