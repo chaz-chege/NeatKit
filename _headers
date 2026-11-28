@@ -11,6 +11,11 @@
 /assets/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
+# Lyric tool fonts never change under the same name, so cache them for a month
+/assets/lyric/fonts/*
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000
+
 # vendor/ffmpeg — worker.js, const.js, errors.js
 # CORP so COEP pages can load them; COEP so the worker thread itself is cross-origin isolated
 /vendor/ffmpeg/*

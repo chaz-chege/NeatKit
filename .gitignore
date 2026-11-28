@@ -5,3 +5,7 @@ cloudflared.pid
 python-server.log
 python-server.err.log
 python-server.pid
+
+node_modules/
+.wrangler/
+NeatKit.zip

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lyric Video Maker: Free, in Your Browser | Neatkit</title>
+<meta name="description" content="Make a vertical lyric video from your song and lyrics. Tap to sync, pick a caption look, export an MP4 for TikTok, Reels and Shorts. Runs in your browser, nothing is uploaded.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="theme-color" content="#09090c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+<link rel="preload" href="/assets/lyric/fonts/Outfit-500.woff2" as="font" type="font/woff2" crossorigin>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R51Q6DPPBG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R51Q6DPPBG');
+</script>
+<style>
+@font-face{font-family:"Outfit";src:url(/assets/lyric/fonts/Outfit-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Outfit";src:url(/assets/lyric/fonts/Outfit-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Outfit";src:url(/assets/lyric/fonts/Outfit-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Outfit";src:url(/assets/lyric/fonts/Outfit-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(/assets/lyric/fonts/InstrumentSerif.woff2) format("woff2");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(/assets/lyric/fonts/InstrumentSerif-Italic.woff2) format("woff2");font-style:italic;font-weight:400;font-display:swap}
+
+:root{
+  --bg:#09090c;--surface:#111116;--surface2:#18181f;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);
+  --text:#f5f4f1;--text2:#a9a7b2;--text3:#72707d;
+  --accent:#ff5a36;--on-accent:#160806;--accent-soft:rgba(255,90,54,.14);
+  --ok:#3ddc97;--warn:#ffb020;--err:#ff6b6b;
+  --grad:linear-gradient(135deg,#b8c4e8,#cfc0dd 50%,#e8cdb0);--grad-text:linear-gradient(135deg,#b8c4e8,#cfc0dd 50%,#e8cdb0);
+  --nav:rgba(9,9,12,.78);--shadow:0 30px 80px rgba(0,0,0,.55);
+  --display:"Instrument Serif",Georgia,serif;--ui:"Outfit",system-ui,sans-serif;--r:16px;--ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root{
+  --bg:#f6f3ec;--surface:#ffffff;--surface2:#efebe2;--line:rgba(20,18,30,.10);--line2:rgba(20,18,30,.18);
+  --text:#14131a;--text2:#585663;--text3:#8c8a96;--accent:#d4381a;--on-accent:#ffffff;--accent-soft:rgba(212,56,26,.10);
+  --ok:#14804f;--warn:#a86400;--err:#c4262e;--grad-text:linear-gradient(135deg,#5f76c4,#b4825a);
+  --nav:rgba(246,243,236,.82);--shadow:0 30px 70px rgba(60,40,20,.18);color-scheme:light}}
+
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--text);font-family:var(--ui);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+nav{position:sticky;top:0;z-index:50;background:var(--nav);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:24px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:-.01em}
+.logo i{width:28px;height:28px;border-radius:9px;background:var(--grad);display:block;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+.logo em{font-style:normal;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.links{display:flex;gap:4px;margin-left:8px}.links a{padding:8px 12px;border-radius:10px;color:var(--text2);font-size:15px;font-weight:500}
+.links a:hover,.links a[aria-current]{color:var(--text);background:var(--surface2)}.sp{flex:1}
+
+header.top{padding:40px 0 26px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,6vw,68px);line-height:.98;letter-spacing:-.025em}
+h1 i{color:var(--accent)}
+.sub{color:var(--text2);max-width:40em;margin-top:14px;font-size:17px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:13px;font-weight:600;color:var(--text2);border:1px solid var(--line2);background:var(--surface);padding:6px 12px;border-radius:99px}
+
+.tool{display:grid;grid-template-columns:minmax(290px,340px) 1fr;gap:32px;align-items:start;padding-bottom:70px}
+.stagecol{position:sticky;top:76px}
+.phone{border-radius:34px;padding:8px;background:var(--surface);border:1px solid var(--line2);box-shadow:var(--shadow)}
+#stage{display:block;width:100%;aspect-ratio:9/16;border-radius:27px;background:#000}
+.transport{display:flex;align-items:center;gap:10px;margin-top:14px}
+.transport input[type=range]{flex:1;accent-color:var(--accent)}
+#timeLabel{font:500 12px var(--ui);color:var(--text2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{height:36px;padding:0 14px;border-radius:99px;border:1px solid var(--line2);background:transparent;color:var(--text2);font:600 14px var(--ui);cursor:pointer;transition:.2s}
+.chip:hover{color:var(--text);background:var(--surface2)}
+.chip[aria-pressed=true]{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:16px}
+.panel h2{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;margin-bottom:6px}
+.panel h2 b{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--accent-soft);color:var(--accent);font-size:14px}
+.help{color:var(--text2);font-size:14px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:12px;font:600 15px var(--ui);border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;transition:transform .2s var(--ease),background .2s}
+.btn:hover{background:var(--surface2)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:transparent;box-shadow:0 10px 26px -10px var(--accent)}
+.btn.primary:hover{transform:translateY(-1px);background:var(--accent)}
+.btn.small{height:34px;padding:0 12px;font-size:13px;border-radius:10px}
+.btn.big{height:54px;font-size:17px;padding:0 26px}
+input[type=text],input:not([type]),select,textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font:400 15px var(--ui)}
+textarea{min-height:170px;resize:vertical;line-height:1.5}
+.field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--text2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rowflex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+#drop{display:flex;align-items:center;gap:14px;padding:18px;border:1.5px dashed var(--line2);border-radius:14px;cursor:pointer;transition:.2s}
+#drop:hover,#drop.over{border-color:var(--accent);background:var(--accent-soft)}
+#drop input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+#drop .ico{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+#drop[data-has="1"]{border-style:solid}
+#fileName{font-weight:600;word-break:break-all}#audioMeta{font-size:13px;color:var(--text2)}
+.status{font-size:13px;font-weight:600;color:var(--warn)}.status[data-ok="1"]{color:var(--ok)}
+
+
+#linesList{max-height:340px;overflow:auto;margin-top:14px;border:1px solid var(--line);border-radius:12px}
+.row{display:grid;grid-template-columns:28px 82px auto 1fr;gap:8px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}.row.on{background:var(--accent-soft)}.row[data-warn="1"] .tin{border-color:var(--warn)}
+.row .num{font-size:12px;color:var(--text3);text-align:right}.row .txt{font-size:14px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .tin{padding:6px 8px;font-size:13px;font-variant-numeric:tabular-nums}
+.nudge{display:flex;gap:4px}.nudge button{height:28px;min-width:28px;padding:0 7px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--text);font:600 12px var(--ui);cursor:pointer}
+.nudge button:hover{background:var(--surface2)}
+
+.msg{margin:0 0 16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line2);background:var(--surface);font-size:14px;font-weight:500}
+.msg[data-kind=error]{border-color:var(--err);color:var(--err)}
+.note{font-size:13px;color:var(--text2);margin-top:10px}.note[data-kind=warn],#estimate[data-kind=warn]{color:var(--warn)}.note[data-kind=error]{color:var(--err)}
+#progressBox{margin-top:14px}.barwrap{height:10px;border-radius:99px;background:var(--surface2);overflow:hidden}
+#bar{height:100%;width:0;background:var(--accent);transition:width .15s linear}
+#progText{font-size:13px;color:var(--text2);margin-top:8px;font-variant-numeric:tabular-nums}
+#result{margin-top:16px;padding:16px;border:1px solid var(--line2);border-radius:14px;background:var(--bg);display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+#resultVideo{width:150px;border-radius:12px;background:#000;aspect-ratio:9/16}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--text3);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer a:hover{color:var(--text)}
+
+
+.howto{margin:0 0 16px;padding-left:22px;color:var(--text2);font-size:15px;display:grid;gap:6px}.howto b{color:var(--text)}
+.syncbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:var(--text2);font:500 14px var(--ui);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px 2px}.linkbtn:hover{color:var(--text)}.linkbtn:disabled{opacity:.4;cursor:not-allowed}
+.alt{margin-top:16px;gap:10px}
+details.adv{margin-top:12px;font-size:14px;color:var(--text2)}details.adv summary{cursor:pointer;font-weight:600}details.adv[open] summary{margin-bottom:10px}
+#countdown{margin-top:14px;padding:22px;border:1px solid var(--line2);border-radius:14px;background:var(--bg);text-align:center}
+#countNum{display:block;font:400 84px/1 var(--display);color:var(--accent)}#countdown small{display:block;color:var(--text2);margin-top:6px;font-size:14px}
+#tapPanel{border:1px solid var(--line2);border-radius:14px;padding:16px;margin-top:14px;background:var(--bg)}
+.tapprogress{height:6px;border-radius:99px;background:var(--surface2);overflow:hidden}#tapBar{height:100%;width:0;background:var(--accent);transition:width .2s}
+.tapmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-top:8px;font-variant-numeric:tabular-nums}
+.tapcue{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-top:14px}
+.tapnow{font-family:var(--display);font-size:clamp(28px,4.2vw,40px);line-height:1.1;margin:6px 0 8px;word-break:break-word;min-height:1.2em}
+.tapnext{font-size:14px;color:var(--text3);margin-bottom:16px;min-height:1.4em}
+.tapbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;min-height:96px;border:0;border-radius:18px;background:var(--accent);color:var(--on-accent);font:700 30px var(--ui);letter-spacing:.06em;cursor:pointer;box-shadow:0 14px 30px -14px var(--accent);touch-action:manipulation;user-select:none;-webkit-user-select:none;transition:transform .08s}
+.tapbtn small{font:500 13px var(--ui);letter-spacing:0;opacity:.8}.tapbtn:disabled{opacity:.45;cursor:not-allowed}.tapbtn:active,.tapbtn.hit{transform:scale(.97)}
+.tapnow.hit{color:var(--accent)}
+@media (hover:none){.kbdhint{display:none}}
+.syncdone{margin-top:14px;padding:16px;border:1px solid var(--ok);border-radius:14px;background:var(--bg);display:grid;gap:4px;font-size:15px}.syncdone b{color:var(--ok)}.syncdone span{color:var(--text2)}
+#syncPanel[data-tapping="1"] .alt,#syncPanel[data-tapping="1"] details.adv,#syncPanel[data-tapping="1"] #fineTune{display:none}
+.finehead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+@media (max-width:900px){
+  .tool{grid-template-columns:1fr}.stagecol{position:static;max-width:340px;margin:0 auto}.links{display:none}
+}
+@media (max-width:520px){.wrap{padding:0 16px}.grid3,.grid2{grid-template-columns:1fr}.row{grid-template-columns:24px 76px 1fr}.row .txt{grid-column:1/-1}#result{grid-template-columns:1fr}#resultVideo{width:120px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="/"><i></i><span>Neat<em>kit</em></span></a>
+  <div class="links"><a href="/tools/lyric-video" aria-current="page">Lyric video</a><a href="/#tools">Free tools</a><a href="/blog/">Blog</a></div>
+  <div class="sp"></div>
+</div></nav>
+
+<header class="top"><div class="wrap">
+  <div class="kicker">New</div>
+  <h1>Lyric video maker, <i>on your device</i></h1>
+  <p class="sub">Drop a song, paste the lyrics, tap along to sync them, pick a look and export a vertical MP4 for TikTok, Reels and Shorts. Your files never leave your device.</p>
+  <div class="pills"><span class="pill">Free</span><span class="pill">No signup</span><span class="pill">Nothing uploaded</span><span class="pill">Line-by-line sync</span></div>
+</div></header>
+
+<main class="wrap tool">
+  <div class="stagecol">
+    <div class="phone"><canvas id="stage" aria-label="Lyric video preview"></canvas></div>
+    <div class="transport">
+      <button class="btn small" id="play" type="button" aria-label="Play">Play</button>
+      <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Seek">
+      <span id="timeLabel">0:00.0 / 0:00.0</span>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Caption look"></div>
+    <audio id="audio" preload="auto"></audio>
+  </div>
+
+  <div>
+    <div id="msg" class="msg" role="status" aria-live="polite" hidden></div>
+
+    <section class="panel" aria-labelledby="h1s">
+      <h2 id="h1s"><b>1</b>Your song</h2>
+      <p class="help">MP3, WAV, M4A or OGG. It is read on your device and never uploaded.</p>
+      <label id="drop" for="file">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+        <span><span id="fileName">Choose a song or drop it here</span><br><span id="audioMeta"></span></span>
+        <input id="file" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.aac">
+      </label>
+    </section>
+
+    <section class="panel" aria-labelledby="h2s">
+      <h2 id="h2s"><b>2</b>Lyrics</h2>
+      <p class="help">Lyrics stored inside your song file (Suno MP3s have them) are filled in for you. You can also paste lyrics, or import an LRC or a HookCut timings file that already has the timings.</p>
+      <textarea id="lyrics" class="lock" placeholder="Midnight in the city lights&#10;Singing like nobody's listening&#10;..." aria-label="Lyrics"></textarea>
+      <div class="rowflex" style="margin-top:10px;justify-content:space-between">
+        <span class="note" id="lrcNote" style="margin:0">Section tags like [Verse] and [Chorus] are removed for you.</span>
+        <span class="rowflex"><button class="btn small" id="useEmbedded" type="button" hidden>Use lyrics found in the song</button><label class="btn small">Import .lrc, .json or .txt<input id="lrcFile" class="lock" type="file" accept=".lrc,.txt,.json,text/plain,application/json" hidden></label></span>
+      </div>
+    </section>
+
+    <section class="panel" id="syncPanel" aria-labelledby="h3s">
+      <h2 id="h3s"><b>3</b>Sync the lyrics <span id="lineCount" class="note" style="margin:0 0 0 auto"></span></h2>
+      <ol class="howto" id="howto">
+        <li><b>Press Start.</b> After a 3 second countdown the song plays.</li>
+        <li><b>Listen, and tap each time a new line starts being sung.</b> Use the big button or the Space bar. You always see which line is next.</li>
+        <li><b>That is it.</b> You can then nudge any line that is a little off.</li>
+      </ol>
+      <div class="syncbar">
+        <button class="btn primary big lock" id="tapStart" type="button">Start tap sync</button>
+        <span class="status" id="syncStatus" data-ok="0">No lyrics yet</span>
+        <button class="btn small" id="undoBulk" type="button" hidden>Undo last change</button>
+      </div>
+      <p class="note" id="syncHint" style="margin:8px 0 0"></p>
+
+      <div id="countdown" role="status" aria-live="assertive" hidden><span id="countNum">3</span><small>Get ready. The song starts, then tap as each line is sung.</small></div>
+
+      <div id="tapPanel" hidden>
+        <div class="tapprogress" aria-hidden="true"><div id="tapBar"></div></div>
+        <div class="tapmeta"><span id="tapCount"></span><span id="tapClock">0:00.0</span></div>
+        <div class="tapcue">Tap when you hear this line</div>
+        <div id="tapNow" class="tapnow"></div>
+        <div id="tapNext" class="tapnext"></div>
+        <button class="tapbtn" id="tapBtn" type="button"><span>TAP</span><small class="kbdhint">or press Space</small></button>
+        <div class="rowflex" style="margin-top:12px;justify-content:space-between">
+          <button class="btn small" id="tapUndo" type="button" disabled>Missed it? Undo last tap</button>
+          <button class="btn small" id="tapCancel" type="button">Cancel</button>
+        </div>
+      </div>
+
+      <div id="syncDone" class="syncdone" hidden>
+        <b>All lines are synced.</b>
+        <span>Watch the preview to check it, fix any line below, then export.</span>
+        <div class="rowflex" style="margin-top:10px">
+          <button class="btn primary small" id="doneWatch" type="button">Watch preview</button>
+          <button class="btn small" id="doneFine" type="button">Fine-tune lines</button>
+          <button class="btn small" id="doneExport" type="button">Go to export</button>
+        </div>
+      </div>
+
+      <div class="rowflex alt">
+        <span class="note" style="margin:0">Other ways:</span>
+        <button class="linkbtn lock" id="spread" type="button">quick rough draft</button>
+        <button class="linkbtn lock" id="copyLrc" type="button">copy as LRC</button>
+      </div>
+      <details class="adv"><summary>Advanced</summary>
+        <label class="field" style="flex-direction:row;align-items:center;gap:10px;flex-wrap:wrap">Tap timing adjustment (ms)<input id="latency" class="lock" type="number" value="120" min="0" max="500" step="10" style="width:84px"></label>
+        <p class="note" style="margin-top:6px">People tap a little after they hear a line. This moves every tap earlier by this amount. Leave it at 120 unless lines come in too early or too late, or use the shift buttons below.</p>
+      </details>
+
+      <div id="fineTune" hidden>
+        <div class="finehead"><b>Line times <span class="note" style="margin:0">(type a time, or fine-tune after tapping)</span></b>
+          <span class="rowflex" style="gap:6px"><span class="note" style="margin:0">Everything is a bit off?</span>
+            <button class="btn small" id="shiftEarlier" type="button" title="Move every line 0.1 seconds earlier">All earlier</button>
+            <button class="btn small" id="shiftLater" type="button" title="Move every line 0.1 seconds later">All later</button></span></div>
+        <div id="linesList" aria-label="Line timings"></div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h4s">
+      <h2 id="h4s"><b>4</b>Background</h2>
+      <p class="help">Each look has its own background. You can use your cover art instead.</p>
+      <div class="rowflex"><label class="btn small">Choose cover art<input id="bgFile" class="lock" type="file" accept="image/*" hidden></label>
+        <span id="bgName" class="note" style="margin:0">Use the look’s own background</span><button class="btn small" id="bgClear" type="button" hidden>Remove</button></div>
+    </section>
+
+    <section class="panel" aria-labelledby="h5s">
+      <h2 id="h5s"><b>5</b>Export</h2>
+      <p class="help">Pick a size and the part of the song to export. Free exports include a small Neatkit watermark.</p>
+      <div class="grid3">
+        <label class="field">Size<select id="size" class="lock"><option value="540">540p, fastest</option><option value="720" selected>720p, recommended</option><option value="1080">1080p, computers</option></select></label>
+        <label class="field">Clip start<input id="rangeStart" class="lock" value="0:00.0" inputmode="decimal"></label>
+        <label class="field">Clip end<input id="rangeEnd" class="lock" value="0:00.0" inputmode="decimal"></label>
+      </div>
+      <div class="rowflex" style="margin-top:10px">
+        <button class="btn small lock" id="presetFull" type="button">Full song</button>
+        <button class="btn small lock" id="preset30" type="button">30 s from first line</button>
+        <button class="btn small lock" id="preset60" type="button">60 s from first line</button>
+        <span id="estimate" class="note" style="margin:0 0 0 auto"></span>
+      </div>
+      <div class="rowflex" style="margin-top:16px">
+        <button class="btn primary big" id="exportBtn" type="button">Export MP4</button>
+        <button class="btn big" id="cancelBtn" type="button" hidden>Cancel</button>
+      </div>
+      <p class="note" id="supportNote" data-kind="info">Checking what this browser can encode…</p>
+      <div id="progressBox" hidden><div class="barwrap"><div id="bar"></div></div><div id="progText">Starting…</div></div>
+      <div id="result" hidden>
+        <video id="resultVideo" controls playsinline></video>
+        <div><b>Your lyric video is ready</b><div class="note" id="resultMeta" style="margin:6px 0 14px"></div>
+          <a class="btn primary" id="download" href="#" download="lyric-video.mp4">Download MP4</a></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Neatkit · Built in Nairobi</span><span><a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></span></div></footer>
+<script type="module" src="/assets/lyric/lyric.js?v=f3e3cb733b"></script>
+</body>
+</html>

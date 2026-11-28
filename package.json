@@ -1,0 +1,13 @@
+{
+  "name": "neatkit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:lyric": "node build-lyric.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "mediabunny": "^1.66.4"
+  }
+}

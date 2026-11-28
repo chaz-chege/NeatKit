@@ -4,3 +4,10 @@ README.md
 .gitignore
 start-local-tunnel.ps1
 scripts
+src
+tests
+build-lyric.mjs
+package.json
+package-lock.json
+node_modules
+_harness.html

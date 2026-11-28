@@ -1,0 +1,3 @@
+# Generated bundle — its sha256 is stamped into tools/lyric-video.html,
+# so line-ending conversion would break tests/build.test.mjs on fresh clones.
+assets/lyric/lyric.js -text
